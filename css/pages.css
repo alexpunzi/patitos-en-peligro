@@ -849,3 +849,190 @@
         line-height: 1.5;
     }
 }
+
+/* === ESTILOS PARA ADAPTACIÓN POR EDAD === */
+.age-group {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    color: var(--white);
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.age-group:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.age-group.kids {
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+}
+
+.age-group.teens {
+    background: linear-gradient(135deg, #2196F3, #64B5F6);
+}
+
+.age-group.adults {
+    background: linear-gradient(135deg, #FF9800, #FFB74D);
+}
+
+.age-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.age-group h3 {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.age-group p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.age-features {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.age-features li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--white);
+    font-size: 0.95rem;
+}
+
+.age-features li:last-child {
+    border-bottom: none;
+}
+
+.age-features li::before {
+    content: "✓";
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+/* === RESPONSIVE PARA ADAPTACIÓN POR EDAD === */
+@media (max-width: 768px) {
+    .age-group {
+        padding: 1.5rem 1rem;
+        min-height: auto;
+        margin-bottom: 1rem;
+    }
+    
+    .age-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .age-group h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .age-group p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .age-features {
+        margin: 1rem 0;
+    }
+    
+    .age-features li {
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+    
+    .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .age-group {
+        padding: 1.25rem 0.875rem;
+    }
+    
+    .age-icon {
+        font-size: 2rem;
+    }
+    
+    .age-group h3 {
+        font-size: 1.2rem;
+    }
+    
+    .age-features li {
+        font-size: 0.85rem;
+        padding: 0.4rem 0;
+    }
+}
+
+/* === MEJORAS DE ACCESIBILIDAD === */
+@media (prefers-reduced-motion: reduce) {
+    .age-group {
+        transition: none;
+    }
+    
+    .age-group:hover {
+        transform: none;
+    }
+}
+
+/* === CORRECCIÓN PARA TARJETA DE DETECCIÓN AUTOMÁTICA === */
+.age-detection-card {
+    max-width: 600px;
+    margin: 2rem auto 0 auto;
+    background: var(--white);
+    border-left: 4px solid var(--secondary-color);
+}
+
+.age-detection-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.age-detection-card .age-features {
+    color: var(--text-color);
+}
+
+.age-detection-card .age-features li {
+    color: var(--text-color);
+    border-bottom-color: var(--light-blue);
+}
+
+/* Estilos para el texto centrado de introducción */
+.adaptation-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+    .adaptation-intro {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .age-detection-card {
+        margin: 1.5rem 1rem 0 1rem;
+    }
+}
