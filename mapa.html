@@ -12,6 +12,261 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/pages.css">
+    
+    <style>
+        /* Estilos específicos para la página de mapa */
+        .map-hero {
+            background: linear-gradient(135deg, 
+                rgba(74, 179, 244, 0.9) 0%, 
+                rgba(2, 119, 189, 0.8) 50%, 
+                rgba(179, 229, 252, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1543785734-4b6e564642f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        
+        .map-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .map-hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            color: var(--white);
+        }
+        
+        .map-hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .map-description {
+            max-width: 700px;
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .map-legend {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            flex-wrap: wrap;
+            justify-content: center;
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--very-light-blue);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+        }
+
+        .legend-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .legend-aulario { background-color: var(--primary-color); }
+        .legend-biblioteca { background-color: var(--secondary-color); }
+        .legend-eco { background-color: var(--green); }
+        .legend-recreativa { background-color: var(--orange); }
+
+        .map-controls {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .map-container {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .map-container:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .map-frame {
+            display: block;
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        .location-info {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow);
+            max-width: 900px;
+            margin-bottom: var(--spacing-lg);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .location-info:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .location-title {
+            color: var(--primary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .location-description {
+            line-height: 1.7;
+        }
+
+        .location-features {
+            margin-top: var(--spacing-sm);
+            padding-left: var(--spacing-md);
+        }
+
+        .location-features li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .location-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--gradient-success);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .badge-success {
+            background: var(--gradient-success);
+        }
+
+        .map-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+            max-width: 900px;
+        }
+
+        .map-stat {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .map-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .map-stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .map-stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .map-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .map-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .map-controls .btn {
+                width: 250px;
+            }
+            
+            .map-legend {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .legend-item {
+                width: 200px;
+            }
+            
+            .map-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Encabezado -->
@@ -33,42 +288,72 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <section class="map-hero">
+        <div class="map-hero-content">
+            <h1 class="map-hero-title">🗺️ Mapa de la Universidad de Alicante</h1>
+            <p class="map-hero-subtitle">Explora los diferentes puntos de interés del campus universitario</p>
+        </div>
+    </section>
+
     <!-- Contenido principal -->
     <main class="main-content">
         <div class="container">
-            <h1 class="section-title fade-in-up">Mapa de la Universidad de Alicante</h1>
-            
             <div class="map-description fade-in-up">
                 <p>Explora los diferentes puntos de interés del campus universitario. Descubre aularios, bibliotecas, zonas verdes y áreas relacionadas con la sostenibilidad y el cambio climático.</p>
+            </div>
+
+            <!-- Estadísticas del campus -->
+            <div class="map-stats fade-in-up">
+                <div class="map-stat">
+                    <div class="map-stat-icon">🏛️</div>
+                    <div class="map-stat-value">15+</div>
+                    <div class="map-stat-label">Aularios</div>
+                </div>
+                <div class="map-stat">
+                    <div class="map-stat-icon">📚</div>
+                    <div class="map-stat-value">5</div>
+                    <div class="map-stat-label">Bibliotecas</div>
+                </div>
+                <div class="map-stat">
+                    <div class="map-stat-icon">🌿</div>
+                    <div class="map-stat-value">8</div>
+                    <div class="map-stat-label">Zonas Ecológicas</div>
+                </div>
+                <div class="map-stat">
+                    <div class="map-stat-icon">⚽</div>
+                    <div class="map-stat-value">12</div>
+                    <div class="map-stat-label">Áreas Recreativas</div>
+                </div>
             </div>
 
             <!-- Leyenda -->
             <div class="map-legend fade-in-up">
                 <div class="legend-item">
                     <div class="legend-color legend-aulario"></div>
-                    <span>Aularios</span>
+                    <span>🏛️ Aularios</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color legend-biblioteca"></div>
-                    <span>Bibliotecas</span>
+                    <span>📚 Bibliotecas</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color legend-eco"></div>
-                    <span>Zonas Ecológicas</span>
+                    <span>🌿 Zonas Ecológicas</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color legend-recreativa"></div>
-                    <span>Áreas Recreativas</span>
+                    <span>⚽ Áreas Recreativas</span>
                 </div>
             </div>
 
             <!-- Controles del mapa -->
             <div class="map-controls fade-in-up">
-                <button class="btn btn-secondary active" data-location="general">Vista General UA</button>
-                <button class="btn btn-secondary" data-location="aularios">Aularios</button>
-                <button class="btn btn-secondary" data-location="bibliotecas">Bibliotecas</button>
-                <button class="btn btn-secondary" data-location="ecologico">Zonas Ecológicas</button>
-                <button class="btn btn-secondary" data-location="recreativas">Áreas Recreativas</button>
+                <button class="btn btn-secondary active" data-location="general">🌍 Vista General UA</button>
+                <button class="btn btn-secondary" data-location="aularios">🏛️ Aularios</button>
+                <button class="btn btn-secondary" data-location="bibliotecas">📚 Bibliotecas</button>
+                <button class="btn btn-secondary" data-location="ecologico">🌿 Zonas Ecológicas</button>
+                <button class="btn btn-secondary" data-location="recreativas">⚽ Áreas Recreativas</button>
             </div>
 
             <!-- Contenedor del mapa -->
@@ -87,16 +372,22 @@
 
             <!-- Información de ubicación dinámica -->
             <div class="location-info card fade-in-up" id="location-info">
-                <h2 class="location-title" id="location-title">Universidad de Alicante - Vista General</h2>
+                <h2 class="location-title" id="location-title">🏛️ Universidad de Alicante - Vista General</h2>
                 <div class="location-description" id="location-description">
                     <p>La Universidad de Alicante es un campus moderno y sostenible que alberga numerosas facultades, servicios y espacios verdes. Con más de 50.000 estudiantes, es un referente en educación superior e investigación en la Comunidad Valenciana.</p>
                     <p>El campus cuenta con una extensión de más de un millón de metros cuadrados y está diseñado con criterios de sostenibilidad y respeto al medio ambiente.</p>
+                    <ul class="location-features">
+                        <li>Más de 50.000 estudiantes matriculados</li>
+                        <li>Campus sostenible con numerosas zonas verdes</li>
+                        <li>Instalaciones modernas y accesibles</li>
+                        <li>Comprometida con la lucha contra el cambio climático</li>
+                    </ul>
                 </div>
             </div>
 
             <!-- Botón para Volver a la Página Principal-->
             <div class="button-container fade-in-up">
-                <a href="index.html" class="btn btn-primary">Volver a la Página Principal</a>
+                <a href="index.html" class="btn btn-primary">← Volver a la Página Principal</a>
             </div>
         </div>
     </main>
@@ -125,7 +416,7 @@
         // Datos de ubicaciones específicas de la UA
         const locationData = {
             general: {
-                title: "Universidad de Alicante - Vista General",
+                title: "🏛️ Universidad de Alicante - Vista General",
                 description: `
                     <p>La Universidad de Alicante es un campus moderno y sostenible que alberga numerosas facultades, servicios y espacios verdes. Con más de 50.000 estudiantes, es un referente en educación superior e investigación en la Comunidad Valenciana.</p>
                     <p>El campus cuenta con una extensión de más de un millón de metros cuadrados y está diseñado con criterios de sostenibilidad y respeto al medio ambiente.</p>
@@ -139,7 +430,7 @@
                 mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.003966569233!2d-0.5091234846599756!3d38.38348807964956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6235da3b9dab4d%3A0xbad2e59b5c9b3c1c!2sUniversidad%20de%20Alicante!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
             },
             aularios: {
-                title: "Aularios de la Universidad",
+                title: "🏛️ Aularios de la Universidad",
                 description: `
                     <p>Los aularios son los edificios principales donde se imparten las clases en la Universidad de Alicante. Están distribuidos por todo el campus y cuentan con aulas equipadas con la última tecnología.</p>
                     <p>Algunos de los aularios más importantes incluyen:</p>
@@ -154,7 +445,7 @@
                 mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.987654321098!2d-0.507!3d38.384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIzJzAyLjQiTiAwwrAzMCcyNS4yIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
             },
             bibliotecas: {
-                title: "Bibliotecas Universitarias",
+                title: "📚 Bibliotecas Universitarias",
                 description: `
                     <p>La Universidad de Alicante cuenta con una red de bibliotecas especializadas que ofrecen recursos para el estudio y la investigación. La Biblioteca General es el centro neurálgico de este sistema.</p>
                     <p>Principales bibliotecas del campus:</p>
@@ -170,12 +461,12 @@
                 mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.876543210987!2d-0.510!3d38.385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIzJzA2LjAiTiAwwrAzMCczNi4wIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
             },
             ecologico: {
-                title: "Zonas Ecológicas y Sostenibles",
+                title: "🌿 Zonas Ecológicas y Sostenibles",
                 description: `
                     <p>La Universidad de Alicante está comprometida con la sostenibilidad y cuenta con numerosas iniciativas ecológicas distribuidas por todo el campus.</p>
                     <p>Principales zonas ecológicas:</p>
                     <ul class="location-features">
-                        <li><strong>Lago Universitario</strong> - Ecosistema acuático que alberga patos y otras aves <span class="badge badge-success">Hábitat de Patos</span></li>
+                        <li><strong>Lago Universitario</strong> - Ecosistema acuático que alberga patos y otras aves <span class="badge badge-success">🦆 Hábitat de Patos</span></li>
                         <li><strong>Jardín de los Sentidos</strong> - Espacio con plantas aromáticas y especies autóctonas</li>
                         <li><strong>Huerto Ecológico Universitario</strong> - Proyecto de agricultura sostenible</li>
                         <li><strong>Instalaciones de Energía Solar</strong> - Paneles solares en varios edificios</li>
@@ -187,7 +478,7 @@
                 mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.123456789012!2d-0.508!3d38.382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIyJzU1LjIiTiAwwrAzMCcyOC44Ilc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
             },
             recreativas: {
-                title: "Áreas Recreativas y Deportivas",
+                title: "⚽ Áreas Recreativas y Deportivas",
                 description: `
                     <p>El campus de la Universidad de Alicante ofrece numerosas áreas recreativas y deportivas para el disfrute de la comunidad universitaria.</p>
                     <p>Principales zonas recreativas:</p>
