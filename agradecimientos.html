@@ -9,6 +9,105 @@
     <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
     <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
     <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
+    
+    <style>
+        /* Correcciones específicas para header en móviles */
+        @media (max-width: 768px) {
+            .header {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                padding: 0.5rem 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            }
+            
+            .header-container {
+                flex-direction: row;
+                align-items: center;
+                padding: 0 1rem;
+            }
+            
+            .logo-container {
+                flex: 1;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                text-align: center;
+                padding: 0.75rem;
+                margin: 0.25rem 0;
+                border-radius: var(--border-radius);
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                color: var(--white);
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0.4rem 0.6rem;
+                border-radius: var(--border-radius-sm);
+                transition: var(--transition);
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            main {
+                padding-top: 1rem;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .header {
+                padding: 0.4rem 0;
+            }
+            
+            .logo {
+                width: 45px;
+                height: 45px;
+            }
+            
+            body {
+                padding-top: 65px;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Encabezado -->
@@ -18,8 +117,11 @@
                 <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
+            
+            <button class="menu-toggle" aria-label="Abrir menú" id="menuToggle">☰</button>
+            
             <nav>
-                <ul class="nav-menu">
+                <ul class="nav-menu" id="navMenu">
                     <li><a href="/patitos-en-peligro/index.html" class="nav-link">Inicio</a></li>
                     <li><a href="/patitos-en-peligro/mapa.html" class="nav-link">Mapa</a></li>
                     <li><a href="/patitos-en-peligro/ranking.html" class="nav-link">Ranking</a></li>
@@ -102,16 +204,32 @@
     </footer>
 
     <script>
-        // Mejorar experiencia táctil en móviles
+        // Menú hamburguesa para móviles
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.btn, .nav-link, .back-button').forEach(element => {
-                element.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.98)';
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
                 });
-                element.addEventListener('touchend', function() {
-                    this.style.transform = 'scale(1)';
+                
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    });
                 });
-            });
+                
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.header-container')) {
+                        navMenu.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    }
+                });
+            }
         });
     </script>
 </body>
