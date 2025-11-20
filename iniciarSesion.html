@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Iniciar sesión en Patitos en Peligro">
     <title>Iniciar sesión - Patitos en Peligro</title>
-    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
+    <link rel="icon" type="image/x-icon" href="/patitos-en-peligro/ico_circulo.ico">
     
     <!-- CSS Unificado -->
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/common.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
 </head>
 <body>
     <!-- Encabezado -->
     <header class="header">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
-            <nav>
+            <nav aria-label="Principal">
                 <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Inicio</a></li>
-                    <li><a href="patitos_integrantes.html" class="nav-link">Sobre Nosotros</a></li>
-                    <li><a href="mapa.html" class="nav-link">Mapa</a></li>
-                    <li><a href="ranking.html" class="nav-link">Ranking</a></li>
-                    <li><a href="iniciarSesion.html" class="nav-link active">Iniciar Sesión</a></li>
+                    <li><a href="/patitos-en-peligro/index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="/patitos-en-peligro/mapa.html" class="nav-link">Mapa</a></li>
+                    <li><a href="/patitos-en-peligro/ranking.html" class="nav-link">Ranking</a></li>
+                    <li><a href="/patitos-en-peligro/agradecimientos.html" class="nav-link">Agradecimientos</a></li>
+                    <li><a href="/patitos-en-peligro/iniciarSesion.html" class="nav-link active">Iniciar Sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -40,7 +40,7 @@
                 <div class="form-container card">
                     <h1 class="form-title">Iniciar sesión</h1>
                     
-                    <form id="loginForm">
+                    <form id="loginForm" novalidate>
                         <div class="form-group">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input type="email" id="email" class="form-control" placeholder="ejemplo@correo.com" required aria-describedby="email-error">
@@ -49,7 +49,7 @@
                         
                         <div class="form-group">
                             <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required aria-describedby="password-error">
+                            <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required minlength="6" aria-describedby="password-error">
                             <div id="password-error" class="error-message" role="alert">La contraseña debe tener al menos 6 caracteres</div>
                         </div>
                         
@@ -65,7 +65,7 @@
                 
                 <!-- Botón para Volver a la Página Principal-->
                 <div class="button-container fade-in-up">
-                    <a href="index.html" class="btn btn-secondary">Volver a la Página Principal</a>
+                    <a href="/patitos-en-peligro/index.html" class="btn btn-secondary">Volver a la Página Principal</a>
                 </div>
             </div>
         </div>
@@ -74,15 +74,14 @@
     <!-- Pie de página -->
     <footer class="footer">
         <div class="container footer-content">
-            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
             <div class="footer-links">
-                <a href="index.html" class="footer-link">Inicio</a>
-                <a href="patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
-                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
-                <a href="mapa.html" class="footer-link">Mapa</a>
-                <a href="ranking.html" class="footer-link">Ranking</a>
-                <a href="ajustes.html" class="footer-link">Ajustes</a>
-                <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
+                <a href="/patitos-en-peligro/index.html" class="footer-link">Inicio</a>
+                <a href="/patitos-en-peligro/agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="/patitos-en-peligro/mapa.html" class="footer-link">Mapa</a>
+                <a href="/patitos-en-peligro/ranking.html" class="footer-link">Ranking</a>
+                <a href="/patitos-en-peligro/ajustes.html" class="footer-link">Ajustes</a>
+                <a href="/patitos-en-peligro/iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
             </div>
             <div class="copyright">
                 <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
@@ -96,7 +95,7 @@
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             let isValid = true;
             
@@ -123,7 +122,7 @@
                 // Mostrar spinner de carga
                 const submitBtn = document.querySelector('button[type="submit"]');
                 const originalText = submitBtn.textContent;
-                submitBtn.innerHTML = '<div class="spinner"></div>';
+                submitBtn.innerHTML = '<div class="spinner" aria-hidden="true"></div>';
                 submitBtn.disabled = true;
                 
                 // Simular envío del formulario
@@ -133,45 +132,38 @@
                     submitBtn.disabled = false;
                     
                     // Mostrar notificación de éxito
-                    mostrarNotificacion('Inicio de sesión exitoso', 'success');
+                    showNotification('Inicio de sesión exitoso', 'success');
                     
                     // Redirigir después de éxito
                     setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1500);
-                }, 2000);
+                        window.location.href = '/patitos-en-peligro/index.html';
+                    }, 1200);
+                }, 1600);
             }
         });
         
         // Funcionalidad para el enlace de contraseña olvidada
         document.getElementById('forgot-password').addEventListener('click', function(e) {
             e.preventDefault();
-            mostrarNotificacion('Funcionalidad de recuperación de contraseña no implementada aún', 'warning');
+            showNotification('Funcionalidad de recuperación de contraseña no implementada aún', 'warning');
         });
         
         // Funcionalidad para el enlace de registro
         document.getElementById('register-link').addEventListener('click', function(e) {
             e.preventDefault();
-            mostrarNotificacion('Funcionalidad de registro no implementada aún', 'warning');
+            showNotification('Funcionalidad de registro no implementada aún', 'warning');
         });
 
-        // Función para mostrar notificaciones
-        function mostrarNotificacion(mensaje, tipo = 'success') {
-            // Crear elemento de notificación
-            const notificacion = document.createElement('div');
-            notificacion.className = `notification ${tipo}`;
-            notificacion.textContent = mensaje;
-            
-            // Agregar al documento
-            document.body.appendChild(notificacion);
-            
-            // Mostrar con animación
-            setTimeout(() => notificacion.classList.add('show'), 100);
-            
-            // Ocultar después de 3 segundos
+        // Función para mostrar notificaciones (con estilos mínimos)
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.classList.add('show'), 50);
             setTimeout(() => {
-                notificacion.classList.remove('show');
-                setTimeout(() => notificacion.remove(), 300);
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
 
