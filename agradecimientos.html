@@ -20,11 +20,10 @@
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="/patitos-en-peligro/index.html">Inicio</a></li>
-                    <li><a href="/patitos-en-peligro/patitos_integrantes.html">Sobre Nosotros</a></li>
-                    <li><a href="/patitos-en-peligro/mapa.html">Mapa</a></li>
-                    <li><a href="/patitos-en-peligro/ranking.html">Ranking</a></li>
-                    <li><a href="/patitos-en-peligro/iniciarSesion.html">Iniciar Sesión</a></li>
+                    <li><a href="/patitos-en-peligro/index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="/patitos-en-peligro/mapa.html" class="nav-link">Mapa</a></li>
+                    <li><a href="/patitos-en-peligro/ranking.html" class="nav-link">Ranking</a></li>
+                    <li><a href="/patitos-en-peligro/iniciarSesion.html" class="nav-link">Iniciar Sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -89,7 +88,6 @@
             <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
             <div class="footer-links">
                 <a href="/patitos-en-peligro/index.html">Inicio</a>
-                <a href="/patitos-en-peligro/patitos_integrantes.html">Sobre Nosotros</a>
                 <a href="/patitos-en-peligro/agradecimientos.html">Agradecimientos</a>
                 <a href="/patitos-en-peligro/mapa.html">Mapa</a>
                 <a href="/patitos-en-peligro/ranking.html">Ranking</a>
@@ -102,6 +100,19 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Mejorar experiencia táctil en móviles
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.btn, .nav-link, .back-button').forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                element.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
-
