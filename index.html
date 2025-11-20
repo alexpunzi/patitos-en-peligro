@@ -11,6 +11,134 @@
     <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
     <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
     <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
+    
+    <style>
+        /* Correcciones específicas para header en móviles */
+        @media (max-width: 768px) {
+            .header {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                padding: 0.5rem 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            }
+            
+            .header-container {
+                flex-direction: row;
+                align-items: center;
+                padding: 0 1rem;
+            }
+            
+            .logo-container {
+                flex: 1;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                text-align: center;
+                padding: 0.75rem;
+                margin: 0.25rem 0;
+                border-radius: var(--border-radius);
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                color: var(--white);
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0.4rem 0.6rem;
+                border-radius: var(--border-radius-sm);
+                transition: var(--transition);
+            }
+            
+            .menu-toggle:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+        }
+
+        /* Para pantallas muy pequeñas (iPhone 12) */
+        @media (max-width: 390px) {
+            .header {
+                padding: 0.4rem 0;
+            }
+            
+            .logo {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .logo-text {
+                font-size: 1rem;
+            }
+            
+            body {
+                padding-top: 65px;
+            }
+        }
+
+        /* Ocultar botón hamburguesa en desktop */
+        .menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .logo-text {
+                display: block;
+            }
+        }
+
+        /* Ajustes específicos para iPhone 12 */
+        @media (max-width: 390px) {
+            .hero-title {
+                font-size: 1.6rem !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.95rem !important;
+            }
+            
+            .section-title {
+                font-size: 1.5rem !important;
+            }
+            
+            .card {
+                padding: 1.25rem 0.875rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Encabezado -->
@@ -20,8 +148,12 @@
                 <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
+            
+            <!-- Botón hamburguesa para móviles -->
+            <button class="menu-toggle" aria-label="Abrir menú" id="menuToggle">☰</button>
+            
             <nav>
-                <ul class="nav-menu">
+                <ul class="nav-menu" id="navMenu">
                     <li><a href="#como-funciona" class="nav-link">¿Cómo Funciona?</a></li>
                     <li><a href="#misiones" class="nav-link">Misiones</a></li>
                     <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
@@ -222,8 +354,44 @@
     </footer>
 
     <script>
-        // Animación de aparición al hacer scroll
+        // Menú hamburguesa para móviles
         document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    // Cambiar icono
+                    this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+                });
+                
+                // Cerrar menú al hacer clic en un enlace
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    });
+                });
+                
+                // Cerrar menú al hacer clic fuera
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.header-container')) {
+                        navMenu.classList.remove('active');
+                        if (menuToggle) {
+                            menuToggle.textContent = '☰';
+                        }
+                    }
+                });
+                
+                // Prevenir que el clic en el menú lo cierre
+                navMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+
+            // Animación de aparición al hacer scroll
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -270,6 +438,17 @@
                     this.style.transform = 'scale(1)';
                 });
             });
+        });
+
+        // Asegurar que el menú se cierre al redimensionar (si se cambia de móvil a desktop)
+        window.addEventListener('resize', function() {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.getElementById('menuToggle');
+            
+            if (window.innerWidth > 768 && navMenu && menuToggle) {
+                navMenu.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
         });
     </script>
 </body>
