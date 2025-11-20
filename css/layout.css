@@ -1,24 +1,27 @@
 /* === layout.css === */
 /* Sistema de layout moderno con efectos visuales y navegación dinámica */
 
-/* --- Header Mejorado con Efectos --- */
+/* --- Header Mejorado SOLIDO --- */
 .header {
-    background: var(--glass-bg);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--glass-border);
+    background: var(--primary-color);
     color: var(--white);
     padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
     transition: var(--transition);
+    border-bottom: 3px solid var(--secondary-color);
 }
 
 .header.scrolled {
-    background: rgba(2, 119, 189, 0.95);
+    background: rgba(2, 119, 189, 0.98);
     box-shadow: var(--shadow-lg);
     padding: 0.75rem 0;
+}
+
+/* Eliminar efectos de glassmorphism del header */
+.header::before {
+    display: none;
 }
 
 .header-container {
@@ -44,7 +47,7 @@
     object-fit: cover;
     box-shadow: var(--shadow);
     transition: var(--transition);
-    border: 3px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 .logo:hover {
@@ -248,6 +251,7 @@
     padding: 8rem 2rem;
     position: relative;
     overflow: hidden;
+    margin-top: 0;
 }
 
 .hero::before {
