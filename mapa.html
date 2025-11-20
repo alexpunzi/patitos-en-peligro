@@ -5,270 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mapa interactivo de la Universidad de Alicante para Patitos en Peligro">
     <title>Mapa UA - Patitos en Peligro</title>
-
-    <!-- Favicon / Icono de la pestaña -->
-    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
-
-    <style>
-        /* --- Variables CSS para consistencia --- */
-        :root {
-            --primary-color: #0277bd;
-            --secondary-color: #4ab3f4;
-            --light-blue: #b3e5fc;
-            --very-light-blue: #e0f7ff;
-            --background-color: #f0f8ff;
-            --text-color: #333;
-            --white: #ffffff;
-            --border-radius: 10px;
-            --transition: all 0.3s ease;
-            --green: #4caf50;
-            --orange: #ff9800;
-            --red: #f44336;
-        }
-
-        /* --- Estilos generales del cuerpo --- */
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* --- Encabezado de la página --- */
-        header {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            text-align: center;
-            padding: 1rem;
-        }
-
-        header img {
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* --- Contenido principal --- */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        /* --- Título principal --- */
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        /* --- Mapa --- */
-        .map-container {
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 2rem;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        iframe {
-            display: block;
-            width: 100%;
-            height: 450px;
-            border: none;
-        }
-
-        /* --- Descripción del mapa --- */
-        .map-description {
-            max-width: 700px;
-            text-align: center;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        /* --- Botón de Volver a la Página Principal--- */
-        .btn-inicio {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.75rem 1.5rem;
-            background-color: var(--primary-color);
-            color: var(--white);
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: var(--transition);
-        }
-
-        .btn-inicio:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.05);
-        }
-
-        /* --- Pie de página --- */
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: var(--very-light-blue);
-        }
-
-        /* --- Controles del mapa --- */
-        .map-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .map-btn {
-            padding: 0.5rem 1rem;
-            background-color: var(--white);
-            border: 2px solid var(--light-blue);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .map-btn:hover {
-            background-color: var(--light-blue);
-        }
-
-        .map-btn.active {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border-color: var(--primary-color);
-        }
-
-        /* --- Información de ubicación --- */
-        .location-info {
-            background-color: var(--white);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin-bottom: 2rem;
-            display: none;
-        }
-
-        .location-info.active {
-            display: block;
-        }
-
-        .location-title {
-            color: var(--primary-color);
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .location-description {
-            line-height: 1.6;
-        }
-
-        .location-features {
-            margin-top: 1rem;
-            padding-left: 1.5rem;
-        }
-
-        .location-features li {
-            margin-bottom: 0.5rem;
-        }
-
-        .eco-badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            background-color: var(--green);
-            color: white;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
-        }
-
-        /* --- Leyenda --- */
-        .map-legend {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .legend-color {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-        }
-
-        .legend-aulario {
-            background-color: var(--primary-color);
-        }
-
-        .legend-biblioteca {
-            background-color: var(--secondary-color);
-        }
-
-        .legend-eco {
-            background-color: var(--green);
-        }
-
-        .legend-recreativa {
-            background-color: var(--orange);
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            main {
-                padding: 1rem;
-            }
-            
-            .map-container {
-                max-width: 100%;
-            }
-            
-            iframe {
-                height: 400px;
-            }
-            
-            .map-controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .map-btn {
-                width: 250px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            iframe {
-                height: 300px;
-            }
-            
-            .location-info {
-                padding: 1rem;
-            }
-        }
-    </style>
+    <link rel="icon" type="image/x-icon" href="/patitos-en-peligro/ico_circulo.ico">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/common.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
 </head>
 <body>
     <!-- Encabezado con logo -->
-    <header>
-        <img src="patitologo1_circulo.png" alt="Logo circular del proyecto Patitos en Peligro" width="100" height="100">
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <div class="logo-text">Patitos en Peligro</div>
+            </div>
+        </div>
     </header>
 
     <!-- Contenido principal -->
@@ -331,12 +82,16 @@
         </div>
 
         <!-- Botón para Volver a la Página Principal-->
-        <a href="paginaInicial.html" class="btn-inicio">Volver a la Página Principal</a>
+        <a href="/patitos-en-peligro/index.html" class="btn-inicio">Volver a la Página Principal</a>
     </main>
 
     <!-- Pie de página -->
-    <footer>
-        <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="copyright">
+                <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+            </div>
+        </div>
     </footer>
 
     <script>
