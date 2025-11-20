@@ -208,7 +208,6 @@
             <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
             <div class="footer-links">
                 <a href="/patitos-en-peligro/index.html" class="footer-link">Inicio</a>
-                <a href="/patitos-en-peligro/patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
                 <a href="/patitos-en-peligro/agradecimientos.html" class="footer-link">Agradecimientos</a>
                 <a href="/patitos-en-peligro/mapa.html" class="footer-link">Mapa</a>
                 <a href="/patitos-en-peligro/ranking.html" class="footer-link">Ranking</a>
@@ -261,8 +260,17 @@
                     }
                 });
             });
+
+            // Mejorar experiencia táctil en móviles
+            document.querySelectorAll('.btn, .nav-link').forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                element.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
         });
     </script>
 </body>
 </html>
-
