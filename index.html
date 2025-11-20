@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Patitos en Peligro - Escape Room del Cambio Climático</title>
+    <link rel="icon" type="image/x-icon" href="/patitos-en-peligro/ico_circulo.ico">
+    
+    <!-- CSS Unificado con rutas absolutas para GitHub Pages -->
+    <link rel="stylesheet" href="/patitos-en-peligro/css/common.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
+    
+    <style>
+        /* Correcciones específicas para header en móviles */
+        @media (max-width: 768px) {
+            .header {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                padding: 0.5rem 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            }
+            
+            .header-container {
+                flex-direction: row;
+                align-items: center;
+                padding: 0 1rem;
+            }
+            
+            .logo-container {
+                flex: 1;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                text-align: center;
+                padding: 0.75rem;
+                margin: 0.25rem 0;
+                border-radius: var(--border-radius);
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                color: var(--white);
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0.4rem 0.6rem;
+                border-radius: var(--border-radius-sm);
+                transition: var(--transition);
+            }
+            
+            .menu-toggle:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+        }
+
+        /* Para pantallas muy pequeñas (iPhone 12) */
+        @media (max-width: 390px) {
+            .header {
+                padding: 0.4rem 0;
+            }
+            
+            .logo {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .logo-text {
+                font-size: 1rem;
+            }
+            
+            body {
+                padding-top: 65px;
+            }
+        }
+
+        /* Ocultar botón hamburguesa en desktop */
+        .menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .logo-text {
+                display: block;
+            }
+        }
+
+        /* Ajustes específicos para iPhone 12 */
+        @media (max-width: 390px) {
+            .hero-title {
+                font-size: 1.6rem !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.95rem !important;
+            }
+            
+            .section-title {
+                font-size: 1.5rem !important;
+            }
+            
+            .card {
+                padding: 1.25rem 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <div class="logo-text">Patitos en Peligro</div>
+            </div>
+            
+            <!-- Botón hamburguesa para móviles -->
+            <button class="menu-toggle" aria-label="Abrir menú" id="menuToggle">☰</button>
+            
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#como-funciona" class="nav-link">¿Cómo Funciona?</a></li>
+                    <li><a href="#adaptacion" class="nav-link">Adaptación por Edad</a></li>
+                    <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                    <li><a href="/patitos-en-peligro/agradecimientos.html" class="nav-link">Agradecimientos</a></li>
+                    <li><a href="/patitos-en-peligro/ranking.html" class="nav-link">Ranking</a></li>
+                    <li><a href="/patitos-en-peligro/iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">¡Los Patitos Necesitan Tu Ayuda!</h1>
+            <p class="hero-subtitle">Un Escape Room educativo en la Universidad de Alicante para salvar el planeta mientras resuelves misterios climáticos</p>
+            <div class="hero-buttons">
+                <a href="/patitos-en-peligro/iniciarSesion.html" class="btn btn-accent">Comenzar Aventura</a>
+                <a href="#como-funciona" class="btn btn-secondary">Saber Más</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Problema -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">¿Por Qué Este Juego es Necesario?</h2>
+            <div class="grid grid-3">
+                <div class="card text-center">
+                    <div class="feature-icon">😴</div>
+                    <h3>Desinterés Juvenil</h3>
+                    <p>El 70% de los jóvenes considera aburridas las charlas tradicionales sobre cambio climático</p>
+                </div>
+                <div class="card text-center">
+                    <div class="feature-icon">🌡️</div>
+                    <h3>Crisis Climática</h3>
+                    <p>Urge concienciar sobre acciones concretas para reducir nuestra huella ecológica</p>
+                </div>
+                <div class="card text-center">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Falta de Conexión</h3>
+                    <p>Los formatos tradicionales no logran conectar emocionalmente con el público joven</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Cómo Funciona -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="container">
+            <h2 class="section-title">Cómo Funciona el Escape Room</h2>
+            <div class="steps">
+                <div class="step card">
+                    <div class="step-number">1</div>
+                    <h3>Regístrate en la App</h3>
+                    <p>Descarga nuestra app o accede desde tu navegador para crear tu perfil de eco-aventurero</p>
+                </div>
+                <div class="step card">
+                    <div class="step-number">2</div>
+                    <h3>Escanea QR en el Campus</h3>
+                    <p>Encuentra los códigos QR distribuidos por la Universidad de Alicante y escanéalos</p>
+                </div>
+                <div class="step card">
+                    <div class="step-number">3</div>
+                    <h3>Resuelve Misiones Climáticas</h3>
+                    <p>Supera retos sobre reciclaje, energía renovable y conservación de ecosistemas</p>
+                </div>
+                <div class="step card">
+                    <div class="step-number">4</div>
+                    <h3>Salva Patitos y Gana Puntos</h3>
+                    <p>Cada misión completada rescata patitos virtuales y te da puntos para el ranking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Adaptación por Edad -->
+    <section class="missions" id="adaptacion">
+        <div class="container">
+            <h2 class="section-title">Experiencia Adaptativa por Edad</h2>
+            <p class="adaptation-intro">
+                Nuestro sistema inteligente se adapta automáticamente a la edad de los jugadores, 
+                ofreciendo una experiencia educativa personalizada y apropiada para cada grupo.
+            </p>
+            <div class="grid grid-3">
+                <div class="age-group kids">
+                    <div class="age-icon">🧒</div>
+                    <h3>6-12 Años</h3>
+                    <p>Experiencia lúdica y visual para los más pequeños</p>
+                    <ul class="age-features">
+                        <li>✅ Puzzles simples y coloridos</li>
+                        <li>✅ Mensajes claros y directos</li>
+                        <li>✅ Recompensas visuales inmediatas</li>
+                        <li>✅ Vocabulario adaptado</li>
+                        <li>✅ Enfoque en acciones básicas</li>
+                    </ul>
+                </div>
+                <div class="age-group teens">
+                    <div class="age-icon">👦</div>
+                    <h3>13-17 Años</h3>
+                    <p>Desafíos estimulantes para adolescentes</p>
+                    <ul class="age-features">
+                        <li>✅ Retos de complejidad media</li>
+                        <li>✅ Contenido científico accesible</li>
+                        <li>✅ Elementos de competencia sana</li>
+                        <li>✅ Enfoque en soluciones prácticas</li>
+                        <li>✅ Conexión con redes sociales</li>
+                    </ul>
+                </div>
+                <div class="age-group adults">
+                    <div class="age-icon">👨</div>
+                    <h3>18+ Años</h3>
+                    <p>Experiencia completa para adultos</p>
+                    <ul class="age-features">
+                        <li>✅ Desafíos complejos y realistas</li>
+                        <li>✅ Datos científicos detallados</li>
+                        <li>✅ Análisis de impacto real</li>
+                        <li>✅ Toma de decisiones estratégicas</li>
+                        <li>✅ Enfoque en cambio sistémico</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center" style="margin-top: 3rem;">
+                <div class="card age-detection-card">
+                    <h3>🎯 Sistema de Detección Automática</h3>
+                    <p>Nuestra plataforma detecta automáticamente el grupo de edad y ajusta:</p>
+                    <ul class="age-features">
+                        <li>🔹 <strong>Dificultad de los puzzles</strong></li>
+                        <li>🔹 <strong>Complejidad del vocabulario</strong></li>
+                        <li>🔹 <strong>Profundidad del contenido científico</strong></li>
+                        <li>🔹 <strong>Tipo de recompensas y feedback</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Testimonios -->
+    <section class="testimonials" id="testimonios">
+        <div class="container">
+            <h2 class="section-title">Lo Que Dicen Nuestros Jugadores</h2>
+            <div class="grid grid-3">
+                <div class="testimonial card">
+                    <p class="testimonial-text">"Nunca pensé que aprender sobre cambio climático pudiera ser tan divertido. El formato de escape room es genial!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MG</div>
+                        <div>
+                            <div class="author-name">María González</div>
+                            <div class="author-role">Estudiante de Biología</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial card">
+                    <p class="testimonial-text">"La combinación de app móvil y actividades presenciales en el campus es perfecta. ¡Muy innovador!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">CP</div>
+                        <div>
+                            <div class="author-name">Carlos Pérez</div>
+                            <div class="author-role">Estudiante de Ingeniería</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial card">
+                    <p class="testimonial-text">"Como profesora, valoro mucho el enfoque educativo. Los estudiantes aprenden sin darse cuenta."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LM</div>
+                        <div>
+                            <div class="author-name">Laura Martínez</div>
+                            <div class="author-role">Profesora UA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Universidad -->
+    <section class="university-section">
+        <div class="container">
+            <div class="university-content">
+                <img src="/patitos-en-peligro/uaLogo2.png" alt="Universidad de Alicante" class="ua-logo">
+                <h2>Proyecto Avalado por la Universidad de Alicante</h2>
+                <p>Desarrollado como parte de la asignatura Sistemas Multimedia, este proyecto combina innovación tecnológica con educación ambiental</p>
+                <a href="/patitos-en-peligro/agradecimientos.html" class="btn btn-primary">Conoce a los Creadores</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Llamada a la Acción Final -->
+    <section class="final-cta">
+        <div class="container text-center">
+            <h2>¿Listo para la Aventura?</h2>
+            <p>Únete a la comunidad de eco-aventureros y ayuda a salvar el planeta mientras te diviertes</p>
+            <div class="cta-buttons">
+                <a href="/patitos-en-peligro/iniciarSesion.html" class="btn btn-accent">Comenzar Ahora</a>
+                <a href="/patitos-en-peligro/mapa.html" class="btn btn-secondary">Ver Mapa del Campus</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <div class="footer-links">
+                <a href="/patitos-en-peligro/index.html" class="footer-link">Inicio</a>
+                <a href="/patitos-en-peligro/agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="/patitos-en-peligro/mapa.html" class="footer-link">Mapa</a>
+                <a href="/patitos-en-peligro/ranking.html" class="footer-link">Ranking</a>
+                <a href="/patitos-en-peligro/ajustes.html" class="footer-link">Ajustes</a>
+                <a href="/patitos-en-peligro/iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
+            </div>
+            <div class="copyright">
+                <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+                <p>Grupo 41 - Patitos en Peligro</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menú hamburguesa para móviles
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    // Cambiar icono
+                    this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+                });
+                
+                // Cerrar menú al hacer clic en un enlace
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    });
+                });
+                
+                // Cerrar menú al hacer clic fuera
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.header-container')) {
+                        navMenu.classList.remove('active');
+                        if (menuToggle) {
+                            menuToggle.textContent = '☰';
+                        }
+                    }
+                });
+                
+                // Prevenir que el clic en el menú lo cierre
+                navMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+
+            // Animación de aparición al hacer scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Aplicar animación a varios elementos
+            const animatedElements = document.querySelectorAll('.card, .step, .age-group');
+            animatedElements.forEach(function(element, index) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+
+            // Navegación suave
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Mejorar experiencia táctil en móviles
+            document.querySelectorAll('.btn, .nav-link').forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                element.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+
+        // Asegurar que el menú se cierre al redimensionar (si se cambia de móvil a desktop)
+        window.addEventListener('resize', function() {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.getElementById('menuToggle');
+            
+            if (window.innerWidth > 768 && navMenu && menuToggle) {
+                navMenu.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
+        });
+    </script>
+</body>
+</html>

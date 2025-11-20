@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agradecimientos - Patitos en Peligro</title>
+    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
+    
+    <!-- CSS Unificado -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <!-- Encabezado -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <div class="logo-text">Patitos en Peligro</div>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="patitos_integrantes.html" class="nav-link">Sobre Nosotros</a></li>
+                    <li><a href="mapa.html" class="nav-link">Mapa</a></li>
+                    <li><a href="ranking.html" class="nav-link">Ranking</a></li>
+                    <li><a href="iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="section-title fade-in-up">Agradecimientos</h1>
+            
+            <div class="acknowledgments-content fade-in-up">
+                <div class="acknowledgments-text">
+                    <p>Este proyecto ha sido desarrollado como parte de la asignatura <strong>Sistemas Multimedia</strong> de la <strong>Universidad de Alicante</strong>.</p>
+                    <p>Queremos expresar nuestro más sincero agradecimiento a la Universidad de Alicante por proporcionar los recursos, el conocimiento y el apoyo necesarios para la realización de este proyecto educativo.</p>
+                    <p>La formación recibida y las instalaciones de la universidad han sido fundamentales para el desarrollo de "Patitos en Peligro", un juego que combina educación ambiental con entretenimiento digital.</p>
+                </div>
+                
+                <div class="ua-logo-container">
+                    <a href="https://www.ua.es" target="_blank" rel="noopener noreferrer">
+                        <img src="uaLogo2.png" alt="Logo de la Universidad de Alicante" class="ua-logo floating">
+                    </a>
+                </div>
+                
+                <a href="https://www.ua.es" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visitar sitio web de la UA</a>
+            </div>
+
+            <div class="team-section fade-in-up">
+                <h2>Nuestro Equipo</h2>
+                <p>Este proyecto fue desarrollado por el Grupo 41 de la asignatura Sistemas Multimedia:</p>
+                
+                <div class="team-grid">
+                    <div class="team-member card">
+                        <div class="member-name">Juana Valentina Echeveste</div>
+                        <div class="member-role">Estudiante de Ingeniería Multimedia</div>
+                    </div>
+                    <div class="team-member card">
+                        <div class="member-name">Alex Punzano Gil</div>
+                        <div class="member-role">Estudiante de Ingeniería Multimedia</div>
+                    </div>
+                    <div class="team-member card">
+                        <div class="member-name">Aitana Vasco Bechir</div>
+                        <div class="member-role">Estudiante de Ingeniería Multimedia</div>
+                    </div>
+                    <div class="team-member card">
+                        <div class="member-name">Trinity Darlene Larsen Campos</div>
+                        <div class="member-role">Estudiante de Ingeniería Multimedia</div>
+                    </div>
+                    <div class="team-member card">
+                        <div class="member-name">Hugo Carcedo Sánchez</div>
+                        <div class="member-role">Estudiante de Ingeniería Multimedia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-container fade-in-up">
+                <a href="index.html" class="btn btn-primary">Volver a la Página Principal</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Inicio</a>
+                <a href="patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
+                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="mapa.html" class="footer-link">Mapa</a>
+                <a href="ranking.html" class="footer-link">Ranking</a>
+                <a href="ajustes.html" class="footer-link">Ajustes</a>
+                <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
+            </div>
+            <div class="copyright">
+                <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+                <p>Grupo 41 - Patitos en Peligro</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animación de aparición al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Aplicar animación a elementos
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(function(element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajustes - Patitos en Peligro</title>
+    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
+    
+    <!-- CSS Unificado -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/pages.css">
+    
+    <style>
+        /* Estilos específicos para la página de ajustes */
+        .settings-hero {
+            background: linear-gradient(135deg, 
+                rgba(2, 119, 189, 0.9) 0%, 
+                rgba(74, 179, 244, 0.8) 50%, 
+                rgba(179, 229, 252, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .settings-hero-content {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .settings-container {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 800px;
+            margin: -50px auto var(--spacing-xl);
+            position: relative;
+            z-index: 10;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .setting-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--secondary-color);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .setting-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-left-color: var(--accent-color);
+        }
+
+        .setting-card h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .setting-icon {
+            font-size: 1.5rem;
+        }
+
+        .slider-container {
+            margin: var(--spacing-md) 0;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--spacing-xs);
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .theme-previews {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .theme-preview {
+            border: 2px solid var(--light-blue);
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-preview:hover {
+            border-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .theme-preview.active {
+            border-color: var(--accent-color);
+            background: var(--very-light-blue);
+        }
+
+        .theme-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 auto var(--spacing-xs);
+            border: 2px solid var(--light-blue);
+        }
+
+        .theme-light .theme-color {
+            background: linear-gradient(135deg, #ffffff, #f0f8ff);
+        }
+
+        .theme-dark .theme-color {
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+        }
+
+        .theme-blue .theme-color {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--spacing-sm);
+            background: var(--very-light-blue);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-container {
+                margin: -30px auto var(--spacing-lg);
+                padding: var(--spacing-lg);
+            }
+            
+            .settings-hero {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <div class="logo-text">Patitos en Peligro</div>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="patitos_integrantes.html" class="nav-link">Sobre Nosotros</a></li>
+                    <li><a href="mapa.html" class="nav-link">Mapa</a></li>
+                    <li><a href="ranking.html" class="nav-link">Ranking</a></li>
+                    <li><a href="iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="settings-hero">
+        <div class="settings-hero-content">
+            <h1 class="hero-title">Configura tu Aventura</h1>
+            <p class="hero-subtitle">Personaliza la experiencia de juego según tus preferencias</p>
+        </div>
+    </section>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <div class="container">
+            <div class="settings-container fade-in-up">
+                <div class="settings-grid">
+                    <!-- Configuración de Audio -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">🎵</span> Configuración de Audio</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">Sonido General</div>
+                            <label class="switch">
+                                <input type="checkbox" id="soundToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="slider-container">
+                            <label class="setting-label">Volumen Principal</label>
+                            <input type="range" class="range-slider" id="volumeSlider" min="0" max="100" value="80">
+                            <div class="slider-labels">
+                                <span>0%</span>
+                                <span id="volumeValue">80%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">Música de Fondo</div>
+                            <label class="switch">
+                                <input type="checkbox" id="musicToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-label">Efectos de Sonido</div>
+                            <label class="switch">
+                                <input type="checkbox" id="sfxToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Configuración de Gráficos -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">🎮</span> Configuración de Gráficos</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">Calidad Gráfica</div>
+                            <select id="graphicsQuality" class="form-control">
+                                <option value="low">Baja (Mejor rendimiento)</option>
+                                <option value="medium" selected>Media (Balanceado)</option>
+                                <option value="high">Alta (Mejor calidad)</option>
+                                <option value="ultra">Ultra (Máxima calidad)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">Efectos de Partículas</div>
+                            <label class="switch">
+                                <input type="checkbox" id="particlesToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-label">Sombras Dinámicas</div>
+                            <label class="switch">
+                                <input type="checkbox" id="shadowsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-label">Anti-Aliasing</div>
+                            <label class="switch">
+                                <input type="checkbox" id="aaToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Configuración de Tema -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">🎨</span> Tema Visual</h3>
+                        
+                        <div class="theme-previews">
+                            <div class="theme-preview theme-light active" data-theme="light">
+                                <div class="theme-color"></div>
+                                <div class="theme-name">Claro</div>
+                            </div>
+                            <div class="theme-preview theme-dark" data-theme="dark">
+                                <div class="theme-color"></div>
+                                <div class="theme-name">Oscuro</div>
+                            </div>
+                            <div class="theme-preview theme-blue" data-theme="blue">
+                                <div class="theme-color"></div>
+                                <div class="theme-name">Azul</div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item" style="margin-top: var(--spacing-md);">
+                            <div class="setting-label">Modo Oscuro Automático</div>
+                            <label class="switch">
+                                <input type="checkbox" id="autoDarkMode">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Configuración de Juego -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">⚙️</span> Configuración de Juego</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">Dificultad</div>
+                            <select id="difficulty" class="form-control">
+                                <option value="easy">Fácil</option>
+                                <option value="medium" selected>Normal</option>
+                                <option value="hard">Difícil</option>
+                                <option value="expert">Experto</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">Vibración</div>
+                            <label class="switch">
+                                <input type="checkbox" id="vibrationToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-label">Notificaciones Push</div>
+                            <label class="switch">
+                                <input type="checkbox" id="notificationsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-label">Controles Táctiles</div>
+                            <label class="switch">
+                                <input type="checkbox" id="touchControlsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Estadísticas del Jugador -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">📊</span> Tus Estadísticas</h3>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" id="stat-level">6</div>
+                                <div class="stat-label">Nivel</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="stat-score">4,500</div>
+                                <div class="stat-label">Puntos</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="stat-ducks">15</div>
+                                <div class="stat-label">Patitos</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="stat-time">12h</div>
+                                <div class="stat-label">Jugando</div>
+                            </div>
+                        </div>
+
+                        <div class="progress" style="margin-top: var(--spacing-md);">
+                            <div class="progress-bar" style="width: 45%;"></div>
+                        </div>
+                        <div class="slider-labels">
+                            <span>Nivel 6</span>
+                            <span>45%</span>
+                            <span>Nivel 7</span>
+                        </div>
+                    </div>
+
+                    <!-- Controles y Accesibilidad -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">♿</span> Accesibilidad</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">Texto Grande</div>
+                            <label class="switch">
+                                <input type="checkbox" id="largeTextToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-label">Alto Contraste</div>
+                            <label class="switch">
+                                <input type="checkbox" id="highContrastToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-label">Reducir Movimiento</div>
+                            <label class="switch">
+                                <input type="checkbox" id="reduceMotionToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="slider-container">
+                            <label class="setting-label">Velocidad de Animación</label>
+                            <input type="range" class="range-slider" id="animationSpeed" min="0" max="100" value="50">
+                            <div class="slider-labels">
+                                <span>Lenta</span>
+                                <span>Media</span>
+                                <span>Rápida</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="action-buttons" style="margin-top: var(--spacing-xl);">
+                    <button class="btn btn-primary btn-lg" onclick="guardarAjustes()">
+                        <span class="btn-icon">💾</span>
+                        Guardar Cambios
+                    </button>
+                    <button class="btn btn-secondary" onclick="restablecerAjustes()">
+                        <span class="btn-icon">🔄</span>
+                        Restablecer
+                    </button>
+                    <a href="index.html" class="btn btn-accent">
+                        <span class="btn-icon">🏠</span>
+                        Volver al Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Inicio</a>
+                <a href="patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
+                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="mapa.html" class="footer-link">Mapa</a>
+                <a href="ranking.html" class="footer-link">Ranking</a>
+                <a href="ajustes.html" class="footer-link">Ajustes</a>
+                <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
+            </div>
+            <div class="copyright">
+                <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+                <p>Grupo 41 - Patitos en Peligro</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funcionalidad para el control de volumen
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeValue = document.getElementById('volumeValue');
+        
+        volumeSlider.addEventListener('input', function() {
+            volumeValue.textContent = this.value + '%';
+            document.documentElement.style.setProperty('--slider-progress', this.value + '%');
+        });
+
+        // Funcionalidad para los temas
+        const themePreviews = document.querySelectorAll('.theme-preview');
+        themePreviews.forEach(preview => {
+            preview.addEventListener('click', function() {
+                themePreviews.forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                
+                const theme = this.getAttribute('data-theme');
+                document.body.setAttribute('data-theme', theme);
+                mostrarNotificacion(`Tema ${this.querySelector('.theme-name').textContent} aplicado`, 'success');
+            });
+        });
+
+        // Funcionalidad para la velocidad de animación
+        const animationSpeed = document.getElementById('animationSpeed');
+        animationSpeed.addEventListener('input', function() {
+            const speed = this.value / 100;
+            document.documentElement.style.setProperty('--transition', `all ${0.8 - speed * 0.6}s ease`);
+        });
+
+        // Funciones para guardar y restablecer ajustes
+        function guardarAjustes() {
+            const ajustes = {
+                sonido: document.getElementById('soundToggle').checked,
+                volumen: document.getElementById('volumeSlider').value,
+                musica: document.getElementById('musicToggle').checked,
+                sfx: document.getElementById('sfxToggle').checked,
+                graficos: document.getElementById('graphicsQuality').value,
+                particulas: document.getElementById('particlesToggle').checked,
+                sombras: document.getElementById('shadowsToggle').checked,
+                antialiasing: document.getElementById('aaToggle').checked,
+                dificultad: document.getElementById('difficulty').value,
+                vibracion: document.getElementById('vibrationToggle').checked,
+                notificaciones: document.getElementById('notificationsToggle').checked,
+                controlesTactiles: document.getElementById('touchControlsToggle').checked,
+                tema: document.querySelector('.theme-preview.active').dataset.theme,
+                modoOscuroAuto: document.getElementById('autoDarkMode').checked,
+                textoGrande: document.getElementById('largeTextToggle').checked,
+                altoContraste: document.getElementById('highContrastToggle').checked,
+                reducirMovimiento: document.getElementById('reduceMotionToggle').checked,
+                velocidadAnimacion: document.getElementById('animationSpeed').value
+            };
+            
+            // Guardar en localStorage
+            localStorage.setItem('ajustesPatitos', JSON.stringify(ajustes));
+            
+            // Mostrar notificación de éxito
+            mostrarNotificacion('✅ Ajustes guardados correctamente', 'success');
+            
+            // Aplicar cambios inmediatamente
+            aplicarAjustes(ajustes);
+        }
+
+        function restablecerAjustes() {
+            if (confirm('¿Estás seguro de que quieres restablecer todos los ajustes a los valores predeterminados?')) {
+                // Restablecer todos los controles
+                document.getElementById('soundToggle').checked = true;
+                document.getElementById('volumeSlider').value = 80;
+                document.getElementById('volumeValue').textContent = '80%';
+                document.getElementById('musicToggle').checked = true;
+                document.getElementById('sfxToggle').checked = true;
+                document.getElementById('graphicsQuality').value = 'medium';
+                document.getElementById('particlesToggle').checked = true;
+                document.getElementById('shadowsToggle').checked = true;
+                document.getElementById('aaToggle').checked = false;
+                document.getElementById('difficulty').value = 'medium';
+                document.getElementById('vibrationToggle').checked = false;
+                document.getElementById('notificationsToggle').checked = true;
+                document.getElementById('touchControlsToggle').checked = true;
+                document.getElementById('autoDarkMode').checked = false;
+                document.getElementById('largeTextToggle').checked = false;
+                document.getElementById('highContrastToggle').checked = false;
+                document.getElementById('reduceMotionToggle').checked = false;
+                document.getElementById('animationSpeed').value = 50;
+                
+                // Restablecer tema
+                themePreviews.forEach(p => p.classList.remove('active'));
+                document.querySelector('.theme-light').classList.add('active');
+                document.body.removeAttribute('data-theme');
+                
+                // Actualizar variables CSS
+                document.documentElement.style.setProperty('--slider-progress', '80%');
+                document.documentElement.style.setProperty('--transition', 'all 0.4s ease');
+                
+                mostrarNotificacion('🔄 Ajustes restablecidos a los valores predeterminados', 'success');
+            }
+        }
+
+        function aplicarAjustes(ajustes) {
+            // Aplicar configuración de accesibilidad
+            if (ajustes.textoGrande) {
+                document.documentElement.style.setProperty('--font-size-base', '18px');
+            } else {
+                document.documentElement.style.setProperty('--font-size-base', '16px');
+            }
+            
+            if (ajustes.altoContraste) {
+                document.body.classList.add('high-contrast');
+            } else {
+                document.body.classList.remove('high-contrast');
+            }
+            
+            if (ajustes.reducirMovimiento) {
+                document.body.classList.add('reduce-motion');
+            } else {
+                document.body.classList.remove('reduce-motion');
+            }
+        }
+
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje, tipo = 'success') {
+            // Crear elemento de notificación
+            const notificacion = document.createElement('div');
+            notificacion.className = `notification ${tipo}`;
+            notificacion.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${tipo === 'success' ? '✅' : '⚠️'}</span>
+                    <span class="notification-text">${mensaje}</span>
+                </div>
+            `;
+            
+            // Agregar estilos si no existen
+            if (!document.querySelector('#notification-styles')) {
+                const styles = document.createElement('style');
+                styles.id = 'notification-styles';
+                styles.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: var(--white);
+                        border-radius: var(--border-radius);
+                        padding: var(--spacing-md);
+                        box-shadow: var(--shadow-xl);
+                        border-left: 4px solid var(--primary-color);
+                        transform: translateX(400px);
+                        transition: var(--transition);
+                        z-index: 1001;
+                        max-width: 350px;
+                    }
+                    .notification.success {
+                        border-left-color: var(--green);
+                    }
+                    .notification.show {
+                        transform: translateX(0);
+                    }
+                    .notification-content {
+                        display: flex;
+                        align-items: center;
+                        gap: var(--spacing-sm);
+                    }
+                    .notification-icon {
+                        font-size: 1.2rem;
+                    }
+                    @media (max-width: 768px) {
+                        .notification {
+                            right: 10px;
+                            left: 10px;
+                            max-width: none;
+                        }
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+            
+            // Agregar al documento
+            document.body.appendChild(notificacion);
+            
+            // Mostrar con animación
+            setTimeout(() => notificacion.classList.add('show'), 100);
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                notificacion.classList.remove('show');
+                setTimeout(() => notificacion.remove(), 300);
+            }, 3000);
+        }
+
+        // Cargar ajustes guardados al cargar la página
+        window.addEventListener('load', function() {
+            const ajustesGuardados = localStorage.getItem('ajustesPatitos');
+            if (ajustesGuardados) {
+                const ajustes = JSON.parse(ajustesGuardados);
+                
+                // Aplicar ajustes guardados a los controles
+                document.getElementById('soundToggle').checked = ajustes.sonido;
+                document.getElementById('volumeSlider').value = ajustes.volumen;
+                document.getElementById('volumeValue').textContent = ajustes.volumen + '%';
+                document.getElementById('musicToggle').checked = ajustes.musica;
+                document.getElementById('sfxToggle').checked = ajustes.sfx;
+                document.getElementById('graphicsQuality').value = ajustes.graficos;
+                document.getElementById('particlesToggle').checked = ajustes.particulas;
+                document.getElementById('shadowsToggle').checked = ajustes.sombras;
+                document.getElementById('aaToggle').checked = ajustes.antialiasing;
+                document.getElementById('difficulty').value = ajustes.dificultad;
+                document.getElementById('vibrationToggle').checked = ajustes.vibracion;
+                document.getElementById('notificationsToggle').checked = ajustes.notificaciones;
+                document.getElementById('touchControlsToggle').checked = ajustes.controlesTactiles;
+                document.getElementById('autoDarkMode').checked = ajustes.modoOscuroAuto;
+                document.getElementById('largeTextToggle').checked = ajustes.textoGrande;
+                document.getElementById('highContrastToggle').checked = ajustes.altoContraste;
+                document.getElementById('reduceMotionToggle').checked = ajustes.reducirMovimiento;
+                document.getElementById('animationSpeed').value = ajustes.velocidadAnimacion;
+                
+                // Aplicar tema guardado
+                themePreviews.forEach(p => p.classList.remove('active'));
+                const temaGuardado = document.querySelector(`[data-theme="${ajustes.tema}"]`);
+                if (temaGuardado) {
+                    temaGuardado.classList.add('active');
+                    document.body.setAttribute('data-theme', ajustes.tema);
+                }
+                
+                // Aplicar ajustes
+                aplicarAjustes(ajustes);
+                
+                // Actualizar variables CSS
+                document.documentElement.style.setProperty('--slider-progress', ajustes.volumen + '%');
+            }
+            
+            // Animación de aparición al hacer scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(function(element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
