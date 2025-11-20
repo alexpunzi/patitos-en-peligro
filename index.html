@@ -138,54 +138,6 @@
                 padding: 1.25rem 0.875rem;
             }
         }
-
-        /* Estilos para la sección de adaptación por edad */
-        .age-group {
-            text-align: center;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-        }
-
-        .age-group:hover {
-            transform: translateY(-5px);
-        }
-
-        .age-group.kids {
-            background: linear-gradient(135deg, #4CAF50, #81C784);
-            color: white;
-        }
-
-        .age-group.teens {
-            background: linear-gradient(135deg, #2196F3, #64B5F6);
-            color: white;
-        }
-
-        .age-group.adults {
-            background: linear-gradient(135deg, #FF9800, #FFB74D);
-            color: white;
-        }
-
-        .age-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .age-features {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-            text-align: left;
-        }
-
-        .age-features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .age-features li:last-child {
-            border-bottom: none;
-        }
     </style>
 </head>
 <body>
@@ -282,7 +234,7 @@
     <section class="missions" id="adaptacion">
         <div class="container">
             <h2 class="section-title">Experiencia Adaptativa por Edad</h2>
-            <p class="text-center" style="margin-bottom: 3rem; font-size: 1.2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <p class="adaptation-intro">
                 Nuestro sistema inteligente se adapta automáticamente a la edad de los jugadores, 
                 ofreciendo una experiencia educativa personalizada y apropiada para cada grupo.
             </p>
@@ -326,10 +278,10 @@
             </div>
             
             <div class="text-center" style="margin-top: 3rem;">
-                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <div class="card age-detection-card">
                     <h3>🎯 Sistema de Detección Automática</h3>
                     <p>Nuestra plataforma detecta automáticamente el grupo de edad y ajusta:</p>
-                    <ul class="age-features" style="text-align: left; color: var(--text-color);">
+                    <ul class="age-features">
                         <li>🔹 <strong>Dificultad de los puzzles</strong></li>
                         <li>🔹 <strong>Complejidad del vocabulario</strong></li>
                         <li>🔹 <strong>Profundidad del contenido científico</strong></li>
