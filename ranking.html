@@ -2,92 +2,118 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ranking de jugadores de Patitos en Peligro">
     <title>Ranking - Patitos en Peligro</title>
-    <link rel="icon" type="image/x-icon" href="/patitos-en-peligro/ico_circulo.ico">
-    <link rel="stylesheet" href="/patitos-en-peligro/css/common.css">
-    <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
-    <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
-    <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
+    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
+    
+    <!-- CSS Unificado -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
-    <!-- Encabezado con logo -->
+    <!-- Encabezado -->
     <header class="header">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="patitos_integrantes.html" class="nav-link">Sobre Nosotros</a></li>
+                    <li><a href="mapa.html" class="nav-link">Mapa</a></li>
+                    <li><a href="ranking.html" class="nav-link active">Ranking</a></li>
+                    <li><a href="iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <!-- Contenido principal -->
-    <main>
-        <h1>Ranking de Jugadores</h1>
-        
-        <div class="description">
-            <p>Aquí podrás ver los mejores puntajes y clasificaciones del juego. ¡Compite con otros jugadores y sube en el ranking!</p>
-        </div>
+    <main class="main-content">
+        <div class="container">
+            <h1 class="section-title fade-in-up">Ranking de Jugadores</h1>
+            
+            <div class="description fade-in-up">
+                <p>Aquí podrás ver los mejores puntajes y clasificaciones del juego. ¡Compite con otros jugadores y sube en el ranking!</p>
+            </div>
 
-        <!-- Filtros de ranking -->
-        <div class="ranking-filters">
-            <button class="filter-btn active" data-filter="global">Ranking Global</button>
-            <button class="filter-btn" data-filter="weekly">Esta Semana</button>
-            <button class="filter-btn" data-filter="monthly">Este Mes</button>
-            <button class="filter-btn" data-filter="friends">Amigos</button>
-        </div>
+            <!-- Filtros de ranking -->
+            <div class="ranking-filters fade-in-up">
+                <button class="btn btn-secondary active" data-filter="global">Ranking Global</button>
+                <button class="btn btn-secondary" data-filter="weekly">Esta Semana</button>
+                <button class="btn btn-secondary" data-filter="monthly">Este Mes</button>
+                <button class="btn btn-secondary" data-filter="friends">Amigos</button>
+            </div>
 
-        <!-- Tabla de ranking -->
-        <div class="ranking-container">
-            <table class="ranking-table">
-                <thead>
-                    <tr>
-                        <th class="ranking-position">Pos.</th>
-                        <th>Jugador</th>
-                        <th>Puntuación</th>
-                        <th>Nivel</th>
-                        <th>Patitos Rescatados</th>
-                    </tr>
-                </thead>
-                <tbody id="ranking-body">
-                    <!-- Los datos del ranking se cargarán con JavaScript -->
-                </tbody>
-            </table>
-        </div>
+            <!-- Tabla de ranking -->
+            <div class="ranking-container fade-in-up">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th class="ranking-position">Pos.</th>
+                            <th>Jugador</th>
+                            <th>Puntuación</th>
+                            <th>Nivel</th>
+                            <th>Patitos Rescatados</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-body">
+                        <!-- Los datos del ranking se cargarán con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- Estadísticas del jugador (si está logueado) -->
-        <div class="player-stats" id="player-stats" style="display: none;">
-            <h2>Tus Estadísticas</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-value" id="player-position">-</div>
-                    <div class="stat-label">Posición Global</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="player-score">0</div>
-                    <div class="stat-label">Puntuación Total</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="player-level">1</div>
-                    <div class="stat-label">Nivel Alcanzado</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="player-ducks">0</div>
-                    <div class="stat-label">Patitos Rescatados</div>
+            <!-- Estadísticas del jugador (si está logueado) -->
+            <div class="player-stats card fade-in-up" id="player-stats" style="display: none;">
+                <h2>Tus Estadísticas</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="player-position">-</div>
+                        <div class="stat-label">Posición Global</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="player-score">0</div>
+                        <div class="stat-label">Puntuación Total</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="player-level">1</div>
+                        <div class="stat-label">Nivel Alcanzado</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="player-ducks">0</div>
+                        <div class="stat-label">Patitos Rescatados</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Botón para Volver a la Página Principal-->
-        <a href="/patitos-en-peligro/index.html" class="btn-inicio">Volver a la Página Principal</a>
+            <!-- Botón para Volver a la Página Principal-->
+            <div class="button-container fade-in-up">
+                <a href="index.html" class="btn btn-primary">Volver a la Página Principal</a>
+            </div>
+        </div>
     </main>
 
     <!-- Pie de página -->
     <footer class="footer">
         <div class="container footer-content">
+            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Inicio</a>
+                <a href="patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
+                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="mapa.html" class="footer-link">Mapa</a>
+                <a href="ranking.html" class="footer-link">Ranking</a>
+                <a href="ajustes.html" class="footer-link">Ajustes</a>
+                <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
+            </div>
             <div class="copyright">
                 <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+                <p>Grupo 41 - Patitos en Peligro</p>
             </div>
         </div>
     </footer>
@@ -125,5 +151,114 @@
                 { position: 1, name: "AnaPatito", score: 12500, level: 15, ducks: 42 },
                 { position: 2, name: "PatoAventurero", score: 11800, level: 14, ducks: 38 },
                 { position: 3, name: "MiAmigo", score: 7500, level: 9, ducks: 24 },
-                { position: 4, name: "CompañeroJuego", score: 6200, level: 
+                { position: 4, name: "CompañeroJuego", score: 6200, level: 8, ducks: 20 },
+                { position: 5, name: "Tú", score: 4500, level: 6, ducks: 15 }
+            ]
+        };
 
+        // Datos del jugador actual (simulado)
+        const currentPlayer = {
+            name: "Tú",
+            position: 15,
+            score: 4500,
+            level: 6,
+            ducks: 15
+        };
+
+        // Función para cargar el ranking
+        function loadRanking(filter) {
+            const rankingBody = document.getElementById('ranking-body');
+            rankingBody.innerHTML = '';
+            
+            const data = rankingData[filter];
+            
+            data.forEach(player => {
+                const row = document.createElement('tr');
+                
+                // Aplicar clases especiales para las primeras posiciones
+                if (player.position === 1) {
+                    row.classList.add('first-place');
+                } else if (player.position === 2) {
+                    row.classList.add('second-place');
+                } else if (player.position === 3) {
+                    row.classList.add('third-place');
+                }
+                
+                // Resaltar al jugador actual
+                if (player.name === currentPlayer.name) {
+                    row.style.fontWeight = 'bold';
+                    row.style.backgroundColor = 'rgba(74, 179, 244, 0.2)';
+                }
+                
+                row.innerHTML = `
+                    <td class="ranking-position ${player.position <= 3 ? 'position-' + player.position : ''}">
+                        ${player.position}
+                    </td>
+                    <td>${player.name}</td>
+                    <td>${player.score.toLocaleString()}</td>
+                    <td>${player.level}</td>
+                    <td>${player.ducks}</td>
+                `;
+                
+                rankingBody.appendChild(row);
+            });
+            
+            // Actualizar estadísticas del jugador si está en el ranking actual
+            if (filter === 'friends' || data.some(p => p.name === currentPlayer.name)) {
+                document.getElementById('player-stats').style.display = 'block';
+                document.getElementById('player-position').textContent = `#${currentPlayer.position}`;
+                document.getElementById('player-score').textContent = currentPlayer.score.toLocaleString();
+                document.getElementById('player-level').textContent = currentPlayer.level;
+                document.getElementById('player-ducks').textContent = currentPlayer.ducks;
+            } else {
+                document.getElementById('player-stats').style.display = 'none';
+            }
+        }
+
+        // Inicializar el ranking con el filtro global
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRanking('global');
+            
+            // Configurar los botones de filtro
+            document.querySelectorAll('.btn[data-filter]').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remover clase active de todos los botones
+                    document.querySelectorAll('.btn[data-filter]').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    // Cargar el ranking con el filtro seleccionado
+                    const filter = this.getAttribute('data-filter');
+                    loadRanking(filter);
+                });
+            });
+
+            // Animación de aparición al hacer scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(function(element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
