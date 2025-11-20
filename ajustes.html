@@ -215,9 +215,166 @@
         <div class="container">
             <div class="settings-container fade-in-up">
                 <div class="settings-grid">
+                    <!-- Configuración de Sonido -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">🔊</span> Sonido</h3>
+                        <div class="slider-container">
+                            <label for="volume">Volumen General</label>
+                            <input type="range" id="volume" min="0" max="100" value="80" class="slider">
+                            <div class="slider-labels">
+                                <span>0%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <label for="music">Música de Fondo</label>
+                            <input type="range" id="music" min="0" max="100" value="70" class="slider">
+                            <div class="slider-labels">
+                                <span>0%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <label for="effects">Efectos de Sonido</label>
+                            <input type="range" id="effects" min="0" max="100" value="90" class="slider">
+                            <div class="slider-labels">
+                                <span>0%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!-- (todo el contenido original se mantiene sin cambios) -->
+                    <!-- Configuración de Gráficos -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">🎮</span> Gráficos</h3>
+                        <div class="slider-container">
+                            <label for="quality">Calidad Gráfica</label>
+                            <input type="range" id="quality" min="0" max="100" value="85" class="slider">
+                            <div class="slider-labels">
+                                <span>Baja</span>
+                                <span>Alta</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <label for="brightness">Brillo</label>
+                            <input type="range" id="brightness" min="0" max="100" value="75" class="slider">
+                            <div class="slider-labels">
+                                <span>Oscuro</span>
+                                <span>Brillante</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="animations" checked>
+                                Animaciones Habilitadas
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="particles" checked>
+                                Efectos de Partículas
+                            </label>
+                        </div>
+                    </div>
 
+                    <!-- Configuración de Tema -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">🎨</span> Tema</h3>
+                        <p>Selecciona el tema visual de la aplicación:</p>
+                        <div class="theme-previews">
+                            <div class="theme-preview theme-light active" data-theme="light">
+                                <div class="theme-color"></div>
+                                <span>Claro</span>
+                            </div>
+                            <div class="theme-preview theme-dark" data-theme="dark">
+                                <div class="theme-color"></div>
+                                <span>Oscuro</span>
+                            </div>
+                            <div class="theme-preview theme-blue" data-theme="blue">
+                                <div class="theme-color"></div>
+                                <span>Azul</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configuración de Juego -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">⚙️</span> Juego</h3>
+                        <div class="slider-container">
+                            <label for="difficulty">Dificultad</label>
+                            <input type="range" id="difficulty" min="1" max="5" value="3" class="slider">
+                            <div class="slider-labels">
+                                <span>Fácil</span>
+                                <span>Difícil</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="notifications" checked>
+                                Notificaciones de Juego
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="vibration" checked>
+                                Vibración
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="auto-save" checked>
+                                Guardado Automático
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Configuración de Controles -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">🎯</span> Controles</h3>
+                        <div class="slider-container">
+                            <label for="sensitivity">Sensibilidad</label>
+                            <input type="range" id="sensitivity" min="1" max="10" value="5" class="slider">
+                            <div class="slider-labels">
+                                <span>Baja</span>
+                                <span>Alta</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="invert-y" checked>
+                                Invertir Eje Y
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="touch-controls" checked>
+                                Controles Táctiles
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Estadísticas del Usuario -->
+                    <div class="setting-card">
+                        <h3><span class="setting-icon">📊</span> Mis Estadísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" id="total-score">1,250</div>
+                                <div class="stat-label">Puntuación Total</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="ducks-saved">42</div>
+                                <div class="stat-label">Patitos Salvados</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="games-played">18</div>
+                                <div class="stat-label">Partidas Jugadas</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="play-time">5h 30m</div>
+                                <div class="stat-label">Tiempo de Juego</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Botones de acción -->
@@ -259,7 +416,222 @@
         </div>
     </footer>
 
-    <!-- (todo tu JavaScript se mantiene exactamente igual) -->
+    <script>
+        // Inicialización de ajustes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar ajustes guardados
+            cargarAjustes();
+            
+            // Configurar eventos para los controles de tema
+            document.querySelectorAll('.theme-preview').forEach(preview => {
+                preview.addEventListener('click', function() {
+                    document.querySelectorAll('.theme-preview').forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    cambiarTema(this.dataset.theme);
+                });
+            });
+            
+            // Configurar eventos para los sliders
+            document.querySelectorAll('.slider').forEach(slider => {
+                slider.addEventListener('input', function() {
+                    actualizarValorSlider(this);
+                });
+            });
+            
+            // Configurar animación de aparición
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(function(element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+
+        // Función para actualizar el valor visual de los sliders
+        function actualizarValorSlider(slider) {
+            // En una implementación real, aquí podríamos actualizar un indicador visual
+            console.log(`Slider ${slider.id} actualizado a: ${slider.value}`);
+        }
+
+        // Función para cambiar el tema visual
+        function cambiarTema(tema) {
+            document.body.className = '';
+            document.body.classList.add(`tema-${tema}`);
+            
+            // En una implementación real, aquí guardaríamos la preferencia
+            console.log(`Tema cambiado a: ${tema}`);
+        }
+
+        // Función para cargar ajustes guardados
+        function cargarAjustes() {
+            // En una implementación real, aquí cargaríamos los ajustes desde localStorage
+            console.log('Cargando ajustes guardados...');
+            
+            // Simular carga de ajustes
+            setTimeout(() => {
+                mostrarNotificacion('Ajustes cargados correctamente', 'success');
+            }, 500);
+        }
+
+        // Función para guardar ajustes
+        function guardarAjustes() {
+            // Recopilar todos los valores de los controles
+            const ajustes = {
+                volumen: document.getElementById('volume').value,
+                musica: document.getElementById('music').value,
+                efectos: document.getElementById('effects').value,
+                calidad: document.getElementById('quality').value,
+                brillo: document.getElementById('brightness').value,
+                animaciones: document.getElementById('animations').checked,
+                particulas: document.getElementById('particles').checked,
+                tema: document.querySelector('.theme-preview.active').dataset.theme,
+                dificultad: document.getElementById('difficulty').value,
+                notificaciones: document.getElementById('notifications').checked,
+                vibracion: document.getElementById('vibration').checked,
+                autoGuardado: document.getElementById('auto-save').checked,
+                sensibilidad: document.getElementById('sensitivity').value,
+                invertirY: document.getElementById('invert-y').checked,
+                controlesTactiles: document.getElementById('touch-controls').checked
+            };
+            
+            // En una implementación real, aquí guardaríamos en localStorage
+            console.log('Guardando ajustes:', ajustes);
+            
+            // Simular guardado
+            const btnGuardar = document.querySelector('.btn-primary');
+            const textoOriginal = btnGuardar.innerHTML;
+            btnGuardar.innerHTML = '<div class="spinner"></div> Guardando...';
+            btnGuardar.disabled = true;
+            
+            setTimeout(() => {
+                btnGuardar.innerHTML = textoOriginal;
+                btnGuardar.disabled = false;
+                mostrarNotificacion('✅ Ajustes guardados correctamente', 'success');
+            }, 1500);
+        }
+
+        // Función para restablecer ajustes
+        function restablecerAjustes() {
+            if (confirm('¿Estás seguro de que quieres restablecer todos los ajustes a sus valores predeterminados?')) {
+                // Restablecer todos los controles a sus valores predeterminados
+                document.getElementById('volume').value = 80;
+                document.getElementById('music').value = 70;
+                document.getElementById('effects').value = 90;
+                document.getElementById('quality').value = 85;
+                document.getElementById('brightness').value = 75;
+                document.getElementById('animations').checked = true;
+                document.getElementById('particles').checked = true;
+                
+                // Restablecer tema
+                document.querySelectorAll('.theme-preview').forEach(p => p.classList.remove('active'));
+                document.querySelector('.theme-light').classList.add('active');
+                cambiarTema('light');
+                
+                document.getElementById('difficulty').value = 3;
+                document.getElementById('notifications').checked = true;
+                document.getElementById('vibration').checked = true;
+                document.getElementById('auto-save').checked = true;
+                document.getElementById('sensitivity').value = 5;
+                document.getElementById('invert-y').checked = true;
+                document.getElementById('touch-controls').checked = true;
+                
+                mostrarNotificacion('🔄 Ajustes restablecidos a valores predeterminados', 'success');
+            }
+        }
+
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje, tipo = 'success') {
+            const notificacion = document.createElement('div');
+            notificacion.className = `notification ${tipo}`;
+            notificacion.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${tipo === 'success' ? '✅' : '⚠️'}</span>
+                    <span class="notification-text">${mensaje}</span>
+                </div>
+            `;
+            
+            if (!document.querySelector('#notification-styles')) {
+                const styles = document.createElement('style');
+                styles.id = 'notification-styles';
+                styles.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: var(--white);
+                        border-radius: var(--border-radius);
+                        padding: var(--spacing-md);
+                        box-shadow: var(--shadow-xl);
+                        border-left: 4px solid var(--primary-color);
+                        transform: translateX(400px);
+                        transition: var(--transition);
+                        z-index: 1001;
+                        max-width: 350px;
+                    }
+                    .notification.success {
+                        border-left-color: var(--green);
+                    }
+                    .notification.warning {
+                        border-left-color: var(--orange);
+                    }
+                    .notification.show {
+                        transform: translateX(0);
+                    }
+                    .notification-content {
+                        display: flex;
+                        align-items: center;
+                        gap: var(--spacing-sm);
+                    }
+                    .notification-icon {
+                        font-size: 1.2rem;
+                    }
+                    @media (max-width: 768px) {
+                        .notification {
+                            right: 10px;
+                            left: 10px;
+                            max-width: none;
+                        }
+                    }
+                    .spinner {
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        border: 3px solid rgba(255,255,255,.3);
+                        border-radius: 50%;
+                        border-top-color: #fff;
+                        animation: spin 1s ease-in-out infinite;
+                    }
+                    @keyframes spin {
+                        to { transform: rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+            
+            document.body.appendChild(notificacion);
+            
+            setTimeout(() => notificacion.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                notificacion.classList.remove('show');
+                setTimeout(() => notificacion.remove(), 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
