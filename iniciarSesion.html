@@ -10,6 +10,70 @@
     <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
     <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
     <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
+    
+    <style>
+        @media (max-width: 768px) {
+            .header {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                padding: 0.5rem 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            }
+            
+            .header-container {
+                flex-direction: row;
+                align-items: center;
+                padding: 0 1rem;
+            }
+            
+            .logo-container {
+                flex: 1;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .login-container {
+                min-height: calc(100vh - 70px);
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                color: var(--white);
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0.4rem 0.6rem;
+                border-radius: var(--border-radius-sm);
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Encabezado con logo -->
@@ -19,6 +83,15 @@
                 <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
+            
+            <button class="menu-toggle" aria-label="Abrir menú" id="menuToggle">☰</button>
+            
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="/patitos-en-peligro/index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="/patitos-en-peligro/agradecimientos.html" class="nav-link">Agradecimientos</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -30,13 +103,13 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" placeholder="ejemplo@correo.com" required aria-describedby="email-error">
+                    <input type="email" id="email" placeholder="ejemplo@correo.com" required aria-describedby="email-error" class="form-control">
                     <div id="email-error" class="error-message" role="alert">Por favor, introduce un correo electrónico válido</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" placeholder="Ingresa tu contraseña" required aria-describedby="password-error">
+                    <input type="password" id="password" placeholder="Ingresa tu contraseña" required aria-describedby="password-error" class="form-control">
                     <div id="password-error" class="error-message" role="alert">La contraseña debe tener al menos 6 caracteres</div>
                 </div>
                 
@@ -92,22 +165,39 @@
             }
             
             if (isValid) {
-                // Simular envío del formulario
                 alert('Inicio de sesión exitoso (simulación)');
-                // Aquí iría la lógica real de autenticación
             }
         });
         
-        // Funcionalidad para el enlace de contraseña olvidada
         document.getElementById('forgot-password').addEventListener('click', function(e) {
             e.preventDefault();
             alert('Funcionalidad de recuperación de contraseña no implementada aún');
         });
         
-        // Funcionalidad para el enlace de registro
         document.getElementById('register-link').addEventListener('click', function(e) {
             e.preventDefault();
             alert('Funcionalidad de registro no implementada aún');
+        });
+
+        // Menú hamburguesa
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+                });
+                
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    });
+                });
+            }
         });
     </script>
 </body>
