@@ -36,13 +36,26 @@
             z-index: 2;
         }
 
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            color: var(--white);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
         .settings-container {
             background: var(--white);
             border-radius: var(--border-radius-lg);
             padding: var(--spacing-xl);
             box-shadow: var(--shadow-xl);
             width: 100%;
-            max-width: 800px;
+            max-width: 1000px;
             margin: -50px auto var(--spacing-xl);
             position: relative;
             z-index: 10;
@@ -63,10 +76,28 @@
             border-left: 4px solid var(--secondary-color);
             transition: var(--transition);
             height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .setting-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .setting-card:hover::before {
+            transform: scaleX(1);
         }
 
         .setting-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
             border-left-color: var(--accent-color);
         }
@@ -153,17 +184,57 @@
             padding: var(--spacing-sm);
             background: var(--very-light-blue);
             border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
         }
 
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .setting-item {
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+        }
+
+        .setting-item:hover {
+            background: var(--very-light-blue);
+        }
+
+        .setting-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            margin-top: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .btn-icon {
+            font-size: 1.2rem;
         }
 
         @media (max-width: 768px) {
@@ -178,6 +249,15 @@
             
             .settings-hero {
                 padding: 3rem 1rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-buttons .btn {
+                width: 280px;
             }
         }
     </style>
@@ -205,7 +285,7 @@
     <!-- Hero Section -->
     <section class="settings-hero">
         <div class="settings-hero-content">
-            <h1 class="hero-title">Configura tu Aventura</h1>
+            <h1 class="hero-title">⚙️ Configura tu Aventura</h1>
             <p class="hero-subtitle">Personaliza la experiencia de juego según tus preferencias</p>
         </div>
     </section>
@@ -220,7 +300,7 @@
                         <h3><span class="setting-icon">🎵</span> Configuración de Audio</h3>
                         
                         <div class="setting-item">
-                            <div class="setting-label">Sonido General</div>
+                            <div class="setting-label">🔊 Sonido General</div>
                             <label class="switch">
                                 <input type="checkbox" id="soundToggle" checked>
                                 <span class="slider"></span>
@@ -228,7 +308,7 @@
                         </div>
                         
                         <div class="slider-container">
-                            <label class="setting-label">Volumen Principal</label>
+                            <label class="setting-label">📢 Volumen Principal</label>
                             <input type="range" class="range-slider" id="volumeSlider" min="0" max="100" value="80">
                             <div class="slider-labels">
                                 <span>0%</span>
@@ -238,7 +318,7 @@
                         </div>
                         
                         <div class="setting-item">
-                            <div class="setting-label">Música de Fondo</div>
+                            <div class="setting-label">🎼 Música de Fondo</div>
                             <label class="switch">
                                 <input type="checkbox" id="musicToggle" checked>
                                 <span class="slider"></span>
@@ -246,7 +326,7 @@
                         </div>
 
                         <div class="setting-item">
-                            <div class="setting-label">Efectos de Sonido</div>
+                            <div class="setting-label">🎧 Efectos de Sonido</div>
                             <label class="switch">
                                 <input type="checkbox" id="sfxToggle" checked>
                                 <span class="slider"></span>
@@ -259,7 +339,7 @@
                         <h3><span class="setting-icon">🎮</span> Configuración de Gráficos</h3>
                         
                         <div class="setting-item">
-                            <div class="setting-label">Calidad Gráfica</div>
+                            <div class="setting-label">🖼️ Calidad Gráfica</div>
                             <select id="graphicsQuality" class="form-control">
                                 <option value="low">Baja (Mejor rendimiento)</option>
                                 <option value="medium" selected>Media (Balanceado)</option>
@@ -269,7 +349,7 @@
                         </div>
                         
                         <div class="setting-item">
-                            <div class="setting-label">Efectos de Partículas</div>
+                            <div class="setting-label">✨ Efectos de Partículas</div>
                             <label class="switch">
                                 <input type="checkbox" id="particlesToggle" checked>
                                 <span class="slider"></span>
@@ -277,7 +357,7 @@
                         </div>
 
                         <div class="setting-item">
-                            <div class="setting-label">Sombras Dinámicas</div>
+                            <div class="setting-label">🌑 Sombras Dinámicas</div>
                             <label class="switch">
                                 <input type="checkbox" id="shadowsToggle" checked>
                                 <span class="slider"></span>
@@ -285,7 +365,7 @@
                         </div>
 
                         <div class="setting-item">
-                            <div class="setting-label">Anti-Aliasing</div>
+                            <div class="setting-label">🔍 Anti-Aliasing</div>
                             <label class="switch">
                                 <input type="checkbox" id="aaToggle">
                                 <span class="slider"></span>
@@ -300,20 +380,20 @@
                         <div class="theme-previews">
                             <div class="theme-preview theme-light active" data-theme="light">
                                 <div class="theme-color"></div>
-                                <div class="theme-name">Claro</div>
+                                <div class="theme-name">☀️ Claro</div>
                             </div>
                             <div class="theme-preview theme-dark" data-theme="dark">
                                 <div class="theme-color"></div>
-                                <div class="theme-name">Oscuro</div>
+                                <div class="theme-name">🌙 Oscuro</div>
                             </div>
                             <div class="theme-preview theme-blue" data-theme="blue">
                                 <div class="theme-color"></div>
-                                <div class="theme-name">Azul</div>
+                                <div class="theme-name">🔵 Azul</div>
                             </div>
                         </div>
 
                         <div class="setting-item" style="margin-top: var(--spacing-md);">
-                            <div class="setting-label">Modo Oscuro Automático</div>
+                            <div class="setting-label">🌓 Modo Oscuro Automático</div>
                             <label class="switch">
                                 <input type="checkbox" id="autoDarkMode">
                                 <span class="slider"></span>
@@ -326,7 +406,7 @@
                         <h3><span class="setting-icon">⚙️</span> Configuración de Juego</h3>
                         
                         <div class="setting-item">
-                            <div class="setting-label">Dificultad</div>
+                            <div class="setting-label">🎯 Dificultad</div>
                             <select id="difficulty" class="form-control">
                                 <option value="easy">Fácil</option>
                                 <option value="medium" selected>Normal</option>
@@ -336,7 +416,7 @@
                         </div>
                         
                         <div class="setting-item">
-                            <div class="setting-label">Vibración</div>
+                            <div class="setting-label">📳 Vibración</div>
                             <label class="switch">
                                 <input type="checkbox" id="vibrationToggle">
                                 <span class="slider"></span>
@@ -344,7 +424,7 @@
                         </div>
 
                         <div class="setting-item">
-                            <div class="setting-label">Notificaciones Push</div>
+                            <div class="setting-label">🔔 Notificaciones Push</div>
                             <label class="switch">
                                 <input type="checkbox" id="notificationsToggle" checked>
                                 <span class="slider"></span>
@@ -352,7 +432,7 @@
                         </div>
 
                         <div class="setting-item">
-                            <div class="setting-label">Controles Táctiles</div>
+                            <div class="setting-label">👆 Controles Táctiles</div>
                             <label class="switch">
                                 <input type="checkbox" id="touchControlsToggle" checked>
                                 <span class="slider"></span>
@@ -398,7 +478,7 @@
                         <h3><span class="setting-icon">♿</span> Accesibilidad</h3>
                         
                         <div class="setting-item">
-                            <div class="setting-label">Texto Grande</div>
+                            <div class="setting-label">🔤 Texto Grande</div>
                             <label class="switch">
                                 <input type="checkbox" id="largeTextToggle">
                                 <span class="slider"></span>
@@ -406,7 +486,7 @@
                         </div>
 
                         <div class="setting-item">
-                            <div class="setting-label">Alto Contraste</div>
+                            <div class="setting-label">🎨 Alto Contraste</div>
                             <label class="switch">
                                 <input type="checkbox" id="highContrastToggle">
                                 <span class="slider"></span>
@@ -414,7 +494,7 @@
                         </div>
 
                         <div class="setting-item">
-                            <div class="setting-label">Reducir Movimiento</div>
+                            <div class="setting-label">🌀 Reducir Movimiento</div>
                             <label class="switch">
                                 <input type="checkbox" id="reduceMotionToggle">
                                 <span class="slider"></span>
@@ -422,7 +502,7 @@
                         </div>
 
                         <div class="slider-container">
-                            <label class="setting-label">Velocidad de Animación</label>
+                            <label class="setting-label">⚡ Velocidad de Animación</label>
                             <input type="range" class="range-slider" id="animationSpeed" min="0" max="100" value="50">
                             <div class="slider-labels">
                                 <span>Lenta</span>
@@ -434,7 +514,7 @@
                 </div>
 
                 <!-- Botones de acción -->
-                <div class="action-buttons" style="margin-top: var(--spacing-xl);">
+                <div class="action-buttons">
                     <button class="btn btn-primary btn-lg" onclick="guardarAjustes()">
                         <span class="btn-icon">💾</span>
                         Guardar Cambios
