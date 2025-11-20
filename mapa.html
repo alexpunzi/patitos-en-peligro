@@ -2,101 +2,121 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mapa interactivo de la Universidad de Alicante para Patitos en Peligro">
     <title>Mapa UA - Patitos en Peligro</title>
-    <link rel="icon" type="image/x-icon" href="/patitos-en-peligro/ico_circulo.ico">
-    <link rel="stylesheet" href="/patitos-en-peligro/css/common.css">
-    <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
-    <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
-    <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
+    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
+    
+    <!-- CSS Unificado -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
-    <!-- Encabezado con logo -->
+    <!-- Encabezado -->
     <header class="header">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="/patitos-en-peligro/index.html" class="nav-link">Inicio</a></li>
-                    <li><a href="/patitos-en-peligro/agradecimientos.html" class="nav-link">Agradecimientos</a></li>
-                    <li><a href="/patitos-en-peligro/ranking.html" class="nav-link">Ranking</a></li>
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="patitos_integrantes.html" class="nav-link">Sobre Nosotros</a></li>
+                    <li><a href="mapa.html" class="nav-link active">Mapa</a></li>
+                    <li><a href="ranking.html" class="nav-link">Ranking</a></li>
+                    <li><a href="iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Contenido principal -->
-    <main>
-        <h1>Mapa de la Universidad de Alicante</h1>
-        
-        <div class="map-description">
-            <p>Explora los diferentes puntos de interés del campus universitario. Descubre aularios, bibliotecas, zonas verdes y áreas relacionadas con la sostenibilidad y el cambio climático.</p>
-        </div>
-
-        <!-- Leyenda -->
-        <div class="map-legend">
-            <div class="legend-item">
-                <div class="legend-color legend-aulario"></div>
-                <span>Aularios</span>
+    <main class="main-content">
+        <div class="container">
+            <h1 class="section-title fade-in-up">Mapa de la Universidad de Alicante</h1>
+            
+            <div class="map-description fade-in-up">
+                <p>Explora los diferentes puntos de interés del campus universitario. Descubre aularios, bibliotecas, zonas verdes y áreas relacionadas con la sostenibilidad y el cambio climático.</p>
             </div>
-            <div class="legend-item">
-                <div class="legend-color legend-biblioteca"></div>
-                <span>Bibliotecas</span>
+
+            <!-- Leyenda -->
+            <div class="map-legend fade-in-up">
+                <div class="legend-item">
+                    <div class="legend-color legend-aulario"></div>
+                    <span>Aularios</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-biblioteca"></div>
+                    <span>Bibliotecas</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-eco"></div>
+                    <span>Zonas Ecológicas</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-recreativa"></div>
+                    <span>Áreas Recreativas</span>
+                </div>
             </div>
-            <div class="legend-item">
-                <div class="legend-color legend-eco"></div>
-                <span>Zonas Ecológicas</span>
+
+            <!-- Controles del mapa -->
+            <div class="map-controls fade-in-up">
+                <button class="btn btn-secondary active" data-location="general">Vista General UA</button>
+                <button class="btn btn-secondary" data-location="aularios">Aularios</button>
+                <button class="btn btn-secondary" data-location="bibliotecas">Bibliotecas</button>
+                <button class="btn btn-secondary" data-location="ecologico">Zonas Ecológicas</button>
+                <button class="btn btn-secondary" data-location="recreativas">Áreas Recreativas</button>
             </div>
-            <div class="legend-item">
-                <div class="legend-color legend-recreativa"></div>
-                <span>Áreas Recreativas</span>
+
+            <!-- Contenedor del mapa -->
+            <div class="map-container fade-in-up">
+                <!-- Mapa de la Universidad de Alicante por defecto -->
+                <iframe 
+                    id="gameMap"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.003966569233!2d-0.5091234846599756!3d38.38348807964956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6235da3b9dab4d%3A0xbad2e59b5c9b3c1c!2sUniversidad%20de%20Alicante!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Mapa de la Universidad de Alicante"
+                    class="map-frame">
+                </iframe>
+            </div>
+
+            <!-- Información de ubicación dinámica -->
+            <div class="location-info card fade-in-up" id="location-info">
+                <h2 class="location-title" id="location-title">Universidad de Alicante - Vista General</h2>
+                <div class="location-description" id="location-description">
+                    <p>La Universidad de Alicante es un campus moderno y sostenible que alberga numerosas facultades, servicios y espacios verdes. Con más de 50.000 estudiantes, es un referente en educación superior e investigación en la Comunidad Valenciana.</p>
+                    <p>El campus cuenta con una extensión de más de un millón de metros cuadrados y está diseñado con criterios de sostenibilidad y respeto al medio ambiente.</p>
+                </div>
+            </div>
+
+            <!-- Botón para Volver a la Página Principal-->
+            <div class="button-container fade-in-up">
+                <a href="index.html" class="btn btn-primary">Volver a la Página Principal</a>
             </div>
         </div>
-
-        <!-- Controles del mapa -->
-        <div class="map-controls">
-            <button class="map-btn active" data-location="general">Vista General UA</button>
-            <button class="map-btn" data-location="aularios">Aularios</button>
-            <button class="map-btn" data-location="bibliotecas">Bibliotecas</button>
-            <button class="map-btn" data-location="ecologico">Zonas Ecológicas</button>
-            <button class="map-btn" data-location="recreativas">Áreas Recreativas</button>
-        </div>
-
-        <!-- Contenedor del mapa -->
-        <div class="map-container">
-            <!-- Mapa de la Universidad de Alicante por defecto -->
-            <iframe 
-                id="gameMap"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.003966569233!2d-0.5091234846599756!3d38.38348807964956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6235da3b9dab4d%3A0xbad2e59b5c9b3c1c!2sUniversidad%20de%20Alicante!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Mapa de la Universidad de Alicante">
-            </iframe>
-        </div>
-
-        <!-- Información de ubicación dinámica -->
-        <div class="location-info" id="location-info">
-            <h2 class="location-title" id="location-title">Universidad de Alicante - Vista General</h2>
-            <div class="location-description" id="location-description">
-                <p>La Universidad de Alicante es un campus moderno y sostenible que alberga numerosas facultades, servicios y espacios verdes. Con más de 50.000 estudiantes, es un referente en educación superior e investigación en la Comunidad Valenciana.</p>
-                <p>El campus cuenta con una extensión de más de un millón de metros cuadrados y está diseñado con criterios de sostenibilidad y respeto al medio ambiente.</p>
-            </div>
-        </div>
-
-        <!-- Botón para Volver a la Página Principal-->
-        <a href="/patitos-en-peligro/index.html" class="btn-inicio">Volver a la Página Principal</a>
     </main>
 
     <!-- Pie de página -->
     <footer class="footer">
         <div class="container footer-content">
+            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Inicio</a>
+                <a href="patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
+                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="mapa.html" class="footer-link">Mapa</a>
+                <a href="ranking.html" class="footer-link">Ranking</a>
+                <a href="ajustes.html" class="footer-link">Ajustes</a>
+                <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
+            </div>
             <div class="copyright">
                 <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+                <p>Grupo 41 - Patitos en Peligro</p>
             </div>
         </div>
     </footer>
@@ -134,4 +154,123 @@
                 mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.987654321098!2d-0.507!3d38.384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIzJzAyLjQiTiAwwrAzMCcyNS4yIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
             },
             bibliotecas: {
-                title
+                title: "Bibliotecas Universitarias",
+                description: `
+                    <p>La Universidad de Alicante cuenta con una red de bibliotecas especializadas que ofrecen recursos para el estudio y la investigación. La Biblioteca General es el centro neurálgico de este sistema.</p>
+                    <p>Principales bibliotecas del campus:</p>
+                    <ul class="location-features">
+                        <li><strong>Biblioteca General</strong> - El edificio central con mayor colección</li>
+                        <li><strong>Biblioteca de Ciencias</strong> - Especializada en ciencias experimentales</li>
+                        <li><strong>Biblioteca de Económicas</strong> - Recursos para economía y empresa</li>
+                        <li><strong>Biblioteca de Filosofía y Letras</strong> - Especializada en humanidades</li>
+                        <li><strong>Biblioteca Politécnica</strong> - Para ingenierías y arquitectura</li>
+                    </ul>
+                    <p>Todas las bibliotecas cuentan con zonas de estudio, salas de trabajo en grupo y acceso a recursos digitales.</p>
+                `,
+                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.876543210987!2d-0.510!3d38.385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIzJzA2LjAiTiAwwrAzMCczNi4wIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
+            },
+            ecologico: {
+                title: "Zonas Ecológicas y Sostenibles",
+                description: `
+                    <p>La Universidad de Alicante está comprometida con la sostenibilidad y cuenta con numerosas iniciativas ecológicas distribuidas por todo el campus.</p>
+                    <p>Principales zonas ecológicas:</p>
+                    <ul class="location-features">
+                        <li><strong>Lago Universitario</strong> - Ecosistema acuático que alberga patos y otras aves <span class="badge badge-success">Hábitat de Patos</span></li>
+                        <li><strong>Jardín de los Sentidos</strong> - Espacio con plantas aromáticas y especies autóctonas</li>
+                        <li><strong>Huerto Ecológico Universitario</strong> - Proyecto de agricultura sostenible</li>
+                        <li><strong>Instalaciones de Energía Solar</strong> - Paneles solares en varios edificios</li>
+                        <li><strong>Puntos de Reciclaje</strong> - Contenedores específicos por todo el campus</li>
+                        <li><strong>Estación Meteorológica</strong> - Para el estudio del cambio climático</li>
+                    </ul>
+                    <p>Estas zonas son fundamentales para concienciar sobre la importancia de la biodiversidad y la lucha contra el cambio climático.</p>
+                `,
+                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.123456789012!2d-0.508!3d38.382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIyJzU1LjIiTiAwwrAzMCcyOC44Ilc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
+            },
+            recreativas: {
+                title: "Áreas Recreativas y Deportivas",
+                description: `
+                    <p>El campus de la Universidad de Alicante ofrece numerosas áreas recreativas y deportivas para el disfrute de la comunidad universitaria.</p>
+                    <p>Principales zonas recreativas:</p>
+                    <ul class="location-features">
+                        <li><strong>Pabellón Deportivo</strong> - Instalaciones para múltiples deportes</li>
+                        <li><strong>Piscina Universitaria</strong> - Piscina climatizada de 25 metros</li>
+                        <li><strong>Campo de Fútbol</strong> - Con césped natural y gradas</li>
+                        <li><strong>Pistas de Tenis y Pádel</strong> - Varias pistas disponibles</li>
+                        <li><strong>Zonas de Picnic</strong> - Áreas verdes con mesas y bancos</li>
+                        <li><strong>Anfiteatro al Aire Libre</strong> - Para eventos culturales</li>
+                        <li><strong>Rutas de Senderismo</strong> - Caminos señalizados por el campus</li>
+                    </ul>
+                    <p>Estas instalaciones promueven un estilo de vida saludable y activo entre estudiantes y personal universitario.</p>
+                `,
+                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.234567890123!2d-0.506!3d38.381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIyJzUxLjYiTiAwwrAzMCcyMS42Ilc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
+            }
+        };
+
+        // Funcionalidad para cambiar entre ubicaciones del mapa
+        document.querySelectorAll('.btn[data-location]').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remover clase active de todos los botones
+                document.querySelectorAll('.btn[data-location]').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Agregar clase active al botón clickeado
+                this.classList.add('active');
+                
+                // Cambiar el mapa según la ubicación seleccionada
+                const location = this.getAttribute('data-location');
+                const mapFrame = document.getElementById('gameMap');
+                const locationInfo = document.getElementById('location-info');
+                const locationTitle = document.getElementById('location-title');
+                const locationDescription = document.getElementById('location-description');
+                
+                // Mostrar animación de carga
+                locationInfo.classList.add('loading');
+                
+                // Actualizar información de ubicación
+                if (locationData[location]) {
+                    setTimeout(() => {
+                        locationTitle.textContent = locationData[location].title;
+                        locationDescription.innerHTML = locationData[location].description;
+                        locationInfo.classList.remove('loading');
+                        
+                        // Actualizar el src del iframe
+                        mapFrame.src = locationData[location].mapUrl;
+                    }, 500);
+                }
+            });
+        });
+
+        // Cargar mapa alternativo si el principal falla
+        document.getElementById('gameMap').addEventListener('error', function() {
+            console.log('Error cargando el mapa, cargando alternativa...');
+            this.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.987654321098!2d-0.5!3d38.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIyJzQ4LjAiTiAwwrAzMCcwMC4wIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses';
+        });
+
+        // Animación de aparición al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(function(element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
