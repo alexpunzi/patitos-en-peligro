@@ -66,6 +66,12 @@
     box-shadow: var(--shadow-lg);
 }
 
+.card-header {
+    border-bottom: 2px solid var(--light-blue);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
 /* --- Forms --- */
 .form-group {
     margin-bottom: var(--spacing-md);
@@ -93,6 +99,71 @@
     box-shadow: 0 0 0 2px rgba(74, 179, 244, 0.2);
 }
 
+/* --- Switch/Toggle --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--secondary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* --- Slider de rango --- */
+.range-slider {
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 /* --- Badges --- */
 .badge {
     display: inline-block;
@@ -106,4 +177,39 @@
 
 .badge-success {
     background-color: var(--green);
+}
+
+.badge-warning {
+    background-color: var(--orange);
+}
+
+.badge-danger {
+    background-color: var(--red);
+}
+
+/* --- Botón de inicio --- */
+.btn-inicio {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.btn-inicio:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+/* --- Mensajes de error --- */
+.error-message {
+    color: #d32f2f;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
 }
