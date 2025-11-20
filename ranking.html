@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ranking de jugadores de Patitos en Peligro">
     <title>Ranking - Patitos en Peligro</title>
-    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
+    <link rel="icon" type="image/x-icon" href="/patitos-en-peligro/ico_circulo.ico">
     
     <!-- CSS Unificado -->
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/common.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
 </head>
 <body>
     <!-- Encabezado -->
     <header class="header">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
-            <nav>
+            <nav aria-label="Principal">
                 <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Inicio</a></li>
-                    <li><a href="patitos_integrantes.html" class="nav-link">Sobre Nosotros</a></li>
-                    <li><a href="mapa.html" class="nav-link">Mapa</a></li>
-                    <li><a href="ranking.html" class="nav-link active">Ranking</a></li>
-                    <li><a href="iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
+                    <li><a href="/patitos-en-peligro/index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="/patitos-en-peligro/mapa.html" class="nav-link">Mapa</a></li>
+                    <li><a href="/patitos-en-peligro/ranking.html" class="nav-link active">Ranking</a></li>
+                    <li><a href="/patitos-en-peligro/agradecimientos.html" class="nav-link">Agradecimientos</a></li>
+                    <li><a href="/patitos-en-peligro/iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -43,11 +43,11 @@
             </div>
 
             <!-- Filtros de ranking -->
-            <div class="ranking-filters fade-in-up">
-                <button class="btn btn-secondary active" data-filter="global">Ranking Global</button>
-                <button class="btn btn-secondary" data-filter="weekly">Esta Semana</button>
-                <button class="btn btn-secondary" data-filter="monthly">Este Mes</button>
-                <button class="btn btn-secondary" data-filter="friends">Amigos</button>
+            <div class="ranking-filters fade-in-up" role="tablist" aria-label="Filtros de ranking">
+                <button class="btn btn-secondary active" data-filter="global" role="tab" aria-selected="true">Ranking Global</button>
+                <button class="btn btn-secondary" data-filter="weekly" role="tab" aria-selected="false">Esta Semana</button>
+                <button class="btn btn-secondary" data-filter="monthly" role="tab" aria-selected="false">Este Mes</button>
+                <button class="btn btn-secondary" data-filter="friends" role="tab" aria-selected="false">Amigos</button>
             </div>
 
             <!-- Tabla de ranking -->
@@ -93,7 +93,7 @@
 
             <!-- Botón para Volver a la Página Principal-->
             <div class="button-container fade-in-up">
-                <a href="index.html" class="btn btn-primary">Volver a la Página Principal</a>
+                <a href="/patitos-en-peligro/index.html" class="btn btn-primary">Volver a la Página Principal</a>
             </div>
         </div>
     </main>
@@ -101,15 +101,14 @@
     <!-- Pie de página -->
     <footer class="footer">
         <div class="container footer-content">
-            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
             <div class="footer-links">
-                <a href="index.html" class="footer-link">Inicio</a>
-                <a href="patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
-                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
-                <a href="mapa.html" class="footer-link">Mapa</a>
-                <a href="ranking.html" class="footer-link">Ranking</a>
-                <a href="ajustes.html" class="footer-link">Ajustes</a>
-                <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
+                <a href="/patitos-en-peligro/index.html" class="footer-link">Inicio</a>
+                <a href="/patitos-en-peligro/agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="/patitos-en-peligro/mapa.html" class="footer-link">Mapa</a>
+                <a href="/patitos-en-peligro/ranking.html" class="footer-link">Ranking</a>
+                <a href="/patitos-en-peligro/ajustes.html" class="footer-link">Ajustes</a>
+                <a href="/patitos-en-peligro/iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
             </div>
             <div class="copyright">
                 <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
@@ -186,8 +185,7 @@
                 
                 // Resaltar al jugador actual
                 if (player.name === currentPlayer.name) {
-                    row.style.fontWeight = 'bold';
-                    row.style.backgroundColor = 'rgba(74, 179, 244, 0.2)';
+                    row.classList.add('current-player');
                 }
                 
                 row.innerHTML = `
@@ -195,7 +193,7 @@
                         ${player.position}
                     </td>
                     <td>${player.name}</td>
-                    <td>${player.score.toLocaleString()}</td>
+                    <td>${player.score.toLocaleString('es-ES')}</td>
                     <td>${player.level}</td>
                     <td>${player.ducks}</td>
                 `;
@@ -207,12 +205,17 @@
             if (filter === 'friends' || data.some(p => p.name === currentPlayer.name)) {
                 document.getElementById('player-stats').style.display = 'block';
                 document.getElementById('player-position').textContent = `#${currentPlayer.position}`;
-                document.getElementById('player-score').textContent = currentPlayer.score.toLocaleString();
+                document.getElementById('player-score').textContent = currentPlayer.score.toLocaleString('es-ES');
                 document.getElementById('player-level').textContent = currentPlayer.level;
                 document.getElementById('player-ducks').textContent = currentPlayer.ducks;
             } else {
                 document.getElementById('player-stats').style.display = 'none';
             }
+
+            // Actualizar aria-selected en los filtros
+            document.querySelectorAll('.ranking-filters .btn').forEach(btn => {
+                btn.setAttribute('aria-selected', btn.getAttribute('data-filter') === filter ? 'true' : 'false');
+            });
         }
 
         // Inicializar el ranking con el filtro global
