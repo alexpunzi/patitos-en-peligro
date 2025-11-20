@@ -239,4 +239,239 @@
     <main class="main-content">
         <div class="container">
             <div class="login-container fade-in-up">
-               
+                <div class="form-container card">
+                    <h1 class="form-title">Iniciar sesión</h1>
+                    
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email" class="form-label">📧 Correo electrónico</label>
+                            <input type="email" id="email" class="form-control" placeholder="ejemplo@correo.com" required aria-describedby="email-error">
+                            <div id="email-error" class="error-message" role="alert">Por favor, introduce un correo electrónico válido</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password" class="form-label">🔒 Contraseña</label>
+                            <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required aria-describedby="password-error">
+                            <div id="password-error" class="error-message" role="alert">La contraseña debe tener al menos 6 caracteres</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">🚀 Iniciar Sesión</button>
+                    </form>
+                    
+                    <div class="form-links">
+                        <a href="#" id="forgot-password">¿Olvidaste tu contraseña?</a>
+                        <span>|</span>
+                        <a href="#" id="register-link">📝 Registrarse</a>
+                    </div>
+                </div>
+                
+                <!-- Características adicionales -->
+                <div class="login-features fade-in-up">
+                    <div class="login-feature">
+                        <div class="login-feature-icon">🏆</div>
+                        <h3>Competitivo</h3>
+                        <p>Participa en rankings y desafía a otros jugadores</p>
+                    </div>
+                    <div class="login-feature">
+                        <div class="login-feature-icon">🌱</div>
+                        <h3>Educativo</h3>
+                        <p>Aprende sobre cambio climático mientras te diviertes</p>
+                    </div>
+                    <div class="login-feature">
+                        <div class="login-feature-icon">🎯</div>
+                        <h3>Personalizado</h3>
+                        <p>Experiencia adaptada a tu edad y conocimientos</p>
+                    </div>
+                </div>
+                
+                <!-- Botón para Volver a la Página Principal-->
+                <div class="button-container fade-in-up">
+                    <a href="index.html" class="btn btn-secondary">← Volver a la Página Principal</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Inicio</a>
+                <a href="patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
+                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="mapa.html" class="footer-link">Mapa</a>
+                <a href="ranking.html" class="footer-link">Ranking</a>
+                <a href="ajustes.html" class="footer-link">Ajustes</a>
+                <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
+            </div>
+            <div class="copyright">
+                <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+                <p>Grupo 41 - Patitos en Peligro</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Validación del formulario
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            let isValid = true;
+            
+            // Validar email
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+            
+            // Validar contraseña
+            const passwordError = document.getElementById('password-error');
+            if (password.length < 6) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+            
+            if (isValid) {
+                // Mostrar spinner de carga
+                const submitBtn = document.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.innerHTML = '<div class="spinner"></div>';
+                submitBtn.disabled = true;
+                
+                // Simular envío del formulario
+                setTimeout(() => {
+                    // Restaurar botón
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Mostrar notificación de éxito
+                    mostrarNotificacion('✅ Inicio de sesión exitoso', 'success');
+                    
+                    // Redirigir después de éxito
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }, 2000);
+            }
+        });
+        
+        // Funcionalidad para el enlace de contraseña olvidada
+        document.getElementById('forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            mostrarNotificacion('📧 Funcionalidad de recuperación de contraseña no implementada aún', 'warning');
+        });
+        
+        // Funcionalidad para el enlace de registro
+        document.getElementById('register-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            mostrarNotificacion('📝 Funcionalidad de registro no implementada aún', 'warning');
+        });
+
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje, tipo = 'success') {
+            // Crear elemento de notificación
+            const notificacion = document.createElement('div');
+            notificacion.className = `notification ${tipo}`;
+            notificacion.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${tipo === 'success' ? '✅' : '⚠️'}</span>
+                    <span class="notification-text">${mensaje}</span>
+                </div>
+            `;
+            
+            // Agregar estilos si no existen
+            if (!document.querySelector('#notification-styles')) {
+                const styles = document.createElement('style');
+                styles.id = 'notification-styles';
+                styles.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: var(--white);
+                        border-radius: var(--border-radius);
+                        padding: var(--spacing-md);
+                        box-shadow: var(--shadow-xl);
+                        border-left: 4px solid var(--primary-color);
+                        transform: translateX(400px);
+                        transition: var(--transition);
+                        z-index: 1001;
+                        max-width: 350px;
+                    }
+                    .notification.success {
+                        border-left-color: var(--green);
+                    }
+                    .notification.warning {
+                        border-left-color: var(--orange);
+                    }
+                    .notification.show {
+                        transform: translateX(0);
+                    }
+                    .notification-content {
+                        display: flex;
+                        align-items: center;
+                        gap: var(--spacing-sm);
+                    }
+                    .notification-icon {
+                        font-size: 1.2rem;
+                    }
+                    @media (max-width: 768px) {
+                        .notification {
+                            right: 10px;
+                            left: 10px;
+                            max-width: none;
+                        }
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+            
+            // Agregar al documento
+            document.body.appendChild(notificacion);
+            
+            // Mostrar con animación
+            setTimeout(() => notificacion.classList.add('show'), 100);
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                notificacion.classList.remove('show');
+                setTimeout(() => notificacion.remove(), 300);
+            }, 3000);
+        }
+
+        // Animación de aparición al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(function(element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
