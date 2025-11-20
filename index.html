@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Patitos en Peligro - Escape Room del Cambio Climático</title>
+    <meta name="description" content="Escape Room educativo en la Universidad de Alicante para aprender sobre cambio climático mientras resuelves misiones.">
     <link rel="icon" type="image/x-icon" href="/patitos-en-peligro/ico_circulo.ico">
     
     <!-- CSS Unificado con rutas absolutas para GitHub Pages -->
@@ -142,7 +143,7 @@
 </head>
 <body>
     <!-- Encabezado -->
-    <header class="header">
+    <header class="header" role="banner">
         <div class="container header-container">
             <div class="logo-container">
                 <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
@@ -150,14 +151,15 @@
             </div>
             
             <!-- Botón hamburguesa para móviles -->
-            <button class="menu-toggle" aria-label="Abrir menú" id="menuToggle">☰</button>
+            <button class="menu-toggle" aria-label="Abrir menú" id="menuToggle" aria-expanded="false" aria-controls="navMenu">☰</button>
             
-            <nav>
+            <nav aria-label="Principal">
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#como-funciona" class="nav-link">¿Cómo Funciona?</a></li>
                     <li><a href="#adaptacion" class="nav-link">Adaptación por Edad</a></li>
                     <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
                     <li><a href="/patitos-en-peligro/agradecimientos.html" class="nav-link">Agradecimientos</a></li>
+                    <li><a href="/patitos-en-peligro/mapa.html" class="nav-link">Mapa</a></li>
                     <li><a href="/patitos-en-peligro/ranking.html" class="nav-link">Ranking</a></li>
                     <li><a href="/patitos-en-peligro/iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
                 </ul>
@@ -183,17 +185,17 @@
             <h2 class="section-title">¿Por Qué Este Juego es Necesario?</h2>
             <div class="grid grid-3">
                 <div class="card text-center">
-                    <div class="feature-icon">😴</div>
+                    <div class="feature-icon" aria-hidden="true">😴</div>
                     <h3>Desinterés Juvenil</h3>
                     <p>El 70% de los jóvenes considera aburridas las charlas tradicionales sobre cambio climático</p>
                 </div>
                 <div class="card text-center">
-                    <div class="feature-icon">🌡️</div>
+                    <div class="feature-icon" aria-hidden="true">🌡️</div>
                     <h3>Crisis Climática</h3>
                     <p>Urge concienciar sobre acciones concretas para reducir nuestra huella ecológica</p>
                 </div>
                 <div class="card text-center">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon" aria-hidden="true">🎯</div>
                     <h3>Falta de Conexión</h3>
                     <p>Los formatos tradicionales no logran conectar emocionalmente con el público joven</p>
                 </div>
@@ -240,7 +242,7 @@
             </p>
             <div class="grid grid-3">
                 <div class="age-group kids">
-                    <div class="age-icon">🧒</div>
+                    <div class="age-icon" aria-hidden="true">🧒</div>
                     <h3>6-12 Años</h3>
                     <p>Experiencia lúdica y visual para los más pequeños</p>
                     <ul class="age-features">
@@ -252,7 +254,7 @@
                     </ul>
                 </div>
                 <div class="age-group teens">
-                    <div class="age-icon">👦</div>
+                    <div class="age-icon" aria-hidden="true">👦</div>
                     <h3>13-17 Años</h3>
                     <p>Desafíos estimulantes para adolescentes</p>
                     <ul class="age-features">
@@ -264,7 +266,7 @@
                     </ul>
                 </div>
                 <div class="age-group adults">
-                    <div class="age-icon">👨</div>
+                    <div class="age-icon" aria-hidden="true">👨</div>
                     <h3>18+ Años</h3>
                     <p>Experiencia completa para adultos</p>
                     <ul class="age-features">
@@ -300,7 +302,7 @@
                 <div class="testimonial card">
                     <p class="testimonial-text">"Nunca pensé que aprender sobre cambio climático pudiera ser tan divertido. El formato de escape room es genial!"</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">MG</div>
+                        <div class="author-avatar" aria-hidden="true">MG</div>
                         <div>
                             <div class="author-name">María González</div>
                             <div class="author-role">Estudiante de Biología</div>
@@ -310,7 +312,7 @@
                 <div class="testimonial card">
                     <p class="testimonial-text">"La combinación de app móvil y actividades presenciales en el campus es perfecta. ¡Muy innovador!"</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">CP</div>
+                        <div class="author-avatar" aria-hidden="true">CP</div>
                         <div>
                             <div class="author-name">Carlos Pérez</div>
                             <div class="author-role">Estudiante de Ingeniería</div>
@@ -320,7 +322,7 @@
                 <div class="testimonial card">
                     <p class="testimonial-text">"Como profesora, valoro mucho el enfoque educativo. Los estudiantes aprenden sin darse cuenta."</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">LM</div>
+                        <div class="author-avatar" aria-hidden="true">LM</div>
                         <div>
                             <div class="author-name">Laura Martínez</div>
                             <div class="author-role">Profesora UA</div>
@@ -356,10 +358,10 @@
     </section>
 
     <!-- Pie de página -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container footer-content">
             <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
-            <div class="footer-links">
+            <div class="footer-links" aria-label="Enlaces de navegación secundaria">
                 <a href="/patitos-en-peligro/index.html" class="footer-link">Inicio</a>
                 <a href="/patitos-en-peligro/agradecimientos.html" class="footer-link">Agradecimientos</a>
                 <a href="/patitos-en-peligro/mapa.html" class="footer-link">Mapa</a>
@@ -383,9 +385,10 @@
             if (menuToggle && navMenu) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    navMenu.classList.toggle('active');
-                    // Cambiar icono
-                    this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+                    const active = navMenu.classList.toggle('active');
+                    // Cambiar icono y aria-expanded
+                    this.textContent = active ? '✕' : '☰';
+                    this.setAttribute('aria-expanded', active ? 'true' : 'false');
                 });
                 
                 // Cerrar menú al hacer clic en un enlace
@@ -393,6 +396,7 @@
                     link.addEventListener('click', function() {
                         navMenu.classList.remove('active');
                         menuToggle.textContent = '☰';
+                        menuToggle.setAttribute('aria-expanded', 'false');
                     });
                 });
                 
@@ -402,6 +406,7 @@
                         navMenu.classList.remove('active');
                         if (menuToggle) {
                             menuToggle.textContent = '☰';
+                            menuToggle.setAttribute('aria-expanded', 'false');
                         }
                     }
                 });
@@ -429,7 +434,7 @@
 
             // Aplicar animación a varios elementos
             const animatedElements = document.querySelectorAll('.card, .step, .age-group');
-            animatedElements.forEach(function(element, index) {
+            animatedElements.forEach(function(element) {
                 element.style.opacity = '0';
                 element.style.transform = 'translateY(30px)';
                 element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -469,6 +474,7 @@
             if (window.innerWidth > 768 && navMenu && menuToggle) {
                 navMenu.classList.remove('active');
                 menuToggle.textContent = '☰';
+                menuToggle.setAttribute('aria-expanded', 'false');
             }
         });
     </script>
