@@ -194,3 +194,100 @@
         align-items: center;
     }
 }
+
+/* === CORRECCIONES PARA HEADER EN MÓVILES === */
+@media (max-width: 768px) {
+    .header {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 0.5rem 0;
+    }
+    
+    .header-container {
+        flex-direction: row;
+        align-items: center;
+        padding: 0 1rem;
+    }
+    
+    .logo-container {
+        flex: 1;
+    }
+    
+    .logo-text {
+        font-size: 1.1rem;
+        display: none; /* Ocultar texto en móviles muy pequeños */
+    }
+    
+    .nav-menu {
+        display: none; /* Ocultar navegación por defecto */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .nav-link {
+        text-align: center;
+        padding: 0.75rem;
+        margin: 0.25rem 0;
+        border-radius: var(--border-radius);
+    }
+    
+    /* Botón hamburguesa */
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+    
+    /* Añadir padding al body para compensar el header fijo */
+    body {
+        padding-top: 70px;
+    }
+    
+    main {
+        padding-top: 1rem;
+    }
+}
+
+/* Para pantallas muy pequeñas (iPhone 12) */
+@media (max-width: 390px) {
+    .header {
+        padding: 0.4rem 0;
+    }
+    
+    .logo {
+        width: 45px;
+        height: 45px;
+    }
+    
+    body {
+        padding-top: 65px;
+    }
+}
+
+/* Mostrar botón hamburguesa solo en móviles */
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+}
