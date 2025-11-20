@@ -218,7 +218,8 @@
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Inicio</a></li>
-                    <li><a href="patitos_integrantes.html" class="nav-link">Sobre Nosotros</a></li>
+                    <!-- Eliminado: Sobre Nosotros -->
+                    <!-- Eliminado: patitos_integrantes.html -->
                     <li><a href="mapa.html" class="nav-link">Mapa</a></li>
                     <li><a href="ranking.html" class="nav-link">Ranking</a></li>
                     <li><a href="iniciarSesion.html" class="nav-link active">Iniciar Sesión</a></li>
@@ -298,7 +299,8 @@
             <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
             <div class="footer-links">
                 <a href="index.html" class="footer-link">Inicio</a>
-                <a href="patitos_integrantes.html" class="footer-link">Sobre Nosotros</a>
+                <!-- Eliminado: Sobre Nosotros -->
+                <!-- Eliminado: patitos_integrantes.html -->
                 <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
                 <a href="mapa.html" class="footer-link">Mapa</a>
                 <a href="ranking.html" class="footer-link">Ranking</a>
@@ -341,22 +343,17 @@
             }
             
             if (isValid) {
-                // Mostrar spinner de carga
                 const submitBtn = document.querySelector('button[type="submit"]');
                 const originalText = submitBtn.textContent;
                 submitBtn.innerHTML = '<div class="spinner"></div>';
                 submitBtn.disabled = true;
                 
-                // Simular envío del formulario
                 setTimeout(() => {
-                    // Restaurar botón
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
                     
-                    // Mostrar notificación de éxito
                     mostrarNotificacion('✅ Inicio de sesión exitoso', 'success');
                     
-                    // Redirigir después de éxito
                     setTimeout(() => {
                         window.location.href = 'index.html';
                     }, 1500);
@@ -364,21 +361,17 @@
             }
         });
         
-        // Funcionalidad para el enlace de contraseña olvidada
         document.getElementById('forgot-password').addEventListener('click', function(e) {
             e.preventDefault();
             mostrarNotificacion('📧 Funcionalidad de recuperación de contraseña no implementada aún', 'warning');
         });
         
-        // Funcionalidad para el enlace de registro
         document.getElementById('register-link').addEventListener('click', function(e) {
             e.preventDefault();
             mostrarNotificacion('📝 Funcionalidad de registro no implementada aún', 'warning');
         });
 
-        // Función para mostrar notificaciones
         function mostrarNotificacion(mensaje, tipo = 'success') {
-            // Crear elemento de notificación
             const notificacion = document.createElement('div');
             notificacion.className = `notification ${tipo}`;
             notificacion.innerHTML = `
@@ -388,7 +381,6 @@
                 </div>
             `;
             
-            // Agregar estilos si no existen
             if (!document.querySelector('#notification-styles')) {
                 const styles = document.createElement('style');
                 styles.id = 'notification-styles';
@@ -435,20 +427,16 @@
                 document.head.appendChild(styles);
             }
             
-            // Agregar al documento
             document.body.appendChild(notificacion);
             
-            // Mostrar con animación
             setTimeout(() => notificacion.classList.add('show'), 100);
             
-            // Ocultar después de 3 segundos
             setTimeout(() => {
                 notificacion.classList.remove('show');
                 setTimeout(() => notificacion.remove(), 300);
             }, 3000);
         }
 
-        // Animación de aparición al hacer scroll
         document.addEventListener('DOMContentLoaded', function() {
             const observerOptions = {
                 threshold: 0.1,
