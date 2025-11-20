@@ -12,8 +12,257 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/pages.css">
+    
+    <style>
+        /* Estilos específicos para la página de ranking */
+        .ranking-hero {
+            background: linear-gradient(135deg, 
+                rgba(255, 193, 7, 0.9) 0%, 
+                rgba(255, 152, 0, 0.8) 50%, 
+                rgba(255, 235, 59, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        
+        .ranking-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .ranking-hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            color: var(--white);
+        }
+        
+        .ranking-hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .description {
+            max-width: 700px;
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
 
-    <!-- (todo tu CSS interno se mantiene tal cual) -->
+        .ranking-filters {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .ranking-container {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ranking-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-primary);
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-md);
+        }
+
+        .ranking-table th {
+            background: var(--very-light-blue);
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--light-blue);
+        }
+
+        .ranking-table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--light-blue);
+            transition: var(--transition);
+        }
+
+        .ranking-table tr:hover td {
+            background: var(--very-light-blue);
+            transform: translateX(5px);
+        }
+
+        .ranking-position {
+            width: 80px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .position-1 {
+            background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .position-2 {
+            background: linear-gradient(135deg, #C0C0C0, #A0A0A0) !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .position-3 {
+            background: linear-gradient(135deg, #CD7F32, #A56A2B) !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .player-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            margin-right: var(--spacing-sm);
+        }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .player-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .player-score {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .player-level {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--gradient-success);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .player-ducks {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: var(--very-light-blue);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .current-user {
+            background: var(--light-blue) !important;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .ranking-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .ranking-filters .btn {
+                width: 250px;
+            }
+            
+            .ranking-table {
+                font-size: 0.9rem;
+            }
+            
+            .ranking-table th,
+            .ranking-table td {
+                padding: var(--spacing-sm);
+            }
+            
+            .player-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .player-avatar {
+                margin-bottom: 0.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ranking-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Encabezado -->
@@ -126,6 +375,147 @@
         </div>
     </footer>
 
-    <!-- todo el JavaScript se mantiene sin cambios -->
+    <script>
+        // Datos de ejemplo para el ranking
+        const rankingData = {
+            global: [
+                { position: 1, name: "EcoWarrior42", score: 12500, level: 15, ducks: 142, isCurrentUser: false },
+                { position: 2, name: "GreenSavior", score: 11800, level: 14, ducks: 128, isCurrentUser: false },
+                { position: 3, name: "ClimateHero", score: 11250, level: 13, ducks: 119, isCurrentUser: false },
+                { position: 4, name: "PatitoProtector", score: 9850, level: 12, ducks: 105, isCurrentUser: true },
+                { position: 5, name: "EcoExplorer", score: 9200, level: 11, ducks: 98, isCurrentUser: false },
+                { position: 6, name: "NatureLover", score: 8750, level: 11, ducks: 92, isCurrentUser: false },
+                { position: 7, name: "PlanetGuardian", score: 8200, level: 10, ducks: 87, isCurrentUser: false },
+                { position: 8, name: "SustainableGamer", score: 7850, level: 10, ducks: 83, isCurrentUser: false },
+                { position: 9, name: "EcoAdventurer", score: 7450, level: 9, ducks: 79, isCurrentUser: false },
+                { position: 10, name: "GreenGamer", score: 7100, level: 9, ducks: 75, isCurrentUser: false }
+            ],
+            weekly: [
+                { position: 1, name: "PatitoProtector", score: 1850, level: 12, ducks: 25, isCurrentUser: true },
+                { position: 2, name: "EcoWarrior42", score: 1750, level: 15, ducks: 22, isCurrentUser: false },
+                { position: 3, name: "GreenSavior", score: 1620, level: 14, ducks: 20, isCurrentUser: false },
+                { position: 4, name: "NewPlayer23", score: 1480, level: 5, ducks: 18, isCurrentUser: false },
+                { position: 5, name: "ClimateHero", score: 1350, level: 13, ducks: 17, isCurrentUser: false }
+            ],
+            monthly: [
+                { position: 1, name: "EcoWarrior42", score: 4850, level: 15, ducks: 52, isCurrentUser: false },
+                { position: 2, name: "GreenSavior", score: 4620, level: 14, ducks: 48, isCurrentUser: false },
+                { position: 3, name: "PatitoProtector", score: 4380, level: 12, ducks: 45, isCurrentUser: true },
+                { position: 4, name: "ClimateHero", score: 4150, level: 13, ducks: 42, isCurrentUser: false },
+                { position: 5, name: "EcoExplorer", score: 3920, level: 11, ducks: 40, isCurrentUser: false }
+            ],
+            friends: [
+                { position: 1, name: "PatitoProtector", score: 9850, level: 12, ducks: 105, isCurrentUser: true },
+                { position: 2, name: "AmigoEco", score: 7650, level: 10, ducks: 82, isCurrentUser: false },
+                { position: 3, name: "CompañeroVerde", score: 6420, level: 9, ducks: 68, isCurrentUser: false },
+                { position: 4, name: "ColegaSostenible", score: 5280, level: 8, ducks: 56, isCurrentUser: false }
+            ]
+        };
+
+        // Función para generar avatar a partir del nombre
+        function generarAvatar(nombre) {
+            return nombre.substring(0, 2).toUpperCase();
+        }
+
+        // Función para cargar datos del ranking
+        function cargarRanking(filtro) {
+            const tbody = document.getElementById('ranking-body');
+            tbody.innerHTML = '';
+            
+            const datos = rankingData[filtro];
+            
+            datos.forEach(jugador => {
+                const fila = document.createElement('tr');
+                if (jugador.isCurrentUser) {
+                    fila.classList.add('current-user');
+                }
+                
+                // Aplicar clases especiales para las primeras posiciones
+                if (jugador.position <= 3) {
+                    fila.classList.add(`position-${jugador.position}`);
+                }
+                
+                fila.innerHTML = `
+                    <td class="ranking-position">${jugador.position}</td>
+                    <td>
+                        <div class="player-info">
+                            <div class="player-avatar">${generarAvatar(jugador.name)}</div>
+                            <div class="player-name">${jugador.name}</div>
+                        </div>
+                    </td>
+                    <td class="player-score">${jugador.score.toLocaleString()}</td>
+                    <td><span class="player-level">Nivel ${jugador.level}</span></td>
+                    <td class="player-ducks">${jugador.ducks} 🦆</td>
+                `;
+                
+                tbody.appendChild(fila);
+            });
+            
+            // Actualizar estadísticas del usuario actual si está en el ranking
+            const usuarioActual = datos.find(jugador => jugador.isCurrentUser);
+            if (usuarioActual) {
+                document.getElementById('player-stats').style.display = 'block';
+                document.getElementById('player-position').textContent = `#${usuarioActual.position}`;
+                document.getElementById('player-score').textContent = usuarioActual.score.toLocaleString();
+                document.getElementById('player-level').textContent = usuarioActual.level;
+                document.getElementById('player-ducks').textContent = usuarioActual.ducks;
+            } else {
+                document.getElementById('player-stats').style.display = 'none';
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar ranking global por defecto
+            cargarRanking('global');
+            
+            // Configurar eventos para los filtros
+            document.querySelectorAll('.ranking-filters .btn').forEach(boton => {
+                boton.addEventListener('click', function() {
+                    // Remover clase active de todos los botones
+                    document.querySelectorAll('.ranking-filters .btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    // Cargar ranking correspondiente
+                    const filtro = this.getAttribute('data-filter');
+                    cargarRanking(filtro);
+                });
+            });
+            
+            // Configurar animación de aparición
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(function(element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+
+        // Simular actualización en tiempo real del ranking
+        setInterval(() => {
+            // En una implementación real, aquí se haría una petición al servidor
+            // para obtener los datos actualizados del ranking
+            console.log('Actualizando datos del ranking...');
+        }, 30000); // Actualizar cada 30 segundos
+    </script>
 </body>
 </html>
