@@ -5,282 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ranking de jugadores de Patitos en Peligro">
     <title>Ranking - Patitos en Peligro</title>
-
-    <!-- Favicon / Icono de la pestaña -->
-    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
-
-    <style>
-        /* --- Variables CSS para consistencia --- */
-        :root {
-            --primary-color: #0277bd;
-            --secondary-color: #4ab3f4;
-            --light-blue: #b3e5fc;
-            --very-light-blue: #e0f7ff;
-            --background-color: #f0f8ff;
-            --text-color: #333;
-            --white: #ffffff;
-            --border-radius: 10px;
-            --transition: all 0.3s ease;
-            --gold: #ffd700;
-            --silver: #c0c0c0;
-            --bronze: #cd7f32;
-        }
-
-        /* --- Estilos generales --- */
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* --- Encabezado --- */
-        header {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            text-align: center;
-            padding: 1rem;
-        }
-
-        header img {
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* --- Contenido principal --- */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        /* --- Título principal --- */
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        /* --- Descripción --- */
-        .description {
-            text-align: center;
-            max-width: 600px;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        /* --- Contenedor del ranking --- */
-        .ranking-container {
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 2rem;
-        }
-
-        /* --- Tabla de ranking --- */
-        .ranking-table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: var(--white);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .ranking-table th,
-        .ranking-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--light-blue);
-        }
-
-        .ranking-table th {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            font-weight: bold;
-        }
-
-        .ranking-table tr:hover {
-            background-color: var(--very-light-blue);
-        }
-
-        /* --- Posiciones destacadas --- */
-        .first-place {
-            background-color: rgba(255, 215, 0, 0.1);
-        }
-
-        .second-place {
-            background-color: rgba(192, 192, 192, 0.1);
-        }
-
-        .third-place {
-            background-color: rgba(205, 127, 50, 0.1);
-        }
-
-        .ranking-position {
-            font-weight: bold;
-            text-align: center;
-            width: 60px;
-        }
-
-        .position-1 {
-            color: var(--gold);
-        }
-
-        .position-2 {
-            color: var(--silver);
-        }
-
-        .position-3 {
-            color: var(--bronze);
-        }
-
-        /* --- Filtros de ranking --- */
-        .ranking-filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            padding: 0.5rem 1rem;
-            background-color: var(--white);
-            border: 2px solid var(--light-blue);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .filter-btn:hover {
-            background-color: var(--light-blue);
-        }
-
-        .filter-btn.active {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border-color: var(--primary-color);
-        }
-
-        /* --- Estadísticas del jugador --- */
-        .player-stats {
-            background-color: var(--white);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .player-stats h2 {
-            color: var(--primary-color);
-            margin-top: 0;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1rem;
-            background-color: var(--very-light-blue);
-            border-radius: var(--border-radius);
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-color);
-        }
-
-        /* --- Botón para Volver a la Página Principal--- */
-        .btn-inicio {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.75rem 1.5rem;
-            background-color: var(--primary-color);
-            color: var(--white);
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: var(--transition);
-        }
-
-        .btn-inicio:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.05);
-        }
-
-        /* --- Pie de página --- */
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: var(--very-light-blue);
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            main {
-                padding: 1rem;
-            }
-            
-            .ranking-table {
-                font-size: 0.9rem;
-            }
-            
-            .ranking-table th,
-            .ranking-table td {
-                padding: 0.75rem 0.5rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .ranking-table {
-                font-size: 0.8rem;
-            }
-            
-            .ranking-table th,
-            .ranking-table td {
-                padding: 0.5rem 0.25rem;
-            }
-            
-            .ranking-filters {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .filter-btn {
-                width: 200px;
-            }
-        }
-    </style>
+    <link rel="icon" type="image/x-icon" href="/patitos-en-peligro/ico_circulo.ico">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/common.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/components.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/layout.css">
+    <link rel="stylesheet" href="/patitos-en-peligro/css/pages.css">
 </head>
 <body>
     <!-- Encabezado con logo -->
-    <header>
-        <img src="patitologo1_circulo.png" alt="Logo circular del proyecto Patitos en Peligro" width="100" height="100">
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="/patitos-en-peligro/patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <div class="logo-text">Patitos en Peligro</div>
+            </div>
+        </div>
     </header>
 
     <!-- Contenido principal -->
@@ -341,12 +80,16 @@
         </div>
 
         <!-- Botón para Volver a la Página Principal-->
-        <a href="paginaInicial.html" class="btn-inicio">Volver a la Página Principal</a>
+        <a href="/patitos-en-peligro/index.html" class="btn-inicio">Volver a la Página Principal</a>
     </main>
 
     <!-- Pie de página -->
-    <footer>
-        <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="copyright">
+                <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -382,91 +125,4 @@
                 { position: 1, name: "AnaPatito", score: 12500, level: 15, ducks: 42 },
                 { position: 2, name: "PatoAventurero", score: 11800, level: 14, ducks: 38 },
                 { position: 3, name: "MiAmigo", score: 7500, level: 9, ducks: 24 },
-                { position: 4, name: "CompañeroJuego", score: 6200, level: 8, ducks: 20 },
-                { position: 5, name: "Tú", score: 4500, level: 6, ducks: 15 }
-            ]
-        };
-
-        // Datos del jugador actual (simulado)
-        const currentPlayer = {
-            name: "Tú",
-            position: 15,
-            score: 4500,
-            level: 6,
-            ducks: 15
-        };
-
-        // Función para cargar el ranking
-        function loadRanking(filter) {
-            const rankingBody = document.getElementById('ranking-body');
-            rankingBody.innerHTML = '';
-            
-            const data = rankingData[filter];
-            
-            data.forEach(player => {
-                const row = document.createElement('tr');
-                
-                // Aplicar clases especiales para las primeras posiciones
-                if (player.position === 1) {
-                    row.classList.add('first-place');
-                } else if (player.position === 2) {
-                    row.classList.add('second-place');
-                } else if (player.position === 3) {
-                    row.classList.add('third-place');
-                }
-                
-                // Resaltar al jugador actual
-                if (player.name === currentPlayer.name) {
-                    row.style.fontWeight = 'bold';
-                    row.style.backgroundColor = 'rgba(74, 179, 244, 0.2)';
-                }
-                
-                row.innerHTML = `
-                    <td class="ranking-position ${player.position <= 3 ? 'position-' + player.position : ''}">
-                        ${player.position}
-                    </td>
-                    <td>${player.name}</td>
-                    <td>${player.score.toLocaleString()}</td>
-                    <td>${player.level}</td>
-                    <td>${player.ducks}</td>
-                `;
-                
-                rankingBody.appendChild(row);
-            });
-            
-            // Actualizar estadísticas del jugador si está en el ranking actual
-            if (filter === 'friends' || data.some(p => p.name === currentPlayer.name)) {
-                document.getElementById('player-stats').style.display = 'block';
-                document.getElementById('player-position').textContent = `#${currentPlayer.position}`;
-                document.getElementById('player-score').textContent = currentPlayer.score.toLocaleString();
-                document.getElementById('player-level').textContent = currentPlayer.level;
-                document.getElementById('player-ducks').textContent = currentPlayer.ducks;
-            } else {
-                document.getElementById('player-stats').style.display = 'none';
-            }
-        }
-
-        // Inicializar el ranking con el filtro global
-        document.addEventListener('DOMContentLoaded', function() {
-            loadRanking('global');
-            
-            // Configurar los botones de filtro
-            document.querySelectorAll('.filter-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remover clase active de todos los botones
-                    document.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    
-                    // Agregar clase active al botón clickeado
-                    this.classList.add('active');
-                    
-                    // Cargar el ranking con el filtro seleccionado
-                    const filter = this.getAttribute('data-filter');
-                    loadRanking(filter);
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+                { position: 4, name: "CompañeroJuego", score: 6200, level: 
