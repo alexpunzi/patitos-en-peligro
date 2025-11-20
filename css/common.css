@@ -51,11 +51,6 @@
     --transition-fast: all 0.2s ease;
     --transition-slow: all 0.6s ease;
     
-    /* --- Efectos Visuales --- */
-    --glass-bg: rgba(255, 255, 255, 0.25);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    
     /* --- Variables de Modo Oscuro (preparación) --- */
     --bg-dark: #1a1a1a;
     --text-dark: #ffffff;
@@ -197,13 +192,13 @@ a:hover {
     border: 0 !important;
 }
 
-/* --- Efectos de Cristal (Glassmorphism) --- */
+/* --- Efectos de Cristal (Glassmorphism) - SOLO para componentes específicos --- */
 .glass {
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* --- Animaciones Avanzadas --- */
