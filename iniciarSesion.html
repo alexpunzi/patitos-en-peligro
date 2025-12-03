@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Configuración básica del documento -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Iniciar sesión en Patitos en Peligro">
     <title>Iniciar sesión - Patitos en Peligro</title>
     <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
     
-    <!-- CSS Unificado -->
+    <!-- Hojas de estilo CSS externas (arquitectura modular) -->
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/pages.css">
     
+    <!-- Estilos específicos para la página de login -->
     <style>
-        /* Estilos específicos para la página de login */
+        /* Hero section con gradiente e imagen de fondo */
         .login-hero {
             background: linear-gradient(135deg, 
                 rgba(2, 119, 189, 0.9) 0%, 
@@ -31,6 +33,7 @@
             margin-bottom: 3rem;
         }
         
+        /* Contenedor del contenido del hero */
         .login-hero-content {
             max-width: 600px;
             margin: 0 auto;
@@ -38,19 +41,22 @@
             z-index: 2;
         }
         
+        /* Título principal del hero */
         .login-hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 5vw, 4rem); /* Tamaño responsivo */
             margin-bottom: 1rem;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
             color: var(--white);
         }
         
+        /* Subtítulo del hero */
         .login-hero-subtitle {
             font-size: clamp(1.2rem, 3vw, 1.5rem);
             margin-bottom: 2rem;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
         }
         
+        /* Contenedor principal del formulario */
         .login-container {
             display: flex;
             flex-direction: column;
@@ -60,6 +66,7 @@
             padding: var(--spacing-lg);
         }
 
+        /* Contenedor del formulario con efectos visuales */
         .form-container {
             background: var(--white);
             border-radius: var(--border-radius-lg);
@@ -71,6 +78,7 @@
             overflow: hidden;
         }
 
+        /* Barra decorativa superior del formulario */
         .form-container::before {
             content: '';
             position: absolute;
@@ -81,6 +89,7 @@
             background: var(--gradient-primary);
         }
 
+        /* Título del formulario */
         .form-title {
             text-align: center;
             margin-bottom: var(--spacing-lg);
@@ -89,11 +98,13 @@
             font-weight: 700;
         }
 
+        /* Grupo de elementos del formulario */
         .form-group {
             margin-bottom: var(--spacing-md);
             position: relative;
         }
 
+        /* Etiqueta de los campos del formulario */
         .form-label {
             display: block;
             margin-bottom: var(--spacing-xs);
@@ -102,6 +113,7 @@
             transition: var(--transition);
         }
 
+        /* Estilo de los campos de entrada */
         .form-control {
             width: 100%;
             padding: 1rem;
@@ -113,6 +125,7 @@
             position: relative;
         }
 
+        /* Efectos al enfocar un campo */
         .form-control:focus {
             border-color: var(--secondary-color);
             outline: none;
@@ -120,16 +133,19 @@
             transform: translateY(-2px);
         }
 
+        /* Placeholder de los campos */
         .form-control::placeholder {
             color: #9e9e9e;
             transition: var(--transition);
         }
 
+        /* Efecto al enfocar el placeholder */
         .form-control:focus::placeholder {
             transform: translateX(10px);
             opacity: 0.7;
         }
 
+        /* Mensajes de error */
         .error-message {
             color: var(--red);
             font-size: 0.875rem;
@@ -137,10 +153,12 @@
             display: none;
         }
 
+        /* Botón que ocupa todo el ancho */
         .btn-full {
             width: 100%;
         }
 
+        /* Enlaces del formulario */
         .form-links {
             text-align: center;
             margin-top: var(--spacing-lg);
@@ -150,16 +168,19 @@
             flex-wrap: wrap;
         }
 
+        /* Estilo de los enlaces */
         .form-links a {
             color: var(--secondary-color);
             font-weight: 600;
             transition: var(--transition);
         }
 
+        /* Efecto hover en enlaces */
         .form-links a:hover {
             color: var(--primary-color);
         }
 
+        /* Sección de características */
         .login-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -168,6 +189,7 @@
             max-width: 800px;
         }
 
+        /* Tarjeta de característica individual */
         .login-feature {
             text-align: center;
             padding: var(--spacing-md);
@@ -176,16 +198,19 @@
             transition: var(--transition);
         }
 
+        /* Efecto hover en tarjetas de características */
         .login-feature:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow);
         }
 
+        /* Icono de las características */
         .login-feature-icon {
             font-size: 2.5rem;
             margin-bottom: var(--spacing-sm);
         }
 
+        /* Media queries para responsividad */
         @media (max-width: 768px) {
             .form-container {
                 padding: var(--spacing-xl);
@@ -208,18 +233,18 @@
     </style>
 </head>
 <body>
-    <!-- Encabezado -->
+    <!-- Encabezado de la página -->
     <header class="header">
         <div class="container header-container">
+            <!-- Logo y nombre de la aplicación -->
             <div class="logo-container">
                 <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
+            <!-- Menú de navegación principal -->
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Inicio</a></li>
-                    <!-- Eliminado: Sobre Nosotros -->
-                    <!-- Eliminado: patitos_integrantes.html -->
                     <li><a href="mapa.html" class="nav-link">Mapa</a></li>
                     <li><a href="ranking.html" class="nav-link">Ranking</a></li>
                     <li><a href="iniciarSesion.html" class="nav-link active">Iniciar Sesión</a></li>
@@ -228,7 +253,7 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Sección hero con imagen de fondo -->
     <section class="login-hero">
         <div class="login-hero-content">
             <h1 class="login-hero-title">🔐 Iniciar Sesión</h1>
@@ -236,29 +261,45 @@
         </div>
     </section>
 
-    <!-- Contenido principal -->
+    <!-- Contenido principal de la página -->
     <main class="main-content">
         <div class="container">
             <div class="login-container fade-in-up">
+                <!-- Contenedor del formulario de login -->
                 <div class="form-container card">
                     <h1 class="form-title">Iniciar sesión</h1>
                     
+                    <!-- Formulario de inicio de sesión -->
                     <form id="loginForm">
+                        <!-- Campo para el email -->
                         <div class="form-group">
                             <label for="email" class="form-label">📧 Correo electrónico</label>
-                            <input type="email" id="email" class="form-control" placeholder="ejemplo@correo.com" required aria-describedby="email-error">
-                            <div id="email-error" class="error-message" role="alert">Por favor, introduce un correo electrónico válido</div>
+                            <input type="email" id="email" class="form-control" 
+                                   placeholder="ejemplo@correo.com" required 
+                                   aria-describedby="email-error">
+                            <div id="email-error" class="error-message" role="alert">
+                                Por favor, introduce un correo electrónico válido
+                            </div>
                         </div>
                         
+                        <!-- Campo para la contraseña -->
                         <div class="form-group">
                             <label for="password" class="form-label">🔒 Contraseña</label>
-                            <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required aria-describedby="password-error">
-                            <div id="password-error" class="error-message" role="alert">La contraseña debe tener al menos 6 caracteres</div>
+                            <input type="password" id="password" class="form-control" 
+                                   placeholder="Ingresa tu contraseña" required 
+                                   aria-describedby="password-error">
+                            <div id="password-error" class="error-message" role="alert">
+                                La contraseña debe tener al menos 6 caracteres
+                            </div>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-full">🚀 Iniciar Sesión</button>
+                        <!-- Botón de submit -->
+                        <button type="submit" class="btn btn-primary btn-full">
+                            🚀 Iniciar Sesión
+                        </button>
                     </form>
                     
+                    <!-- Enlaces adicionales del formulario -->
                     <div class="form-links">
                         <a href="#" id="forgot-password">¿Olvidaste tu contraseña?</a>
                         <span>|</span>
@@ -266,7 +307,7 @@
                     </div>
                 </div>
                 
-                <!-- Características adicionales -->
+                <!-- Sección de características de la aplicación -->
                 <div class="login-features fade-in-up">
                     <div class="login-feature">
                         <div class="login-feature-icon">🏆</div>
@@ -285,9 +326,11 @@
                     </div>
                 </div>
                 
-                <!-- Botón para Volver a la Página Principal-->
+                <!-- Botón para volver al inicio -->
                 <div class="button-container fade-in-up">
-                    <a href="index.html" class="btn btn-secondary">← Volver a la Página Principal</a>
+                    <a href="index.html" class="btn btn-secondary">
+                        ← Volver a la Página Principal
+                    </a>
                 </div>
             </div>
         </div>
@@ -297,16 +340,16 @@
     <footer class="footer">
         <div class="container footer-content">
             <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <!-- Enlaces del footer -->
             <div class="footer-links">
                 <a href="index.html" class="footer-link">Inicio</a>
-                <!-- Eliminado: Sobre Nosotros -->
-                <!-- Eliminado: patitos_integrantes.html -->
                 <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
                 <a href="mapa.html" class="footer-link">Mapa</a>
                 <a href="ranking.html" class="footer-link">Ranking</a>
                 <a href="ajustes.html" class="footer-link">Ajustes</a>
                 <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
             </div>
+            <!-- Información de copyright -->
             <div class="copyright">
                 <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
                 <p>Grupo 41 - Patitos en Peligro</p>
@@ -314,16 +357,18 @@
         </div>
     </footer>
 
+    <!-- Scripts de JavaScript -->
     <script>
-        // Validación del formulario
+        // Validación del formulario de login
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // Previene el envío tradicional del formulario
             
+            // Obtener valores de los campos
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             let isValid = true;
             
-            // Validar email
+            // Validación del email con expresión regular
             const emailError = document.getElementById('email-error');
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
@@ -333,7 +378,7 @@
                 emailError.style.display = 'none';
             }
             
-            // Validar contraseña
+            // Validación de la contraseña (mínimo 6 caracteres)
             const passwordError = document.getElementById('password-error');
             if (password.length < 6) {
                 passwordError.style.display = 'block';
@@ -342,18 +387,25 @@
                 passwordError.style.display = 'none';
             }
             
+            // Si el formulario es válido, simular envío
             if (isValid) {
                 const submitBtn = document.querySelector('button[type="submit"]');
                 const originalText = submitBtn.textContent;
+                
+                // Mostrar spinner de carga
                 submitBtn.innerHTML = '<div class="spinner"></div>';
                 submitBtn.disabled = true;
                 
+                // Simulación de petición al servidor (2 segundos)
                 setTimeout(() => {
+                    // Restaurar botón
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
                     
+                    // Mostrar notificación de éxito
                     mostrarNotificacion('✅ Inicio de sesión exitoso', 'success');
                     
+                    // Redirigir al inicio después de 1.5 segundos
                     setTimeout(() => {
                         window.location.href = 'index.html';
                     }, 1500);
@@ -361,17 +413,25 @@
             }
         });
         
+        // Manejo del enlace "¿Olvidaste tu contraseña?"
         document.getElementById('forgot-password').addEventListener('click', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // Previene la navegación
             mostrarNotificacion('📧 Funcionalidad de recuperación de contraseña no implementada aún', 'warning');
         });
         
+        // Manejo del enlace "Registrarse"
         document.getElementById('register-link').addEventListener('click', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // Previene la navegación
             mostrarNotificacion('📝 Funcionalidad de registro no implementada aún', 'warning');
         });
 
+        /**
+         * Función para mostrar notificaciones
+         * @param {string} mensaje - Texto a mostrar
+         * @param {string} tipo - Tipo de notificación ('success' o 'warning')
+         */
         function mostrarNotificacion(mensaje, tipo = 'success') {
+            // Crear elemento de notificación
             const notificacion = document.createElement('div');
             notificacion.className = `notification ${tipo}`;
             notificacion.innerHTML = `
@@ -381,6 +441,7 @@
                 </div>
             `;
             
+            // Agregar estilos CSS para la notificación si no existen
             if (!document.querySelector('#notification-styles')) {
                 const styles = document.createElement('style');
                 styles.id = 'notification-styles';
@@ -427,22 +488,28 @@
                 document.head.appendChild(styles);
             }
             
+            // Agregar notificación al DOM
             document.body.appendChild(notificacion);
             
+            // Animación de entrada
             setTimeout(() => notificacion.classList.add('show'), 100);
             
+            // Eliminar notificación después de 3 segundos
             setTimeout(() => {
                 notificacion.classList.remove('show');
                 setTimeout(() => notificacion.remove(), 300);
             }, 3000);
         }
 
+        // Animaciones al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
+            // Configuración del Intersection Observer para animaciones
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
             };
 
+            // Crear observer para animar elementos al hacer scroll
             const observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
@@ -452,6 +519,7 @@
                 });
             }, observerOptions);
 
+            // Aplicar animación a elementos con clase 'fade-in-up'
             const animatedElements = document.querySelectorAll('.fade-in-up');
             animatedElements.forEach(function(element) {
                 element.style.opacity = '0';
