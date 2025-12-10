@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página de introducción - Patitos en Peligro">
+    <title>Introducción - Patitos en Peligro</title>
+    <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
+    
+    <!-- Hojas de estilo CSS externas (arquitectura modular) -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/pages.css">
+    
+    <!-- Estilos específicos para la página de introducción -->
+    <style>
+        /* Hero section con gradiente */
+        .intro-hero {
+            background: linear-gradient(135deg, 
+                rgba(2, 119, 189, 0.9) 0%, 
+                rgba(74, 179, 244, 0.8) 50%, 
+                rgba(179, 229, 252, 0.7) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        
+        /* Contenedor del contenido del hero */
+        .intro-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Título principal del hero */
+        .intro-hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            color: var(--white);
+        }
+        
+        /* Subtítulo del hero */
+        .intro-hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Contenedor principal del contenido */
+        .intro-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            padding: var(--spacing-lg);
+            text-align: center;
+        }
+        
+        /* Mensaje Hola Mundo estilizado */
+        .hola-mundo {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(45deg, var(--light-blue), var(--very-light-blue));
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Animación de pulso para Hola Mundo */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Decoración detrás de Hola Mundo */
+        .hola-mundo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+            animation: moveBackground 20s linear infinite;
+        }
+        
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-100px, -100px) rotate(360deg); }
+        }
+        
+        /* Mensaje de bienvenida */
+        .welcome-message {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        /* Contenedor de botones */
+        .intro-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        /* Sección de características */
+        .intro-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+            max-width: 1000px;
+        }
+        
+        /* Tarjeta de característica individual */
+        .intro-feature {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        /* Efecto hover en tarjetas de características */
+        .intro-feature:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--secondary-color);
+        }
+        
+        /* Icono de las características */
+        .intro-feature-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Animación flotante para iconos */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Título de característica */
+        .intro-feature h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.5rem;
+        }
+        
+        /* Descripción de característica */
+        .intro-feature p {
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+        
+        /* Media queries para responsividad */
+        @media (max-width: 768px) {
+            .intro-hero {
+                padding: 3rem 1rem;
+            }
+            
+            .intro-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .intro-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .hola-mundo {
+                font-size: clamp(2rem, 6vw, 4rem);
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado de la página -->
+    <header class="header">
+        <div class="container header-container">
+            <!-- Logo y nombre de la aplicación -->
+            <div class="logo-container">
+                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <div class="logo-text">Patitos en Peligro</div>
+            </div>
+            <!-- Menú de navegación principal -->
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="mapa.html" class="nav-link">Mapa</a></li>
+                    <li><a href="ranking.html" class="nav-link">Ranking</a></li>
+                    <li><a href="iniciarSesion.html" class="nav-link">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección hero con gradiente -->
+    <section class="intro-hero">
+        <div class="intro-hero-content">
+            <h1 class="intro-hero-title">¡Bienvenido! 🎉</h1>
+            <p class="intro-hero-subtitle">Has iniciado sesión exitosamente en Patitos en Peligro</p>
+        </div>
+    </section>
+
+    <!-- Contenido principal de la página -->
+    <main class="main-content">
+        <div class="container">
+            <div class="intro-container fade-in-up">
+                <!-- Mensaje Hola Mundo destacado -->
+                <div class="hola-mundo">
+                    ¡Hola Mundo! 🌎
+                </div>
+                
+                <!-- Mensaje de bienvenida -->
+                <div class="welcome-message">
+                    <p>¡Felicidades! Has accedido correctamente a tu cuenta. Esta es tu página de introducción personalizada.</p>
+                    <p>Desde aquí podrás acceder a todas las funcionalidades de Patitos en Peligro y comenzar tu aventura salvando patitos.</p>
+                </div>
+                
+                <!-- Botones de acción -->
+                <div class="intro-buttons">
+                    <a href="mapa.html" class="btn btn-primary">
+                        🗺️ Ir al Mapa
+                    </a>
+                    <a href="ranking.html" class="btn btn-secondary">
+                        🏆 Ver Ranking
+                    </a>
+                    <a href="index.html" class="btn btn-outline">
+                        🏠 Ir al Inicio
+                    </a>
+                </div>
+                
+                <!-- Sección de características -->
+                <div class="intro-features fade-in-up">
+                    <div class="intro-feature">
+                        <div class="intro-feature-icon">🦆</div>
+                        <h3>Salva Patitos</h3>
+                        <p>Ayuda a los patitos afectados por el cambio climático completando misiones educativas</p>
+                    </div>
+                    <div class="intro-feature">
+                        <div class="intro-feature-icon">📊</div>
+                        <h3>Progreso Personal</h3>
+                        <p>Lleva un registro de tus logros y mejora tus habilidades ambientales</p>
+                    </div>
+                    <div class="intro-feature">
+                        <div class="intro-feature-icon">👥</div>
+                        <h3>Comunidad</h3>
+                        <p>Conecta con otros jugadores y compite por el primer lugar en el ranking</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <!-- Enlaces del footer -->
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Inicio</a>
+                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
+                <a href="mapa.html" class="footer-link">Mapa</a>
+                <a href="ranking.html" class="footer-link">Ranking</a>
+                <a href="ajustes.html" class="footer-link">Ajustes</a>
+                <a href="intro.html" class="footer-link active">Introducción</a>
+            </div>
+            <!-- Información de copyright -->
+            <div class="copyright">
+                <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
+                <p>Grupo 41 - Patitos en Peligro</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de JavaScript -->
+    <script>
+        // Animaciones al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuración del Intersection Observer para animaciones
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            // Crear observer para animar elementos al hacer scroll
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Aplicar animación a elementos con clase 'fade-in-up'
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(function(element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+            
+            // Mostrar mensaje de bienvenida con retardo
+            setTimeout(function() {
+                const holaMundo = document.querySelector('.hola-mundo');
+                holaMundo.style.animation = 'pulse 2s infinite';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
