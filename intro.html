@@ -64,17 +64,43 @@
             text-align: center;
         }
         
+        /* Contenedor del video de introducción */
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            background: var(--very-light-blue);
+            padding: 20px;
+        }
+        
+        /* Estilo del video */
+        .intro-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
+        }
+        
+        .intro-video:hover {
+            transform: scale(1.01);
+        }
+        
         /* Mensaje Hola Mundo estilizado */
         .hola-mundo {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 900;
             color: var(--primary-color);
             text-align: center;
             margin: 2rem 0;
-            padding: 2rem;
+            padding: 1.5rem;
             background: linear-gradient(45deg, var(--light-blue), var(--very-light-blue));
             border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-xl);
+            box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
             animation: pulse 2s infinite;
@@ -83,27 +109,163 @@
         /* Animación de pulso para Hola Mundo */
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.02); }
             100% { transform: scale(1); }
         }
         
-        /* Decoración detrás de Hola Mundo */
-        .hola-mundo::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
-            background-size: 20px 20px;
-            opacity: 0.5;
-            animation: moveBackground 20s linear infinite;
+        /* Contenedor de la pista del juego */
+        .game-hint-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            margin: 3rem auto;
+            max-width: 900px;
+            box-shadow: var(--shadow-xl);
+            border: 3px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
         }
         
-        @keyframes moveBackground {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-100px, -100px) rotate(360deg); }
+        .game-hint-container::before {
+            content: '🎮 PRIMER JUEGO 🎮';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Título de la pista */
+        .game-hint-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin: 1.5rem 0 1rem 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        /* Contenido de la pista */
+        .game-hint-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        /* Información de la ubicación */
+        .location-info {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .location-title {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .location-description {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .location-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem;
+            background: var(--very-light-blue);
+            border-radius: var(--border-radius-sm);
+        }
+        
+        /* Instrucciones del juego */
+        .game-instructions {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--green);
+        }
+        
+        .instructions-title {
+            color: var(--green);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .instructions-list li {
+            padding: 0.5rem 0;
+            color: var(--text-color);
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .instructions-list li::before {
+            content: '🎯';
+            font-size: 1.2rem;
+        }
+        
+        /* Botón para comenzar */
+        .start-game-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 2rem auto;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .start-game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .start-game-btn::after {
+            content: '🚀';
+            margin-left: 10px;
         }
         
         /* Mensaje de bienvenida */
@@ -193,9 +355,17 @@
                 grid-template-columns: 1fr;
             }
             
-            .hola-mundo {
-                font-size: clamp(2rem, 6vw, 4rem);
+            .game-hint-container {
                 padding: 1.5rem;
+                margin: 2rem 1rem;
+            }
+            
+            .location-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-hint-title {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -224,8 +394,8 @@
     <!-- Sección hero con gradiente -->
     <section class="intro-hero">
         <div class="intro-hero-content">
-            <h1 class="intro-hero-title">¡Bienvenido! 🎉</h1>
-            <p class="intro-hero-subtitle">Has iniciado sesión exitosamente en Patitos en Peligro</p>
+            <h1 class="intro-hero-title">¡Bienvenido a la Aventura! 🎉</h1>
+            <p class="intro-hero-subtitle">Tu misión para salvar patitos está por comenzar</p>
         </div>
     </section>
 
@@ -238,22 +408,96 @@
                     ¡Hola Mundo! 🌎
                 </div>
                 
+                <!-- Contenedor del video de introducción -->
+                <div class="video-container">
+                    <h2>🎬 Video de Introducción</h2>
+                    <p>Mira este video para conocer la misión de Patitos en Peligro</p>
+                    <video class="intro-video" controls autoplay muted>
+                        <source src="https://drive.google.com/uc?export=download&id=1rM75WJ5VnR2eacdbd2mp9QK7cI44d3Kz" type="video/mp4">
+                        <source src="intro_patitos.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                    <p class="video-note"><small>Si el video no carga, puedes <a href="https://drive.google.com/file/d/1rM75WJ5VnR2eacdbd2mp9QK7cI44d3Kz/view" target="_blank">verlo en Google Drive</a></small></p>
+                </div>
+                
                 <!-- Mensaje de bienvenida -->
                 <div class="welcome-message">
-                    <p>¡Felicidades! Has accedido correctamente a tu cuenta. Esta es tu página de introducción personalizada.</p>
-                    <p>Desde aquí podrás acceder a todas las funcionalidades de Patitos en Peligro y comenzar tu aventura salvando patitos.</p>
+                    <p>¡Felicidades! Has accedido correctamente a tu cuenta. Ya puedes comenzar tu aventura salvando patitos alrededor de la Universidad de Alicante.</p>
+                    <p>A continuación encontrarás la pista para tu primer juego. ¡Buena suerte!</p>
+                </div>
+                
+                <!-- Pista del primer juego -->
+                <div class="game-hint-container fade-in-up">
+                    <h2 class="game-hint-title">🔍 Pista para el Primer Juego</h2>
+                    
+                    <div class="game-hint-content">
+                        <!-- Información de la ubicación -->
+                        <div class="location-info">
+                            <h3 class="location-title">📍 Ubicación: El Punto Más Antiguo</h3>
+                            <p class="location-description">
+                                Tu primera misión te lleva al corazón histórico de la Universidad de Alicante. 
+                                En el edificio más antiguo del campus, donde comenzó todo, encontrarás tu primer 
+                                desafío relacionado con el cambio climático y sus efectos en los ecosistemas acuáticos.
+                            </p>
+                            
+                            <div class="location-details">
+                                <div class="detail-item">
+                                    <span>🏛️</span>
+                                    <span><strong>Edificio:</strong> Rectorado (Edificio Histórico)</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>📅</span>
+                                    <span><strong>Año de construcción:</strong> 1545-1848 (como hospital)</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>🎯</span>
+                                    <span><strong>Pista específica:</strong> Busca cerca de la entrada principal</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>🦆</span>
+                                    <span><strong>Tema del juego:</strong> Efectos del calor en patitos</span>
+                                </div>
+                            </div>
+                            
+                            <p class="location-description" style="margin-top: 1rem; font-style: italic;">
+                                <strong>💡 Consejo:</strong> El edificio del Rectorado, antiguo Hospital San Juan de Dios, 
+                                es el edificio más antiguo relacionado con la universidad. Tu juego está escondido 
+                                en un lugar simbólico donde la historia se encuentra con la ecología moderna.
+                            </p>
+                        </div>
+                        
+                        <!-- Instrucciones del juego -->
+                        <div class="game-instructions">
+                            <h3 class="instructions-title">📋 Instrucciones del Juego</h3>
+                            <ul class="instructions-list">
+                                <li>Dirígete al edificio del Rectorado en el campus de la Universidad de Alicante</li>
+                                <li>Busca el código QR cerca de la entrada principal (columna izquierda)</li>
+                                <li>Escanea el código con tu teléfono para acceder al juego</li>
+                                <li>Responde las preguntas sobre cambio climático y ecosistemas acuáticos</li>
+                                <li>Completa el juego para ganar tus primeros puntos y salvar un patito</li>
+                                <li>El juego estará disponible por tiempo limitado (7 días)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón para comenzar el juego -->
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="start-game-btn" onclick="startFirstGame()">
+                            Comenzar Primer Juego
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Botones de acción -->
                 <div class="intro-buttons">
                     <a href="mapa.html" class="btn btn-primary">
-                        🗺️ Ir al Mapa
+                        🗺️ Ver Mapa del Campus
                     </a>
                     <a href="ranking.html" class="btn btn-secondary">
-                        🏆 Ver Ranking
+                        🏆 Ver Ranking Actual
                     </a>
                     <a href="index.html" class="btn btn-outline">
-                        🏠 Ir al Inicio
+                        🏠 Volver al Inicio
                     </a>
                 </div>
                 
@@ -302,6 +546,104 @@
 
     <!-- Scripts de JavaScript -->
     <script>
+        // Función para comenzar el primer juego
+        function startFirstGame() {
+            const btn = document.querySelector('.start-game-btn');
+            const originalText = btn.innerHTML;
+            
+            // Mostrar estado de carga
+            btn.innerHTML = 'Buscando juego... 🕵️';
+            btn.disabled = true;
+            
+            // Simulación de búsqueda del juego
+            setTimeout(() => {
+                mostrarNotificacion('🎮 Redirigiendo al primer juego en el Rectorado...', 'success');
+                
+                // En una implementación real, aquí iría la redirección al juego
+                // Por ahora, mostramos un mensaje informativo
+                setTimeout(() => {
+                    mostrarNotificacion('🔍 En el Rectorado, busca el código QR cerca de la entrada principal para comenzar el juego.', 'info');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 1500);
+            }, 2000);
+        }
+        
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje, tipo = 'success') {
+            // Crear elemento de notificación
+            const notificacion = document.createElement('div');
+            notificacion.className = `notification ${tipo}`;
+            notificacion.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${tipo === 'success' ? '✅' : tipo === 'info' ? 'ℹ️' : '⚠️'}</span>
+                    <span class="notification-text">${mensaje}</span>
+                </div>
+            `;
+            
+            // Agregar estilos CSS para la notificación si no existen
+            if (!document.querySelector('#notification-styles')) {
+                const styles = document.createElement('style');
+                styles.id = 'notification-styles';
+                styles.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: var(--white);
+                        border-radius: var(--border-radius);
+                        padding: var(--spacing-md);
+                        box-shadow: var(--shadow-xl);
+                        border-left: 4px solid var(--primary-color);
+                        transform: translateX(400px);
+                        transition: var(--transition);
+                        z-index: 1001;
+                        max-width: 350px;
+                    }
+                    .notification.success {
+                        border-left-color: var(--green);
+                    }
+                    .notification.info {
+                        border-left-color: var(--secondary-color);
+                    }
+                    .notification.warning {
+                        border-left-color: var(--orange);
+                    }
+                    .notification.show {
+                        transform: translateX(0);
+                    }
+                    .notification-content {
+                        display: flex;
+                        align-items: center;
+                        gap: var(--spacing-sm);
+                    }
+                    .notification-icon {
+                        font-size: 1.2rem;
+                    }
+                    @media (max-width: 768px) {
+                        .notification {
+                            right: 10px;
+                            left: 10px;
+                            max-width: none;
+                        }
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+            
+            // Agregar notificación al DOM
+            document.body.appendChild(notificacion);
+            
+            // Animación de entrada
+            setTimeout(() => notificacion.classList.add('show'), 100);
+            
+            // Eliminar notificación después de 5 segundos
+            setTimeout(() => {
+                notificacion.classList.remove('show');
+                setTimeout(() => notificacion.remove(), 300);
+            }, 5000);
+        }
+
         // Animaciones al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
             // Configuración del Intersection Observer para animaciones
@@ -334,6 +676,14 @@
                 const holaMundo = document.querySelector('.hola-mundo');
                 holaMundo.style.animation = 'pulse 2s infinite';
             }, 500);
+            
+            // Intentar reproducir el video automáticamente (con muted)
+            const video = document.querySelector('.intro-video');
+            if (video) {
+                video.play().catch(e => {
+                    console.log("Reproducción automática no permitida:", e);
+                });
+            }
         });
     </script>
 </body>
