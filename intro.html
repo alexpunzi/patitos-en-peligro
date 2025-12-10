@@ -68,7 +68,7 @@
         .video-container {
             width: 100%;
             max-width: 800px;
-            margin: 2rem auto;
+            margin: 0 auto 3rem auto;
             border-radius: var(--border-radius-lg);
             overflow: hidden;
             box-shadow: var(--shadow-xl);
@@ -90,132 +90,195 @@
             transform: scale(1.01);
         }
         
-        /* Mensaje Hola Mundo estilizado */
-        .hola-mundo {
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 900;
+        /* Título del video */
+        .video-title {
             color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
             text-align: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: linear-gradient(45deg, var(--light-blue), var(--very-light-blue));
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-            animation: pulse 2s infinite;
         }
         
-        /* Animación de pulso para Hola Mundo */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+        .video-subtitle {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
         
         /* Contenedor de la pista del juego */
         .game-hint-container {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
             border-radius: var(--border-radius-lg);
             padding: 2.5rem;
             margin: 3rem auto;
             max-width: 900px;
-            box-shadow: var(--shadow-xl);
-            border: 3px solid var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--secondary-color);
             position: relative;
             overflow: hidden;
         }
         
         .game-hint-container::before {
-            content: '🎮 PRIMER JUEGO 🎮';
+            content: '🔐 ESCAPE ROOM CAMPUS 🔐';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            background: var(--primary-color);
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
             color: white;
             text-align: center;
-            padding: 0.5rem;
+            padding: 0.8rem;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
         }
         
         /* Título de la pista */
         .game-hint-title {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin: 1.5rem 0 1rem 0;
+            color: white;
+            font-size: 2.2rem;
+            margin: 2rem 0 1.5rem 0;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         /* Contenido de la pista */
         .game-hint-content {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 2.5rem;
+            margin-top: 2.5rem;
         }
         
         /* Información de la ubicación */
         .location-info {
-            background: white;
-            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
             border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--secondary-color);
+            box-shadow: var(--shadow-lg);
+            border-left: 5px solid #ff9800;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .location-info::before {
+            content: '🕵️‍♂️ PISTA ENIGMÁTICA';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ff9800;
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: bold;
+            font-size: 1rem;
         }
         
         .location-title {
-            color: var(--secondary-color);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            color: #ff9800;
+            font-size: 1.8rem;
+            margin: 1.8rem 0 1.2rem 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         
-        .location-description {
-            color: var(--text-color);
-            line-height: 1.6;
-            margin-bottom: 1rem;
+        .mystery-text {
+            background: #fff3e0;
+            border: 2px dashed #ff9800;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .mystery-text::before {
+            content: '🔍';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+        
+        .mystery-line {
+            font-size: 1.4rem;
+            color: #5d4037;
+            margin: 0.5rem 0;
+            font-weight: bold;
+        }
+        
+        .clue-hint {
+            font-style: italic;
+            color: #666;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: var(--border-radius-sm);
+            border-left: 3px solid #4caf50;
         }
         
         .location-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
         }
         
         .detail-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 0.5rem;
-            background: var(--very-light-blue);
-            border-radius: var(--border-radius-sm);
+            gap: 12px;
+            padding: 1rem;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease;
         }
         
-        /* Instrucciones del juego */
-        .game-instructions {
-            background: white;
-            padding: 1.5rem;
+        .detail-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Instrucciones del escape room */
+        .escape-instructions {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
             border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--green);
+            box-shadow: var(--shadow-lg);
+            border-left: 5px solid #4caf50;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .escape-instructions::before {
+            content: '🎯 CÓMO JUGAR';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: bold;
+            font-size: 1rem;
         }
         
         .instructions-title {
-            color: var(--green);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            color: #4caf50;
+            font-size: 1.8rem;
+            margin: 1.8rem 0 1.2rem 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         
         .instructions-list {
@@ -224,48 +287,93 @@
         }
         
         .instructions-list li {
-            padding: 0.5rem 0;
+            padding: 1rem 0;
             color: var(--text-color);
-            line-height: 1.5;
+            line-height: 1.6;
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 15px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        
+        .instructions-list li:last-child {
+            border-bottom: none;
         }
         
         .instructions-list li::before {
-            content: '🎯';
-            font-size: 1.2rem;
+            content: '🔑';
+            font-size: 1.3rem;
+            flex-shrink: 0;
         }
         
         /* Botón para comenzar */
         .start-game-btn {
             display: inline-block;
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            background: linear-gradient(135deg, #ff5722, #ff9800);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            font-size: 1.2rem;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.3rem;
             font-weight: bold;
             text-decoration: none;
             margin: 2rem auto;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
             text-align: center;
             border: none;
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            letter-spacing: 1px;
         }
         
         .start-game-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-xl);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6);
+            background: linear-gradient(135deg, #ff9800, #ff5722);
         }
         
         .start-game-btn::after {
             content: '🚀';
-            margin-left: 10px;
+            margin-left: 12px;
+            animation: rocketPulse 1.5s infinite;
+        }
+        
+        @keyframes rocketPulse {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        /* Countdown timer */
+        .countdown-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .countdown-title {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        
+        .countdown-unit {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            min-width: 70px;
         }
         
         /* Mensaje de bienvenida */
@@ -365,6 +473,18 @@
             }
             
             .game-hint-title {
+                font-size: 1.8rem;
+            }
+            
+            .video-title {
+                font-size: 1.5rem;
+            }
+            
+            .mystery-line {
+                font-size: 1.2rem;
+            }
+            
+            .countdown-timer {
                 font-size: 1.5rem;
             }
         }
@@ -394,8 +514,8 @@
     <!-- Sección hero con gradiente -->
     <section class="intro-hero">
         <div class="intro-hero-content">
-            <h1 class="intro-hero-title">¡Bienvenido a la Aventura! 🎉</h1>
-            <p class="intro-hero-subtitle">Tu misión para salvar patitos está por comenzar</p>
+            <h1 class="intro-hero-title">¡Bienvenido al Escape Room! 🔐</h1>
+            <p class="intro-hero-subtitle">Tu aventura por el campus está a punto de comenzar</p>
         </div>
     </section>
 
@@ -403,120 +523,149 @@
     <main class="main-content">
         <div class="container">
             <div class="intro-container fade-in-up">
-                <!-- Mensaje Hola Mundo destacado -->
-                <div class="hola-mundo">
-                    ¡Hola Mundo! 🌎
-                </div>
                 
                 <!-- Contenedor del video de introducción -->
                 <div class="video-container">
-                    <h2>🎬 Video de Introducción</h2>
-                    <p>Mira este video para conocer la misión de Patitos en Peligro</p>
+                    <h2 class="video-title">🎬 Video de Introducción</h2>
+                    <p class="video-subtitle">Descubre la misión secreta de Patitos en Peligro</p>
                     <video class="intro-video" controls autoplay muted>
                         <source src="https://drive.google.com/uc?export=download&id=1rM75WJ5VnR2eacdbd2mp9QK7cI44d3Kz" type="video/mp4">
                         <source src="intro_patitos.mp4" type="video/mp4">
                         Tu navegador no soporta el elemento de video.
                     </video>
-                    <p class="video-note"><small>Si el video no carga, puedes <a href="https://drive.google.com/file/d/1rM75WJ5VnR2eacdbd2mp9QK7cI44d3Kz/view" target="_blank">verlo en Google Drive</a></small></p>
+                    <p class="video-note" style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                        Si el video no carga, puedes <a href="https://drive.google.com/file/d/1rM75WJ5VnR2eacdbd2mp9QK7cI44d3Kz/view" target="_blank">verlo en Google Drive</a>
+                    </p>
                 </div>
                 
                 <!-- Mensaje de bienvenida -->
                 <div class="welcome-message">
-                    <p>¡Felicidades! Has accedido correctamente a tu cuenta. Ya puedes comenzar tu aventura salvando patitos alrededor de la Universidad de Alicante.</p>
-                    <p>A continuación encontrarás la pista para tu primer juego. ¡Buena suerte!</p>
+                    <p>¡Perfecto! Has accedido al sistema. Tu misión comienza ahora con un <strong>Escape Room por el campus</strong> de la Universidad de Alicante.</p>
+                    <p>Resuelve enigmas, encuentra pistas y descubre secretos sobre el cambio climático mientras avanzas en tu aventura.</p>
                 </div>
                 
                 <!-- Pista del primer juego -->
                 <div class="game-hint-container fade-in-up">
-                    <h2 class="game-hint-title">🔍 Pista para el Primer Juego</h2>
+                    <h2 class="game-hint-title">🔐 PISTA PARA EL PRIMER ENIGMA</h2>
+                    
+                    <!-- Countdown timer -->
+                    <div class="countdown-container">
+                        <div class="countdown-title">⏳ Tiempo hasta el siguiente juego:</div>
+                        <div class="countdown-timer">
+                            <div class="countdown-unit">
+                                <span id="days">07</span>
+                                <div style="font-size: 0.8rem;">DÍAS</div>
+                            </div>
+                            <div class="countdown-unit">
+                                <span id="hours">23</span>
+                                <div style="font-size: 0.8rem;">HORAS</div>
+                            </div>
+                            <div class="countdown-unit">
+                                <span id="minutes">59</span>
+                                <div style="font-size: 0.8rem;">MIN</div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="game-hint-content">
-                        <!-- Información de la ubicación -->
+                        <!-- Información de la ubicación ENIGMÁTICA -->
                         <div class="location-info">
-                            <h3 class="location-title">📍 Ubicación: El Punto Más Antiguo</h3>
-                            <p class="location-description">
-                                Tu primera misión te lleva al corazón histórico de la Universidad de Alicante. 
-                                En el edificio más antiguo del campus, donde comenzó todo, encontrarás tu primer 
-                                desafío relacionado con el cambio climático y sus efectos en los ecosistemas acuáticos.
+                            <h3 class="location-title">🕵️‍♂️ PRIMERA PISTA ENIGMÁTICA</h3>
+                            
+                            <div class="mystery-text">
+                                <div class="mystery-line">"Donde los aviones dormían su sueño de metal"</div>
+                                <div class="mystery-line">"Antes de que el conocimiento despegara"</div>
+                                <div class="mystery-line">"Bajo vigas que vieron nacer la era del vuelo"</div>
+                                <div class="mystery-line">"Un secreto espera entre sombras del ayer"</div>
+                            </div>
+                            
+                            <p class="location-description" style="color: var(--text-color); line-height: 1.6; margin: 1.5rem 0;">
+                                Tu primer desafío te lleva al <strong>lugar más antiguo del campus</strong>, un espacio con historia aeronáutica 
+                                que ahora alberga conocimiento. No busques edificios modernos; busca <strong>estructuras que guardan 
+                                memorias de motores y alas</strong>.
                             </p>
+                            
+                            <div class="clue-hint">
+                                💡 <strong>Pista adicional:</strong> El lugar que buscas es conocido por su arquitectura industrial 
+                                y fue parte importante de la historia de la aviación en Alicante. No es un edificio académico tradicional.
+                            </div>
                             
                             <div class="location-details">
                                 <div class="detail-item">
-                                    <span>🏛️</span>
-                                    <span><strong>Edificio:</strong> Rectorado (Edificio Histórico)</span>
+                                    <span>🏗️</span>
+                                    <span><strong>Tipo de estructura:</strong> Hangar histórico</span>
                                 </div>
                                 <div class="detail-item">
-                                    <span>📅</span>
-                                    <span><strong>Año de construcción:</strong> 1545-1848 (como hospital)</span>
+                                    <span>📜</span>
+                                    <span><strong>Pista clave:</strong> Relacionado con aviación</span>
                                 </div>
                                 <div class="detail-item">
                                     <span>🎯</span>
-                                    <span><strong>Pista específica:</strong> Busca cerca de la entrada principal</span>
+                                    <span><strong>Búsqueda:</strong> Estructura industrial antigua</span>
                                 </div>
                                 <div class="detail-item">
-                                    <span>🦆</span>
-                                    <span><strong>Tema del juego:</strong> Efectos del calor en patitos</span>
+                                    <span>🔍</span>
+                                    <span><strong>Encuentra:</strong> Código QR oculto</span>
                                 </div>
                             </div>
-                            
-                            <p class="location-description" style="margin-top: 1rem; font-style: italic;">
-                                <strong>💡 Consejo:</strong> El edificio del Rectorado, antiguo Hospital San Juan de Dios, 
-                                es el edificio más antiguo relacionado con la universidad. Tu juego está escondido 
-                                en un lugar simbólico donde la historia se encuentra con la ecología moderna.
-                            </p>
                         </div>
                         
-                        <!-- Instrucciones del juego -->
-                        <div class="game-instructions">
-                            <h3 class="instructions-title">📋 Instrucciones del Juego</h3>
+                        <!-- Instrucciones del escape room -->
+                        <div class="escape-instructions">
+                            <h3 class="instructions-title">🗺️ INSTRUCCIONES DEL ESCAPE ROOM</h3>
                             <ul class="instructions-list">
-                                <li>Dirígete al edificio del Rectorado en el campus de la Universidad de Alicante</li>
-                                <li>Busca el código QR cerca de la entrada principal (columna izquierda)</li>
-                                <li>Escanea el código con tu teléfono para acceder al juego</li>
-                                <li>Responde las preguntas sobre cambio climático y ecosistemas acuáticos</li>
-                                <li>Completa el juego para ganar tus primeros puntos y salvar un patito</li>
-                                <li>El juego estará disponible por tiempo limitado (7 días)</li>
+                                <li>Tu misión es un <strong>Escape Room distribuido por todo el campus</strong></li>
+                                <li>Cada pista te llevará a una ubicación diferente con un enigma único</li>
+                                <li>Resuelve el enigma en cada ubicación para obtener la siguiente pista</li>
+                                <li>Busca códigos QR ocultos en cada punto del campus</li>
+                                <li>Los enigmas están relacionados con el <strong>cambio climático y ecosistemas acuáticos</strong></li>
+                                <li>Completa todos los desafíos para "salvar" a los patitos en peligro</li>
+                                <li>Tienes <strong>7 días</strong> para completar toda la misión</li>
+                                <li>Cada solución te dará puntos para el ranking global</li>
                             </ul>
                         </div>
                     </div>
                     
                     <!-- Botón para comenzar el juego -->
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <button class="start-game-btn" onclick="startFirstGame()">
-                            Comenzar Primer Juego
+                    <div style="text-align: center; margin-top: 2.5rem;">
+                        <button class="start-game-btn" onclick="startEscapeRoom()">
+                            ACEPTAR EL DESAFÍO
                         </button>
+                        <p style="color: rgba(255, 255, 255, 0.8); margin-top: 1rem; font-size: 0.9rem;">
+                            ⚠️ Una vez que comiences, el contador iniciará. ¡Prepárate para la aventura!
+                        </p>
                     </div>
                 </div>
                 
                 <!-- Botones de acción -->
                 <div class="intro-buttons">
                     <a href="mapa.html" class="btn btn-primary">
-                        🗺️ Ver Mapa del Campus
+                        🗺️ Mapa Interactivo
                     </a>
                     <a href="ranking.html" class="btn btn-secondary">
-                        🏆 Ver Ranking Actual
+                        🏆 Ranking de Detectives
                     </a>
                     <a href="index.html" class="btn btn-outline">
-                        🏠 Volver al Inicio
+                        🏠 Volver al Cuartel General
                     </a>
                 </div>
                 
                 <!-- Sección de características -->
                 <div class="intro-features fade-in-up">
                     <div class="intro-feature">
-                        <div class="intro-feature-icon">🦆</div>
-                        <h3>Salva Patitos</h3>
-                        <p>Ayuda a los patitos afectados por el cambio climático completando misiones educativas</p>
+                        <div class="intro-feature-icon">🕵️‍♂️</div>
+                        <h3>Misterio por Resolver</h3>
+                        <p>Conviértete en detective ambiental resolviendo enigmas por el campus</p>
                     </div>
                     <div class="intro-feature">
-                        <div class="intro-feature-icon">📊</div>
-                        <h3>Progreso Personal</h3>
-                        <p>Lleva un registro de tus logros y mejora tus habilidades ambientales</p>
+                        <div class="intro-feature-icon">🔐</div>
+                        <h3>Escape Room Distribuido</h3>
+                        <p>Juega en ubicaciones reales con códigos QR y pistas físicas</p>
                     </div>
                     <div class="intro-feature">
-                        <div class="intro-feature-icon">👥</div>
-                        <h3>Comunidad</h3>
-                        <p>Conecta con otros jugadores y compite por el primer lugar en el ranking</p>
+                        <div class="intro-feature-icon">🌍</div>
+                        <h3>Impacto Real</h3>
+                        <p>Aprende sobre cambio climático mientras exploras la universidad</p>
                     </div>
                 </div>
             </div>
@@ -534,7 +683,7 @@
                 <a href="mapa.html" class="footer-link">Mapa</a>
                 <a href="ranking.html" class="footer-link">Ranking</a>
                 <a href="ajustes.html" class="footer-link">Ajustes</a>
-                <a href="intro.html" class="footer-link active">Introducción</a>
+                <a href="intro.html" class="footer-link active">Escape Room</a>
             </div>
             <!-- Información de copyright -->
             <div class="copyright">
@@ -546,27 +695,64 @@
 
     <!-- Scripts de JavaScript -->
     <script>
-        // Función para comenzar el primer juego
-        function startFirstGame() {
+        // Función para comenzar el escape room
+        function startEscapeRoom() {
             const btn = document.querySelector('.start-game-btn');
             const originalText = btn.innerHTML;
             
             // Mostrar estado de carga
-            btn.innerHTML = 'Buscando juego... 🕵️';
+            btn.innerHTML = '🔓 INICIANDO ESCAPE ROOM...';
             btn.disabled = true;
             
-            // Simulación de búsqueda del juego
+            // Simulación de inicio del juego
             setTimeout(() => {
-                mostrarNotificacion('🎮 Redirigiendo al primer juego en el Rectorado...', 'success');
+                mostrarNotificacion('🔐 ¡Escape Room Activado! Tu primera pista está lista.', 'success');
                 
-                // En una implementación real, aquí iría la redirección al juego
-                // Por ahora, mostramos un mensaje informativo
+                // Mostrar pista específica
                 setTimeout(() => {
-                    mostrarNotificacion('🔍 En el Rectorado, busca el código QR cerca de la entrada principal para comenzar el juego.', 'info');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                    mostrarNotificacion('🕵️‍♂️ PISTA: Busca el hangar histórico cerca de las instalaciones deportivas. Mira hacia arriba...', 'info');
+                    
+                    // Simular redirección al mapa o primera ubicación
+                    setTimeout(() => {
+                        mostrarNotificacion('🗺️ Redirigiendo al mapa interactivo...', 'success');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        
+                        // Redirigir al mapa después de 2 segundos
+                        setTimeout(() => {
+                            window.location.href = 'mapa.html?game=escape1';
+                        }, 2000);
+                    }, 2000);
                 }, 1500);
             }, 2000);
+        }
+        
+        // Contador regresivo de 7 días
+        function updateCountdown() {
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 7); // 7 días desde ahora
+            
+            function update() {
+                const now = new Date();
+                const difference = targetDate - now;
+                
+                if (difference > 0) {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    
+                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                } else {
+                    // Tiempo terminado
+                    document.querySelector('.countdown-timer').innerHTML = 
+                        '<div style="color: #ff5252; font-size: 1.5rem;">⏰ TIEMPO AGOTADO</div>';
+                }
+            }
+            
+            update();
+            setInterval(update, 60000); // Actualizar cada minuto
         }
         
         // Función para mostrar notificaciones
@@ -646,6 +832,9 @@
 
         // Animaciones al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
+            // Iniciar contador regresivo
+            updateCountdown();
+            
             // Configuración del Intersection Observer para animaciones
             const observerOptions = {
                 threshold: 0.1,
@@ -670,12 +859,6 @@
                 element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(element);
             });
-            
-            // Mostrar mensaje de bienvenida con retardo
-            setTimeout(function() {
-                const holaMundo = document.querySelector('.hola-mundo');
-                holaMundo.style.animation = 'pulse 2s infinite';
-            }, 500);
             
             // Intentar reproducir el video automáticamente (con muted)
             const video = document.querySelector('.intro-video');
