@@ -344,38 +344,6 @@
             50% { transform: translateY(-3px); }
         }
         
-        /* Countdown timer */
-        .countdown-container {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin: 2rem auto;
-            max-width: 500px;
-            text-align: center;
-        }
-        
-        .countdown-title {
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ffeb3b;
-        }
-        
-        .countdown-unit {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            min-width: 70px;
-        }
-        
         /* Mensaje de bienvenida */
         .welcome-message {
             font-size: 1.5rem;
@@ -483,10 +451,6 @@
             .mystery-line {
                 font-size: 1.2rem;
             }
-            
-            .countdown-timer {
-                font-size: 1.5rem;
-            }
         }
     </style>
 </head>
@@ -548,25 +512,6 @@
                 <div class="game-hint-container fade-in-up">
                     <h2 class="game-hint-title">🔐 PISTA PARA EL PRIMER ENIGMA</h2>
                     
-                    <!-- Countdown timer -->
-                    <div class="countdown-container">
-                        <div class="countdown-title">⏳ Tiempo hasta el siguiente juego:</div>
-                        <div class="countdown-timer">
-                            <div class="countdown-unit">
-                                <span id="days">07</span>
-                                <div style="font-size: 0.8rem;">DÍAS</div>
-                            </div>
-                            <div class="countdown-unit">
-                                <span id="hours">23</span>
-                                <div style="font-size: 0.8rem;">HORAS</div>
-                            </div>
-                            <div class="countdown-unit">
-                                <span id="minutes">59</span>
-                                <div style="font-size: 0.8rem;">MIN</div>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <div class="game-hint-content">
                         <!-- Información de la ubicación ENIGMÁTICA -->
                         <div class="location-info">
@@ -620,7 +565,6 @@
                                 <li>Busca códigos QR ocultos en cada punto del campus</li>
                                 <li>Los enigmas están relacionados con el <strong>cambio climático y ecosistemas acuáticos</strong></li>
                                 <li>Completa todos los desafíos para "salvar" a los patitos en peligro</li>
-                                <li>Tienes <strong>7 días</strong> para completar toda la misión</li>
                                 <li>Cada solución te dará puntos para el ranking global</li>
                             </ul>
                         </div>
@@ -632,7 +576,7 @@
                             ACEPTAR EL DESAFÍO
                         </button>
                         <p style="color: rgba(255, 255, 255, 0.8); margin-top: 1rem; font-size: 0.9rem;">
-                            ⚠️ Una vez que comiences, el contador iniciará. ¡Prepárate para la aventura!
+                            ¡Prepárate para la aventura!
                         </p>
                     </div>
                 </div>
@@ -727,34 +671,6 @@
             }, 2000);
         }
         
-        // Contador regresivo de 7 días
-        function updateCountdown() {
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 7); // 7 días desde ahora
-            
-            function update() {
-                const now = new Date();
-                const difference = targetDate - now;
-                
-                if (difference > 0) {
-                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                    
-                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                } else {
-                    // Tiempo terminado
-                    document.querySelector('.countdown-timer').innerHTML = 
-                        '<div style="color: #ff5252; font-size: 1.5rem;">⏰ TIEMPO AGOTADO</div>';
-                }
-            }
-            
-            update();
-            setInterval(update, 60000); // Actualizar cada minuto
-        }
-        
         // Función para mostrar notificaciones
         function mostrarNotificacion(mensaje, tipo = 'success') {
             // Crear elemento de notificación
@@ -832,9 +748,6 @@
 
         // Animaciones al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
-            // Iniciar contador regresivo
-            updateCountdown();
-            
             // Configuración del Intersection Observer para animaciones
             const observerOptions = {
                 threshold: 0.1,
