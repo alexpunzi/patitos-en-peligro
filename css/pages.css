@@ -187,7 +187,7 @@
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-lg);
     margin-top: var(--spacing-xl);
-    counter-reset: step-counter;
+    /* counter-reset: step-counter; */  /* ELIMINADO: No más contador CSS */
 }
 
 .how-it-works .step {
@@ -198,9 +198,10 @@
     box-shadow: var(--shadow);
     position: relative;
     transition: var(--transition);
-    counter-increment: step-counter;
+    /* counter-increment: step-counter; */  /* ELIMINADO: No más contador CSS */
 }
 
+/* ELIMINADO COMPLETAMENTE - Contador CSS duplicado
 .how-it-works .step::before {
     content: counter(step-counter);
     position: absolute;
@@ -219,6 +220,7 @@
     font-size: 1.2rem;
     box-shadow: var(--shadow);
 }
+*/
 
 .how-it-works .step:hover {
     transform: translateY(-8px);
