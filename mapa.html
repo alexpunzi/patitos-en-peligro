@@ -1,326 +1,935 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mapa interactivo de la Universidad de Alicante para Patitos en Peligro">
-    <title>Mapa UA - Patitos en Peligro</title>
+    <meta name="description" content="Mapa interactivo accesible de la Universidad de Alicante para el proyecto Patitos en Peligro - Encuentra aularios, bibliotecas y zonas ecológicas">
+    <meta name="theme-color" content="#0277bd">
+    
+    <title>Mapa Interactivo UA - Patitos en Peligro</title>
     <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
     
-    <!-- CSS Unificado -->
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/pages.css">
+    <!-- Preload crítico -->
+    <link rel="preload" href="css/common.css" as="style">
+    <link rel="preload" href="css/components.css" as="style">
+    <link rel="preload" href="css/layout.css" as="style">
+    <link rel="preload" href="css/pages.css" as="style">
     
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common.css" media="all">
+    <link rel="stylesheet" href="css/components.css" media="all">
+    <link rel="stylesheet" href="css/layout.css" media="all">
+    <link rel="stylesheet" href="css/pages.css" media="all">
+    
+    <!-- Estilos específicos del mapa (optimizados) -->
     <style>
-        /* Estilos simplificados para la página de mapa */
+        /* ============ VARIABLES ESPECÍFICAS ============ */
+        :root {
+            --map-height: 500px;
+            --map-height-mobile: 300px;
+            --map-controls-gap: 0.75rem;
+            --transition-map: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* ============ HERO MEJORADO ============ */
         .map-hero {
             background: linear-gradient(135deg, 
-                rgba(74, 179, 244, 0.9) 0%, 
-                rgba(2, 119, 189, 0.8) 50%, 
-                rgba(179, 229, 252, 0.7) 100%);
+                rgba(74, 179, 244, 0.95) 0%, 
+                rgba(2, 119, 189, 0.85) 100%);
             color: var(--white);
             text-align: center;
-            padding: 3rem 2rem;
-            margin-bottom: 2rem;
+            padding: var(--spacing-xl) var(--spacing-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .map-hero-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
         .map-hero-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         
         .map-hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: 0;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* ============ CONTENEDOR PRINCIPAL ============ */
+        .map-main {
+            padding: var(--spacing-xl) 0;
         }
         
         .map-description {
             text-align: center;
-            margin-bottom: 2rem;
-            line-height: 1.6;
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
         }
-
+        
+        /* ============ CONTROLES DEL MAPA MEJORADOS ============ */
+        .map-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--map-controls-gap);
+            margin-bottom: var(--spacing-lg);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .map-control__btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: var(--spacing-md);
+            background: var(--white);
+            border: 2px solid var(--light-blue);
+            border-radius: var(--border-radius);
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-map);
+            text-align: center;
+            min-height: 80px;
+            justify-content: center;
+        }
+        
+        .map-control__btn:hover:not([aria-pressed="true"]) {
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .map-control__btn[aria-pressed="true"] {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .map-control__icon {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        
+        .map-control__text {
+            font-size: 0.95rem;
+        }
+        
+        /* ============ CONTENEDOR DEL MAPA ============ */
         .map-container {
             width: 100%;
             max-width: 900px;
-            margin: 0 auto 2rem;
+            margin: 0 auto var(--spacing-xl);
             border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            background: var(--very-light-blue);
+            min-height: var(--map-height);
         }
-
+        
+        .map-container--loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        .map-container--loading::after {
+            content: 'Cargando mapa...';
+        }
+        
         .map-frame {
             display: block;
             width: 100%;
-            height: 400px;
+            height: var(--map-height);
             border: none;
+            background: var(--very-light-blue);
+            transition: opacity var(--transition-map);
         }
-
+        
+        .map-frame--loading {
+            opacity: 0.3;
+        }
+        
+        /* ============ INFORMACIÓN DE UBICACIÓN ============ */
         .location-info {
             background: var(--white);
             border-radius: var(--border-radius);
-            padding: 1.5rem;
+            padding: var(--spacing-xl);
             box-shadow: var(--shadow);
             max-width: 900px;
-            margin: 0 auto 2rem;
+            margin: 0 auto var(--spacing-xl);
+            border-left: 4px solid var(--primary-color);
+            animation: fadeInUp 0.4s ease-out;
         }
-
+        
+        .location-info--loading {
+            opacity: 0.7;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .location-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .location-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+        
         .location-title {
             color: var(--primary-color);
-            margin-top: 0;
+            margin: 0;
             font-size: 1.5rem;
+            line-height: 1.3;
         }
-
+        
         .location-description {
-            line-height: 1.6;
+            line-height: 1.7;
+            color: var(--text-color);
         }
-
+        
+        .location-description p {
+            margin-bottom: var(--spacing-sm);
+        }
+        
         .location-features {
-            margin-top: 1rem;
-            padding-left: 1.5rem;
+            margin-top: var(--spacing-md);
+            padding-left: 0;
+            list-style: none;
         }
-
-        .location-features li {
-            margin-bottom: 0.5rem;
+        
+        .location-feature {
+            padding: var(--spacing-xs) 0 var(--spacing-xs) 2rem;
             position: relative;
-            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
         }
-
-        .location-features li::before {
+        
+        .location-feature::before {
             content: '✓';
             position: absolute;
             left: 0;
+            top: var(--spacing-xs);
             color: var(--green);
             font-weight: bold;
+            font-size: 1.1rem;
         }
-
-        .map-controls {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
+        
+        .location-feature strong {
+            color: var(--primary-color);
         }
-
-        @media (max-width: 768px) {
+        
+        /* ============ FALLBACK ACCESIBLE ============ */
+        .map-fallback {
+            text-align: center;
+            padding: var(--spacing-xl);
+            background: var(--very-light-blue);
+            border-radius: var(--border-radius);
+            margin: var(--spacing-lg) auto;
+            max-width: 600px;
+            display: none;
+        }
+        
+        .map-fallback--visible {
+            display: block;
+            animation: fadeInUp 0.4s ease-out;
+        }
+        
+        /* ============ RESPONSIVE AVANZADO ============ */
+        @media (max-width: 992px) {
             .map-controls {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: repeat(2, 1fr);
             }
-            
-            .map-controls .btn {
-                width: 250px;
+        }
+        
+        @media (max-width: 768px) {
+            :root {
+                --map-height: var(--map-height-mobile);
             }
             
             .map-hero {
-                padding: 2rem 1rem;
+                padding: var(--spacing-lg) var(--spacing-sm);
             }
             
-            .map-hero-title {
-                font-size: 2rem;
+            .map-controls {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .map-control__btn {
+                min-height: 70px;
+                padding: var(--spacing-sm);
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: var(--spacing-sm);
+            }
+            
+            .map-control__icon {
+                font-size: 1.25rem;
+            }
+            
+            .location-info {
+                padding: var(--spacing-lg);
             }
         }
+        
+        @media (max-width: 480px) {
+            .map-main {
+                padding: var(--spacing-lg) 0;
+            }
+            
+            .location-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .location-icon {
+                align-self: flex-start;
+            }
+        }
+        
+        /* ============ REDUCCIÓN DE MOVIMIENTO ============ */
+        @media (prefers-reduced-motion: reduce) {
+            .map-control__btn,
+            .map-frame,
+            .location-info {
+                transition: none !important;
+                animation: none !important;
+            }
+            
+            .map-control__btn:hover:not([aria-pressed="true"]),
+            .map-control__btn[aria-pressed="true"] {
+                transform: none !important;
+            }
+        }
+        
+        /* ============ ESTADOS DE FOCO ============ */
+        .map-control__btn:focus-visible {
+            outline: 3px solid var(--secondary-color);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(74, 179, 244, 0.3);
+        }
+        
+        /* ============ UTILIDADES ============ */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
     </style>
+    
+    <!-- Noscript para usuarios sin JavaScript -->
+    <noscript>
+        <style>
+            .map-controls { display: none; }
+            .map-fallback { display: block; }
+            .location-info { animation: none; }
+        </style>
+    </noscript>
 </head>
 <body>
+    <!-- Skip link para accesibilidad -->
+    <a href="#main-content" class="sr-only sr-only-focusable">
+        Saltar al contenido principal
+    </a>
+
     <!-- Encabezado -->
-    <header class="header">
+    <header class="header" role="banner">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <img src="patitologo1_circulo.png" 
+                     alt="Logo de Patitos en Peligro" 
+                     class="logo"
+                     width="70" 
+                     height="70"
+                     loading="eager">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Inicio</a></li>
-                    <li><a href="agradecimientos.html" class="nav-link">Agradecimientos</a></li>
-                    <li><a href="mapa.html" class="nav-link active">Mapa</a></li>
-                    <li><a href="ranking.html" class="nav-link">Ranking</a></li>
-                    <li><a href="iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
+            
+            <!-- Navegación principal -->
+            <nav aria-label="Navegación principal">
+                <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="nav-menu" role="menubar">
+                    <li role="none">
+                        <a href="index.html" class="nav-link" role="menuitem">Inicio</a>
+                    </li>
+                    <li role="none">
+                        <a href="agradecimientos.html" class="nav-link" role="menuitem">Agradecimientos</a>
+                    </li>
+                    <li role="none">
+                        <a href="mapa.html" class="nav-link active" 
+                           aria-current="page" 
+                           role="menuitem">Mapa</a>
+                    </li>
+                    <li role="none">
+                        <a href="ranking.html" class="nav-link" role="menuitem">Ranking</a>
+                    </li>
+                    <li role="none">
+                        <a href="iniciarSesion.html" class="btn btn--secondary" role="menuitem">
+                            Iniciar Sesión
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="map-hero">
+    <section class="map-hero" aria-labelledby="map-hero-title">
         <div class="map-hero-content">
-            <h1 class="map-hero-title">🗺️ Mapa de la Universidad de Alicante</h1>
-            <p class="map-hero-subtitle">Encuentra los puntos de interés del campus universitario</p>
+            <h1 id="map-hero-title" class="map-hero-title">
+                Mapa Interactivo de la Universidad de Alicante
+            </h1>
+            <p class="map-hero-subtitle">
+                Descubre los puntos de interés, zonas ecológicas y espacios clave del campus universitario
+            </p>
         </div>
     </section>
 
     <!-- Contenido principal -->
-    <main class="main-content">
+    <main id="main-content" class="main-content map-main" role="main">
         <div class="container">
+            <!-- Descripción del mapa -->
             <div class="map-description">
-                <p>Explora los diferentes puntos de interés del campus universitario. Descubre aularios, bibliotecas, zonas verdes y áreas relacionadas con la sostenibilidad y el cambio climático.</p>
+                <p>
+                    Explora el campus de la Universidad de Alicante a través de este mapa interactivo. 
+                    Encuentra aularios, bibliotecas, zonas verdes y espacios relacionados con la sostenibilidad 
+                    y la lucha contra el cambio climático.
+                </p>
             </div>
 
-            <!-- Controles del mapa -->
-            <div class="map-controls">
-                <button class="btn btn-secondary active" data-location="general">🌍 Vista General UA</button>
-                <button class="btn btn-secondary" data-location="aularios">🏛️ Aularios</button>
-                <button class="btn btn-secondary" data-location="bibliotecas">📚 Bibliotecas</button>
-                <button class="btn btn-secondary" data-location="ecologico">🌿 Zonas Ecológicas</button>
+            <!-- Controles del mapa (accesibles) -->
+            <div class="map-controls" role="toolbar" aria-label="Controles del mapa">
+                <button class="map-control__btn" 
+                        data-location="general"
+                        aria-label="Mostrar vista general del campus"
+                        aria-pressed="true"
+                        role="radio"
+                        aria-checked="true">
+                    <span class="map-control__icon" aria-hidden="true">🗺️</span>
+                    <span class="map-control__text">Vista General</span>
+                </button>
+                
+                <button class="map-control__btn" 
+                        data-location="aularios"
+                        aria-label="Mostrar edificios de aularios"
+                        aria-pressed="false"
+                        role="radio"
+                        aria-checked="false">
+                    <span class="map-control__icon" aria-hidden="true">🏛️</span>
+                    <span class="map-control__text">Aularios</span>
+                </button>
+                
+                <button class="map-control__btn" 
+                        data-location="bibliotecas"
+                        aria-label="Mostrar bibliotecas universitarias"
+                        aria-pressed="false"
+                        role="radio"
+                        aria-checked="false">
+                    <span class="map-control__icon" aria-hidden="true">📚</span>
+                    <span class="map-control__text">Bibliotecas</span>
+                </button>
+                
+                <button class="map-control__btn" 
+                        data-location="ecologico"
+                        aria-label="Mostrar zonas ecológicas y sostenibles"
+                        aria-pressed="false"
+                        role="radio"
+                        aria-checked="false">
+                    <span class="map-control__icon" aria-hidden="true">🌿</span>
+                    <span class="map-control__text">Zonas Ecológicas</span>
+                </button>
             </div>
 
             <!-- Contenedor del mapa -->
-            <div class="map-container">
-                <!-- Mapa de la Universidad de Alicante por defecto -->
+            <div class="map-container" id="map-container">
+                <!-- Mapa de Google Maps (carga diferida) -->
                 <iframe 
                     id="gameMap"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.003966569233!2d-0.5091234846599756!3d38.38348807964956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6235da3b9dab4d%3A0xbad2e59b5c9b3c1c!2sUniversidad%20de%20Alicante!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="Mapa de la Universidad de Alicante"
-                    class="map-frame">
+                    class="map-frame"
+                    data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.003966569233!2d-0.5091234846599756!3d38.38348807964956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6235da3b9dab4d%3A0xbad2e59b5c9b3c1c!2sUniversidad%20de%20Alicante!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses"
+                    title="Mapa interactivo de la Universidad de Alicante"
+                    aria-label="Mapa que muestra las instalaciones del campus universitario"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
                 </iframe>
-            </div>
-
-            <!-- Información de ubicación dinámica -->
-            <div class="location-info" id="location-info">
-                <h2 class="location-title" id="location-title">🏛️ Universidad de Alicante - Vista General</h2>
-                <div class="location-description" id="location-description">
-                    <p>La Universidad de Alicante es un campus moderno y sostenible que alberga numerosas facultades, servicios y espacios verdes. Con más de 50.000 estudiantes, es un referente en educación superior e investigación en la Comunidad Valenciana.</p>
-                    <p>El campus cuenta con una extensión de más de un millón de metros cuadrados y está diseñado con criterios de sostenibilidad y respeto al medio ambiente.</p>
-                    <ul class="location-features">
-                        <li>Más de 50.000 estudiantes matriculados</li>
-                        <li>Campus sostenible con numerosas zonas verdes</li>
-                        <li>Instalaciones modernas y accesibles</li>
-                        <li>Comprometida con la lucha contra el cambio climático</li>
-                    </ul>
+                
+                <!-- Fallback para errores -->
+                <div class="map-fallback" id="map-fallback" aria-live="polite">
+                    <p><strong>⚠️ No se puede cargar el mapa interactivo</strong></p>
+                    <p>Puedes ver el mapa directamente en Google Maps:</p>
+                    <a href="https://maps.google.com/?q=Universidad+de+Alicante" 
+                       class="btn btn--primary"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Abrir en Google Maps
+                    </a>
                 </div>
             </div>
 
-            <!-- Botón para Volver a la Página Principal-->
-            <div class="button-container">
-                <a href="index.html" class="btn btn-primary">← Volver a la Página Principal</a>
+            <!-- Información de ubicación (dinámica) -->
+            <section class="location-info" 
+                     id="location-info" 
+                     aria-labelledby="location-title"
+                     aria-live="polite">
+                <div class="location-header">
+                    <span class="location-icon" id="location-icon" aria-hidden="true">🗺️</span>
+                    <h2 id="location-title" class="location-title">
+                        Universidad de Alicante - Vista General
+                    </h2>
+                </div>
+                
+                <div class="location-description" id="location-description">
+                    <p>La Universidad de Alicante es un campus moderno y sostenible que alberga numerosas facultades, servicios y espacios verdes. Con más de 50.000 estudiantes, es un referente en educación superior e investigación en la Comunidad Valenciana.</p>
+                    <p>El campus cuenta con una extensión de más de un millón de metros cuadrados y está diseñado con criterios de sostenibilidad y respeto al medio ambiente.</p>
+                    
+                    <ul class="location-features">
+                        <li class="location-feature">Más de 50.000 estudiantes matriculados</li>
+                        <li class="location-feature">Campus sostenible con numerosas zonas verdes</li>
+                        <li class="location-feature">Instalaciones modernas y accesibles</li>
+                        <li class="location-feature">Comprometida con la lucha contra el cambio climático</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Navegación secundaria -->
+            <div class="button-container text-center">
+                <a href="index.html" class="btn btn--primary">
+                    ← Volver a la Página Principal
+                </a>
+                <a href="ranking.html" class="btn btn--secondary">
+                    Ver Ranking de Jugadores
+                </a>
             </div>
         </div>
     </main>
 
     <!-- Pie de página -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container footer-content">
-            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <img src="patitologo1_circulo.png" 
+                 alt="Logo de Patitos en Peligro" 
+                 class="footer-logo"
+                 width="100" 
+                 height="100"
+                 loading="lazy">
+            
             <div class="footer-links">
                 <a href="index.html" class="footer-link">Inicio</a>
                 <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
-                <a href="mapa.html" class="footer-link">Mapa</a>
+                <a href="mapa.html" class="footer-link" aria-current="page">Mapa</a>
                 <a href="ranking.html" class="footer-link">Ranking</a>
                 <a href="ajustes.html" class="footer-link">Ajustes</a>
                 <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
             </div>
+            
             <div class="copyright">
                 <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
                 <p>Grupo 41 - Patitos en Peligro</p>
+                <p>© 2024 - Todos los derechos reservados</p>
             </div>
         </div>
     </footer>
 
+    <!-- JavaScript optimizado -->
     <script>
-        // Datos de ubicaciones específicas de la UA
-        const locationData = {
-            general: {
-                title: "🏛️ Universidad de Alicante - Vista General",
-                description: `
-                    <p>La Universidad de Alicante es un campus moderno y sostenible que alberga numerosas facultades, servicios y espacios verdes. Con más de 50.000 estudiantes, es un referente en educación superior e investigación en la Comunidad Valenciana.</p>
-                    <p>El campus cuenta con una extensión de más de un millón de metros cuadrados y está diseñado con criterios de sostenibilidad y respeto al medio ambiente.</p>
-                    <ul class="location-features">
-                        <li>Más de 50.000 estudiantes matriculados</li>
-                        <li>Campus sostenible con numerosas zonas verdes</li>
-                        <li>Instalaciones modernas y accesibles</li>
-                        <li>Comprometida con la lucha contra el cambio climático</li>
-                    </ul>
-                `,
-                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.003966569233!2d-0.5091234846599756!3d38.38348807964956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6235da3b9dab4d%3A0xbad2e59b5c9b3c1c!2sUniversidad%20de%20Alicante!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
-            },
-            aularios: {
-                title: "🏛️ Aularios de la Universidad",
-                description: `
-                    <p>Los aularios son los edificios principales donde se imparten las clases en la Universidad de Alicante. Están distribuidos por todo el campus y cuentan con aulas equipadas con la última tecnología.</p>
-                    <p>Algunos de los aularios más importantes incluyen:</p>
-                    <ul class="location-features">
-                        <li><strong>Aulario I</strong> - Uno de los edificios más antiguos del campus</li>
-                        <li><strong>Aulario II</strong> - Con aulas de gran capacidad para clases magistrales</li>
-                        <li><strong>Aulario III</strong> - Moderno edificio con salas de informática</li>
-                        <li><strong>Edificio de Óptica</strong> - Especializado en ciencias de la visión</li>
-                    </ul>
-                `,
-                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.987654321098!2d-0.507!3d38.384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIzJzAyLjQiTiAwwrAzMCcyNS4yIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
-            },
-            bibliotecas: {
-                title: "📚 Bibliotecas Universitarias",
-                description: `
-                    <p>La Universidad de Alicante cuenta con una red de bibliotecas especializadas que ofrecen recursos para el estudio y la investigación. La Biblioteca General es el centro neurálgico de este sistema.</p>
-                    <p>Principales bibliotecas del campus:</p>
-                    <ul class="location-features">
-                        <li><strong>Biblioteca General</strong> - El edificio central con mayor colección</li>
-                        <li><strong>Biblioteca de Ciencias</strong> - Especializada en ciencias experimentales</li>
-                        <li><strong>Biblioteca de Económicas</strong> - Recursos para economía y empresa</li>
-                        <li><strong>Biblioteca de Filosofía y Letras</strong> - Especializada en humanidades</li>
-                    </ul>
-                `,
-                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.876543210987!2d-0.510!3d38.385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIzJzA2LjAiTiAwwrAzMCczNi4wIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
-            },
-            ecologico: {
-                title: "🌿 Zonas Ecológicas y Sostenibles",
-                description: `
-                    <p>La Universidad de Alicante está comprometida con la sostenibilidad y cuenta con numerosas iniciativas ecológicas distribuidas por todo el campus.</p>
-                    <p>Principales zonas ecológicas:</p>
-                    <ul class="location-features">
-                        <li><strong>Lago Universitario</strong> - Ecosistema acuático que alberga patos y otras aves</li>
-                        <li><strong>Jardín de los Sentidos</strong> - Espacio con plantas aromáticas y especies autóctonas</li>
-                        <li><strong>Huerto Ecológico Universitario</strong> - Proyecto de agricultura sostenible</li>
-                        <li><strong>Instalaciones de Energía Solar</strong> - Paneles solares en varios edificios</li>
-                    </ul>
-                `,
-                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.123456789012!2d-0.508!3d38.382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIyJzU1LjIiTiAwwrAzMCcyOC44Ilc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
+        // ============================================
+        // Mapa Interactivo - Clase Moderna
+        // ============================================
+        class InteractiveMap {
+            constructor() {
+                this.currentLocation = 'general';
+                this.isLoading = false;
+                this.mapFrame = document.getElementById('gameMap');
+                this.fallback = document.getElementById('map-fallback');
+                this.container = document.getElementById('map-container');
+                this.locationInfo = document.getElementById('location-info');
+                this.locationTitle = document.getElementById('location-title');
+                this.locationDescription = document.getElementById('location-description');
+                this.locationIcon = document.getElementById('location-icon');
+                
+                // Datos de ubicaciones
+                this.locationData = {
+                    general: {
+                        title: "Universidad de Alicante - Vista General",
+                        icon: "🗺️",
+                        description: `
+                            <p>La Universidad de Alicante es un campus moderno y sostenible que alberga numerosas facultades, servicios y espacios verdes. Con más de 50.000 estudiantes, es un referente en educación superior e investigación en la Comunidad Valenciana.</p>
+                            <p>El campus cuenta con una extensión de más de un millón de metros cuadrados y está diseñado con criterios de sostenibilidad y respeto al medio ambiente.</p>
+                            <ul class="location-features">
+                                <li class="location-feature">Más de 50.000 estudiantes matriculados</li>
+                                <li class="location-feature">Campus sostenible con numerosas zonas verdes</li>
+                                <li class="location-feature">Instalaciones modernas y accesibles</li>
+                                <li class="location-feature">Comprometida con la lucha contra el cambio climático</li>
+                            </ul>
+                        `,
+                        mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.003966569233!2d-0.5091234846599756!3d38.38348807964956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6235da3b9dab4d%3A0xbad2e59b5c9b3c1c!2sUniversidad%20de%20Alicante!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
+                    },
+                    aularios: {
+                        title: "Edificios de Aularios",
+                        icon: "🏛️",
+                        description: `
+                            <p>Los aularios son los edificios principales donde se imparten las clases en la Universidad de Alicante. Están distribuidos por todo el campus y cuentan con aulas equipadas con la última tecnología.</p>
+                            <p>Algunos de los aularios más importantes incluyen:</p>
+                            <ul class="location-features">
+                                <li class="location-feature"><strong>Aulario I</strong> - Uno de los edificios más antiguos del campus</li>
+                                <li class="location-feature"><strong>Aulario II</strong> - Con aulas de gran capacidad para clases magistrales</li>
+                                <li class="location-feature"><strong>Aulario III</strong> - Moderno edificio con salas de informática</li>
+                                <li class="location-feature"><strong>Edificio de Óptica</strong> - Especializado en ciencias de la visión</li>
+                            </ul>
+                        `,
+                        mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.987654321098!2d-0.507!3d38.384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIzJzAyLjQiTiAwwrAzMCcyNS4yIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
+                    },
+                    bibliotecas: {
+                        title: "Bibliotecas Universitarias",
+                        icon: "📚",
+                        description: `
+                            <p>La Universidad de Alicante cuenta con una red de bibliotecas especializadas que ofrecen recursos para el estudio y la investigación. La Biblioteca General es el centro neurálgico de este sistema.</p>
+                            <p>Principales bibliotecas del campus:</p>
+                            <ul class="location-features">
+                                <li class="location-feature"><strong>Biblioteca General</strong> - El edificio central con mayor colección</li>
+                                <li class="location-feature"><strong>Biblioteca de Ciencias</strong> - Especializada en ciencias experimentales</li>
+                                <li class="location-feature"><strong>Biblioteca de Económicas</strong> - Recursos para economía y empresa</li>
+                                <li class="location-feature"><strong>Biblioteca de Filosofía y Letras</strong> - Especializada en humanidades</li>
+                            </ul>
+                        `,
+                        mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.876543210987!2d-0.510!3d38.385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIzJzA2LjAiTiAwwrAzMCczNi4wIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
+                    },
+                    ecologico: {
+                        title: "Zonas Ecológicas y Sostenibles",
+                        icon: "🌿",
+                        description: `
+                            <p>La Universidad de Alicante está comprometida con la sostenibilidad y cuenta con numerosas iniciativas ecológicas distribuidas por todo el campus.</p>
+                            <p>Principales zonas ecológicas:</p>
+                            <ul class="location-features">
+                                <li class="location-feature"><strong>Lago Universitario</strong> - Ecosistema acuático que alberga patos y otras aves</li>
+                                <li class="location-feature"><strong>Jardín de los Sentidos</strong> - Espacio con plantas aromáticas y especies autóctonas</li>
+                                <li class="location-feature"><strong>Huerto Ecológico Universitario</strong> - Proyecto de agricultura sostenible</li>
+                                <li class="location-feature"><strong>Instalaciones de Energía Solar</strong> - Paneles solares en varios edificios</li>
+                            </ul>
+                        `,
+                        mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.123456789012!2d-0.508!3d38.382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIyJzU1LjIiTiAwwrAzMCcyOC44Ilc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses'
+                    }
+                };
+                
+                this.init();
             }
-        };
-
-        // Funcionalidad para cambiar entre ubicaciones del mapa
-        document.querySelectorAll('.btn[data-location]').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remover clase active de todos los botones
-                document.querySelectorAll('.btn[data-location]').forEach(btn => {
-                    btn.classList.remove('active');
+            
+            init() {
+                // Cargar el mapa inicial (diferido)
+                this.loadInitialMap();
+                
+                // Configurar event delegation para controles
+                this.setupEventListeners();
+                
+                // Configurar manejo de errores
+                this.setupErrorHandling();
+                
+                // Preload datos para mejor performance
+                this.preloadData();
+            }
+            
+            loadInitialMap() {
+                // Cargar mapa inicial con data-src para mejor performance
+                const dataSrc = this.mapFrame.getAttribute('data-src');
+                if (dataSrc) {
+                    setTimeout(() => {
+                        this.mapFrame.src = dataSrc;
+                    }, 100); // Pequeño delay para no bloquear render
+                }
+            }
+            
+            setupEventListeners() {
+                // Un solo listener para todos los controles (event delegation)
+                document.addEventListener('click', (e) => {
+                    const control = e.target.closest('.map-control__btn');
+                    if (control && !control.disabled) {
+                        this.handleControlClick(control);
+                    }
                 });
                 
-                // Agregar clase active al botón clickeado
-                this.classList.add('active');
+                // Soporte para teclado (accesibilidad)
+                document.addEventListener('keydown', (e) => {
+                    const control = e.target.closest('.map-control__btn');
+                    if (control && (e.key === 'Enter' || e.key === ' ')) {
+                        e.preventDefault();
+                        this.handleControlClick(control);
+                    }
+                });
+            }
+            
+            async handleControlClick(control) {
+                if (this.isLoading) return;
                 
-                // Cambiar el mapa según la ubicación seleccionada
-                const location = this.getAttribute('data-location');
-                const mapFrame = document.getElementById('gameMap');
-                const locationInfo = document.getElementById('location-info');
-                const locationTitle = document.getElementById('location-title');
-                const locationDescription = document.getElementById('location-description');
+                const location = control.dataset.location;
+                if (location === this.currentLocation) return;
                 
-                // Actualizar información de ubicación
-                if (locationData[location]) {
-                    locationTitle.textContent = locationData[location].title;
-                    locationDescription.innerHTML = locationData[location].description;
+                // Actualizar estado
+                this.currentLocation = location;
+                this.isLoading = true;
+                
+                // Feedback visual
+                this.setActiveControl(control);
+                this.showLoadingState();
+                
+                // Cargar nuevo mapa
+                await this.loadMap(location);
+                
+                // Actualizar información
+                this.updateLocationInfo(location);
+                
+                // Finalizar
+                this.hideLoadingState();
+                this.isLoading = false;
+            }
+            
+            setActiveControl(activeControl) {
+                // Actualizar todos los controles
+                document.querySelectorAll('.map-control__btn').forEach(control => {
+                    const isActive = control === activeControl;
+                    control.setAttribute('aria-pressed', isActive);
+                    control.setAttribute('aria-checked', isActive);
+                });
+            }
+            
+            showLoadingState() {
+                this.container.classList.add('map-container--loading');
+                this.mapFrame.classList.add('map-frame--loading');
+                this.locationInfo.classList.add('location-info--loading');
+            }
+            
+            hideLoadingState() {
+                this.container.classList.remove('map-container--loading');
+                this.mapFrame.classList.remove('map-frame--loading');
+                this.locationInfo.classList.remove('location-info--loading');
+            }
+            
+            async loadMap(location) {
+                return new Promise((resolve) => {
+                    const locationData = this.locationData[location];
+                    if (!locationData) {
+                        console.error('Ubicación no encontrada:', location);
+                        this.showFallback();
+                        resolve();
+                        return;
+                    }
                     
-                    // Actualizar el src del iframe
-                    mapFrame.src = locationData[location].mapUrl;
+                    // Cambiar src del iframe
+                    this.mapFrame.src = locationData.mapUrl;
+                    
+                    // Esperar a que el iframe cargue
+                    this.mapFrame.onload = () => {
+                        resolve();
+                    };
+                    
+                    // Timeout por seguridad
+                    setTimeout(() => {
+                        resolve();
+                    }, 5000);
+                });
+            }
+            
+            updateLocationInfo(location) {
+                const locationData = this.locationData[location];
+                if (!locationData) return;
+                
+                // Actualizar contenido
+                this.locationTitle.textContent = locationData.title;
+                this.locationIcon.textContent = locationData.icon;
+                
+                // Usar innerHTML con sanitización básica
+                this.locationDescription.innerHTML = locationData.description;
+                
+                // Anunciar cambio para lectores de pantalla
+                this.announceLocationChange(locationData.title);
+            }
+            
+            announceLocationChange(title) {
+                // Crear elemento para anuncios de aria-live
+                const announcement = document.createElement('div');
+                announcement.className = 'sr-only';
+                announcement.setAttribute('aria-live', 'assertive');
+                announcement.setAttribute('aria-atomic', 'true');
+                announcement.textContent = `Mapa cambiado a: ${title}`;
+                
+                document.body.appendChild(announcement);
+                
+                // Remover después de anunciar
+                setTimeout(() => {
+                    document.body.removeChild(announcement);
+                }, 1000);
+            }
+            
+            showFallback() {
+                this.fallback.classList.add('map-fallback--visible');
+            }
+            
+            hideFallback() {
+                this.fallback.classList.remove('map-fallback--visible');
+            }
+            
+            setupErrorHandling() {
+                // Manejar errores del iframe
+                this.mapFrame.addEventListener('error', () => {
+                    console.error('Error cargando el mapa');
+                    this.showFallback();
+                    this.hideLoadingState();
+                });
+                
+                // Fallback para conexiones lentas
+                const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                if (connection) {
+                    if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+                        console.log('Conexión lenta detectada, mostrando fallback simplificado');
+                        this.showFallback();
+                    }
                 }
+            }
+            
+            preloadData() {
+                // Preload de imágenes de mapa para mejor UX
+                if ('connection' in navigator && navigator.connection.saveData) {
+                    return; // No preload si el usuario tiene ahorro de datos
+                }
+                
+                // Preload de los otros mapas en segundo plano
+                Object.values(this.locationData).forEach(data => {
+                    const link = document.createElement('link');
+                    link.rel = 'prefetch';
+                    link.href = data.mapUrl;
+                    link.as = 'document';
+                    document.head.appendChild(link);
+                });
+            }
+        }
+        
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remover clase no-js
+            document.documentElement.classList.remove('no-js');
+            
+            // Inicializar mapa interactivo
+            const interactiveMap = new InteractiveMap();
+            
+            // Hacer global para debugging
+            window.interactiveMap = interactiveMap;
+            
+            // Inicializar menú móvil (si existe)
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                    menuToggle.setAttribute('aria-expanded', !isExpanded);
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Mejorar carga de imágenes
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                img.addEventListener('load', function() {
+                    this.classList.add('loaded');
+                });
             });
         });
-
-        // Cargar mapa alternativo si el principal falla
-        document.getElementById('gameMap').addEventListener('error', function() {
-            console.log('Error cargando el mapa, cargando alternativa...');
-            this.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.987654321098!2d-0.5!3d38.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIyJzQ4LjAiTiAwwrAzMCcwMC4wIlc!5e0!3m2!1ses!2ses!4v1642000000000!5m2!1ses!2ses';
+        
+        // Manejar errores no capturados
+        window.addEventListener('error', (e) => {
+            console.error('Error en la aplicación:', e.error);
+            // Mostrar mensaje amigable al usuario
+            const errorDisplay = document.createElement('div');
+            errorDisplay.className = 'error-message';
+            errorDisplay.textContent = 'Lo sentimos, ha ocurrido un error al cargar el mapa.';
+            errorDisplay.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #f44336;
+                color: white;
+                padding: 1rem;
+                border-radius: 4px;
+                z-index: 9999;
+            `;
+            document.body.appendChild(errorDisplay);
+            
+            setTimeout(() => {
+                document.body.removeChild(errorDisplay);
+            }, 5000);
         });
     </script>
 </body>
