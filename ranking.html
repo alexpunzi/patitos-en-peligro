@@ -16,9 +16,9 @@
     <style>
         /* ============ VARIABLES ============ */
         :root {
-            --ranking-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            --ranking-silver: linear-gradient(135deg, #C0C0C0 0%, #909090 100%);
-            --ranking-bronze: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
+            --ranking-gold-dark: #B8860B;
+            --ranking-silver-dark: #696969;
+            --ranking-bronze-dark: #8B4513;
         }
         
         /* ============ HERO SIMPLIFICADO ============ */
@@ -69,7 +69,7 @@
             color: var(--text-color);
         }
         
-        /* ============ PÓDIUM - TOP 3 ============ */
+        /* ============ PÓDIUM - TOP 3 MEJORADO ============ */
         .ranking-podium {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -86,6 +86,9 @@
             box-shadow: var(--shadow-lg);
             position: relative;
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
         
         .podium-place:hover {
@@ -94,56 +97,107 @@
         
         .podium-place--2nd {
             order: 1;
-            background: var(--ranking-silver);
-            color: white;
+            background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);
+            border: 3px solid #C0C0C0;
             height: 180px;
+            color: #333;
         }
         
         .podium-place--1st {
             order: 2;
-            background: var(--ranking-gold);
-            color: white;
+            background: linear-gradient(135deg, #FFF8DC 0%, #ffffff 100%);
+            border: 3px solid #FFD700;
             height: 220px;
             margin-bottom: var(--spacing-md);
+            color: #333;
         }
         
         .podium-place--3rd {
             order: 3;
-            background: var(--ranking-bronze);
-            color: white;
+            background: linear-gradient(135deg, #F5DEB3 0%, #ffffff 100%);
+            border: 3px solid #CD7F32;
             height: 160px;
+            color: #333;
+        }
+        
+        /* Mejora de contraste para textos */
+        .podium-place .podium-number,
+        .podium-place .podium-name,
+        .podium-place .podium-score {
+            color: #222 !important;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
         
         .podium-number {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: var(--spacing-sm);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            color: #222;
+        }
+        
+        .podium-place--1st .podium-number {
+            color: var(--ranking-gold-dark) !important;
+        }
+        
+        .podium-place--2nd .podium-number {
+            color: var(--ranking-silver-dark) !important;
+        }
+        
+        .podium-place--3rd .podium-number {
+            color: var(--ranking-bronze-dark) !important;
         }
         
         .podium-avatar {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin: 0 auto var(--spacing-sm);
-            border: 3px solid white;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            color: white;
         }
         
         .podium-name {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: var(--spacing-xs);
+            color: #222;
+            min-height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .podium-score {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 800;
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: auto;
+        }
+        
+        .podium-place--1st .podium-score {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--ranking-gold-dark);
+        }
+        
+        .podium-place--2nd .podium-score {
+            background: rgba(192, 192, 192, 0.2);
+            color: var(--ranking-silver-dark);
+        }
+        
+        .podium-place--3rd .podium-score {
+            background: rgba(205, 127, 50, 0.2);
+            color: var(--ranking-bronze-dark);
         }
         
         /* ============ TABLA TOP 10 ============ */
@@ -195,9 +249,27 @@
             font-size: 1.2rem;
         }
         
-        .position-1 { color: #FFD700; }
-        .position-2 { color: #C0C0C0; }
-        .position-3 { color: #CD7F32; }
+        .position-1 { 
+            color: var(--ranking-gold-dark);
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: var(--border-radius-sm);
+        }
+        .position-2 { 
+            color: var(--ranking-silver-dark);
+            background: rgba(192, 192, 192, 0.1);
+            border-radius: var(--border-radius-sm);
+        }
+        .position-3 { 
+            color: var(--ranking-bronze-dark);
+            background: rgba(205, 127, 50, 0.1);
+            border-radius: var(--border-radius-sm);
+        }
+        
+        .position-4, .position-5, .position-6, 
+        .position-7, .position-8, .position-9, 
+        .position-10 {
+            color: var(--primary-color);
+        }
         
         .player-cell {
             display: flex;
@@ -206,8 +278,8 @@
         }
         
         .player-avatar {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: var(--gradient-primary);
             display: flex;
@@ -215,8 +287,10 @@
             justify-content: center;
             color: var(--white);
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 1.1rem;
             flex-shrink: 0;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         
         .player-name {
@@ -226,13 +300,15 @@
         
         .player-badge {
             display: inline-block;
-            padding: 0.25rem 0.5rem;
-            background: var(--gradient-success);
+            padding: 0.25rem 0.75rem;
+            background: var(--gradient-accent);
             color: white;
-            border-radius: 12px;
+            border-radius: 50px;
             font-size: 0.7rem;
             font-weight: 700;
             margin-left: var(--spacing-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .score-cell {
@@ -244,6 +320,13 @@
         .ducks-cell {
             color: var(--accent-color);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .ducks-icon {
+            font-size: 1.2rem;
         }
         
         /* ============ FILTROS SIMPLES ============ */
@@ -256,7 +339,7 @@
         }
         
         .ranking-filter {
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-lg);
             background: var(--white);
             border: 2px solid var(--light-blue);
             border-radius: var(--border-radius);
@@ -264,11 +347,15 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .ranking-filter:hover {
             border-color: var(--secondary-color);
             transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
         
         .ranking-filter.active {
@@ -313,6 +400,19 @@
                 width: 50px;
             }
             
+            .podium-avatar {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .podium-name {
+                font-size: 1rem;
+                min-height: auto;
+                text-align: left;
+                justify-content: flex-start;
+            }
+            
             .ranking-table {
                 font-size: 0.9rem;
             }
@@ -334,6 +434,7 @@
             .ranking-filter {
                 width: 200px;
                 text-align: center;
+                justify-content: center;
             }
         }
         
@@ -343,8 +444,8 @@
             }
             
             .player-avatar {
-                width: 32px;
-                height: 32px;
+                width: 36px;
+                height: 36px;
                 font-size: 0.9rem;
             }
             
@@ -352,6 +453,27 @@
                 width: 40px;
                 font-size: 1rem;
             }
+            
+            .ranking-filters {
+                gap: 0.5rem;
+            }
+        }
+        
+        /* ============ ANIMACIONES ============ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .ranking-podium,
+        .ranking-table-container {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
@@ -392,12 +514,18 @@
 
             <!-- Filtros -->
             <div class="ranking-filters">
-                <button class="ranking-filter active" data-filter="global">🌍 Global</button>
-                <button class="ranking-filter" data-filter="weekly">📅 Semanal</button>
-                <button class="ranking-filter" data-filter="monthly">🗓️ Mensual</button>
+                <button class="ranking-filter active" data-filter="global">
+                    <span>🌍</span> Global
+                </button>
+                <button class="ranking-filter" data-filter="weekly">
+                    <span>📅</span> Semanal
+                </button>
+                <button class="ranking-filter" data-filter="monthly">
+                    <span>🗓️</span> Mensual
+                </button>
             </div>
 
-            <!-- Pódium Top 3 -->
+            <!-- Pódium Top 3 - MEJORADO CONTRASTE -->
             <div class="ranking-podium">
                 <div class="podium-place podium-place--2nd">
                     <div class="podium-number">2</div>
@@ -434,7 +562,7 @@
                     </thead>
                     <tbody id="ranking-body">
                         <!-- Top 3 ya mostrados en pódium -->
-                        <tr>
+                        <tr class="current-user">
                             <td class="position-cell position-4">4</td>
                             <td class="player-cell">
                                 <div class="player-avatar">PP</div>
@@ -444,7 +572,10 @@
                                 </div>
                             </td>
                             <td class="score-cell">9,850</td>
-                            <td class="ducks-cell">105 🦆</td>
+                            <td class="ducks-cell">
+                                <span class="ducks-icon">🦆</span>
+                                <span>105</span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="position-cell position-5">5</td>
@@ -455,7 +586,10 @@
                                 </div>
                             </td>
                             <td class="score-cell">9,200</td>
-                            <td class="ducks-cell">98 🦆</td>
+                            <td class="ducks-cell">
+                                <span class="ducks-icon">🦆</span>
+                                <span>98</span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="position-cell position-6">6</td>
@@ -466,7 +600,10 @@
                                 </div>
                             </td>
                             <td class="score-cell">8,750</td>
-                            <td class="ducks-cell">92 🦆</td>
+                            <td class="ducks-cell">
+                                <span class="ducks-icon">🦆</span>
+                                <span>92</span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="position-cell position-7">7</td>
@@ -477,7 +614,10 @@
                                 </div>
                             </td>
                             <td class="score-cell">8,200</td>
-                            <td class="ducks-cell">87 🦆</td>
+                            <td class="ducks-cell">
+                                <span class="ducks-icon">🦆</span>
+                                <span>87</span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="position-cell position-8">8</td>
@@ -488,7 +628,10 @@
                                 </div>
                             </td>
                             <td class="score-cell">7,850</td>
-                            <td class="ducks-cell">83 🦆</td>
+                            <td class="ducks-cell">
+                                <span class="ducks-icon">🦆</span>
+                                <span>83</span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="position-cell position-9">9</td>
@@ -499,7 +642,10 @@
                                 </div>
                             </td>
                             <td class="score-cell">7,450</td>
-                            <td class="ducks-cell">79 🦆</td>
+                            <td class="ducks-cell">
+                                <span class="ducks-icon">🦆</span>
+                                <span>79</span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="position-cell position-10">10</td>
@@ -510,7 +656,10 @@
                                 </div>
                             </td>
                             <td class="score-cell">7,100</td>
-                            <td class="ducks-cell">75 🦆</td>
+                            <td class="ducks-cell">
+                                <span class="ducks-icon">🦆</span>
+                                <span>75</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -592,8 +741,12 @@
             });
             
             // Animación de entrada
-            const animatedElements = document.querySelectorAll('.ranking-podium, .ranking-table-container');
-            animatedElements.forEach((el, index) => {
+            animateElements();
+        });
+        
+        function animateElements() {
+            const elements = document.querySelectorAll('.ranking-podium, .ranking-table-container');
+            elements.forEach((el, index) => {
                 setTimeout(() => {
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
@@ -603,7 +756,7 @@
                 el.style.transform = 'translateY(20px)';
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             });
-        });
+        }
         
         function updateRanking(filterType) {
             const data = rankingData[filterType];
@@ -614,8 +767,10 @@
             // Limpiar tabla
             tbody.innerHTML = '';
             
-            // Generar filas
-            data.forEach(player => {
+            // Generar filas (empezando desde la posición 4)
+            const playersToShow = data.filter(player => player.position >= 4);
+            
+            playersToShow.forEach(player => {
                 const row = document.createElement('tr');
                 
                 if (player.isCurrentUser) {
@@ -632,11 +787,41 @@
                         </div>
                     </td>
                     <td class="score-cell">${player.score.toLocaleString()}</td>
-                    <td class="ducks-cell">${player.ducks} 🦆</td>
+                    <td class="ducks-cell">
+                        <span class="ducks-icon">🦆</span>
+                        <span>${player.ducks}</span>
+                    </td>
                 `;
                 
                 tbody.appendChild(row);
             });
+            
+            // También actualizar el pódium
+            updatePodium(filterType);
+        }
+        
+        function updatePodium(filterType) {
+            const data = rankingData[filterType];
+            const top3 = data.filter(player => player.position <= 3).sort((a, b) => a.position - b.position);
+            
+            if (top3.length >= 3) {
+                // Actualizar pódium
+                const podiumElements = document.querySelectorAll('.podium-place');
+                podiumElements[0].querySelector('.podium-number').textContent = top3[1].position;
+                podiumElements[0].querySelector('.podium-avatar').textContent = top3[1].avatar;
+                podiumElements[0].querySelector('.podium-name').textContent = top3[1].name;
+                podiumElements[0].querySelector('.podium-score').textContent = `${top3[1].score.toLocaleString()} pts`;
+                
+                podiumElements[1].querySelector('.podium-number').textContent = top3[0].position;
+                podiumElements[1].querySelector('.podium-avatar').textContent = top3[0].avatar;
+                podiumElements[1].querySelector('.podium-name').textContent = top3[0].name;
+                podiumElements[1].querySelector('.podium-score').textContent = `${top3[0].score.toLocaleString()} pts`;
+                
+                podiumElements[2].querySelector('.podium-number').textContent = top3[2].position;
+                podiumElements[2].querySelector('.podium-avatar').textContent = top3[2].avatar;
+                podiumElements[2].querySelector('.podium-name').textContent = top3[2].name;
+                podiumElements[2].querySelector('.podium-score').textContent = `${top3[2].score.toLocaleString()} pts`;
+            }
         }
     </script>
 </body>
