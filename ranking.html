@@ -1,34 +1,63 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ranking de jugadores de Patitos en Peligro">
-    <title>Ranking - Patitos en Peligro</title>
+    <meta name="description" content="Ranking de jugadores de Patitos en Peligro - Compite y salva patitos en la Universidad de Alicante">
+    <meta name="theme-color" content="#FF9800">
+    
+    <title>Ranking de Jugadores - Patitos en Peligro</title>
     <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
     
-    <!-- CSS Unificado -->
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/pages.css">
+    <!-- Preload crítico -->
+    <link rel="preload" href="css/common.css" as="style">
+    <link rel="preload" href="css/components.css" as="style">
+    <link rel="preload" href="css/layout.css" as="style">
+    <link rel="preload" href="css/pages.css" as="style">
     
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common.css" media="all">
+    <link rel="stylesheet" href="css/components.css" media="all">
+    <link rel="stylesheet" href="css/layout.css" media="all">
+    <link rel="stylesheet" href="css/pages.css" media="all">
+    
+    <!-- Estilos específicos del ranking (optimizados) -->
     <style>
-        /* Estilos específicos para la página de ranking */
+        /* ============ VARIABLES ESPECÍFICAS ============ */
+        :root {
+            --ranking-gold: linear-gradient(135deg, #FFD700, #FFA500);
+            --ranking-silver: linear-gradient(135deg, #C0C0C0, #909090);
+            --ranking-bronze: linear-gradient(135deg, #CD7F32, #8B4513);
+            --ranking-highlight: rgba(74, 179, 244, 0.1);
+            --transition-ranking: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* ============ HERO DEL RANKING ============ */
         .ranking-hero {
             background: linear-gradient(135deg, 
-                rgba(255, 193, 7, 0.9) 0%, 
-                rgba(255, 152, 0, 0.8) 50%, 
-                rgba(255, 235, 59, 0.7) 100%),
-                url('https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+                rgba(255, 152, 0, 0.95) 0%, 
+                rgba(255, 193, 7, 0.85) 100%),
+                url('https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80&blur=50');
             background-size: cover;
             background-position: center;
             color: var(--white);
             text-align: center;
-            padding: 5rem 2rem;
+            padding: var(--spacing-xxl) var(--spacing-md);
             position: relative;
             overflow: hidden;
-            margin-bottom: 3rem;
+        }
+        
+        .ranking-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .ranking-hero-content {
@@ -39,44 +68,87 @@
         }
         
         .ranking-hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-            color: var(--white);
+            font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         .ranking-hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 0;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .description {
-            max-width: 700px;
+        /* ============ CONTENIDO PRINCIPAL ============ */
+        .ranking-main {
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .ranking-description {
             text-align: center;
-            margin-bottom: var(--spacing-lg);
-            line-height: 1.6;
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
             font-size: 1.1rem;
         }
-
+        
+        /* ============ FILTROS OPTIMIZADOS ============ */
         .ranking-filters {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: var(--spacing-sm);
-            margin-bottom: var(--spacing-lg);
-            flex-wrap: wrap;
+            margin-bottom: var(--spacing-xl);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .ranking-filter__btn {
+            padding: var(--spacing-md);
+            background: var(--white);
+            border: 2px solid var(--light-blue);
+            border-radius: var(--border-radius);
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-ranking);
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
-
+        
+        .ranking-filter__btn:hover:not([aria-pressed="true"]) {
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .ranking-filter__btn[aria-pressed="true"] {
+            background: var(--gradient-accent);
+            color: var(--white);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* ============ CONTENEDOR DEL RANKING ============ */
         .ranking-container {
             background: var(--white);
             border-radius: var(--border-radius-lg);
-            padding: var(--spacing-lg);
+            padding: var(--spacing-xl);
             box-shadow: var(--shadow-xl);
             margin-bottom: var(--spacing-xl);
             position: relative;
             overflow: hidden;
         }
-
+        
         .ranking-container::before {
             content: '';
             position: absolute;
@@ -86,151 +158,479 @@
             height: 6px;
             background: var(--gradient-primary);
         }
-
+        
+        /* ============ TABLA RANKING - VERSIÓN DESKTOP ============ */
         .ranking-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             margin-top: var(--spacing-md);
         }
-
+        
+        .ranking-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
         .ranking-table th {
             background: var(--very-light-blue);
             padding: var(--spacing-md);
             text-align: left;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--primary-color);
-            border-bottom: 2px solid var(--light-blue);
+            border-bottom: 3px solid var(--light-blue);
+            position: relative;
         }
-
+        
+        .ranking-table th.sortable {
+            cursor: pointer;
+            transition: background-color var(--transition-ranking);
+        }
+        
+        .ranking-table th.sortable:hover {
+            background-color: rgba(74, 179, 244, 0.15);
+        }
+        
+        .ranking-table th.sortable::after {
+            content: '↕';
+            position: absolute;
+            right: var(--spacing-md);
+            opacity: 0.5;
+            font-size: 0.9em;
+        }
+        
+        .ranking-table th[data-sort-direction="asc"]::after {
+            content: '↑';
+            opacity: 1;
+        }
+        
+        .ranking-table th[data-sort-direction="desc"]::after {
+            content: '↓';
+            opacity: 1;
+        }
+        
+        .ranking-table tbody tr {
+            transition: background-color var(--transition-ranking);
+        }
+        
+        .ranking-table tbody tr:hover {
+            background-color: var(--ranking-highlight);
+        }
+        
         .ranking-table td {
             padding: var(--spacing-md);
-            border-bottom: 1px solid var(--light-blue);
-            transition: var(--transition);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            vertical-align: middle;
         }
-
-        .ranking-table tr:hover td {
-            background: var(--very-light-blue);
-            transform: translateX(5px);
+        
+        /* Posiciones destacadas */
+        .ranking-table tr[data-position="1"] td:first-child {
+            background: var(--ranking-gold);
+            color: white;
+            font-weight: 800;
+            border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
         }
-
-        .ranking-position {
+        
+        .ranking-table tr[data-position="2"] td:first-child {
+            background: var(--ranking-silver);
+            color: white;
+            font-weight: 800;
+            border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
+        }
+        
+        .ranking-table tr[data-position="3"] td:first-child {
+            background: var(--ranking-bronze);
+            color: white;
+            font-weight: 800;
+            border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
+        }
+        
+        /* Usuario actual */
+        .ranking-table tr.ranking-row--current-user {
+            background: linear-gradient(90deg, rgba(74, 179, 244, 0.05), transparent);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        /* ============ CELDAS ESPECÍFICAS ============ */
+        .ranking-cell--position {
             width: 80px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 800;
+            font-size: 1.2rem;
         }
-
-        .position-1 {
-            background: linear-gradient(135deg, #FFD700, #FFA500) !important;
-            color: white;
-            font-weight: bold;
+        
+        .ranking-cell--player {
+            min-width: 200px;
         }
-
-        .position-2 {
-            background: linear-gradient(135deg, #C0C0C0, #A0A0A0) !important;
-            color: white;
-            font-weight: bold;
+        
+        .ranking-cell--score {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
         }
-
-        .position-3 {
-            background: linear-gradient(135deg, #CD7F32, #A56A2B) !important;
-            color: white;
-            font-weight: bold;
+        
+        .ranking-cell--level {
+            min-width: 120px;
         }
-
-        .player-avatar {
-            width: 40px;
-            height: 40px;
+        
+        .ranking-cell--ducks {
+            min-width: 150px;
+        }
+        
+        /* ============ COMPONENTE JUGADOR ============ */
+        .ranking-player {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .ranking-player__avatar {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
-            font-weight: bold;
-            margin-right: var(--spacing-sm);
-        }
-
-        .player-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .player-name {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .player-score {
-            font-weight: bold;
-            color: var(--secondary-color);
+            font-weight: 800;
             font-size: 1.1rem;
+            flex-shrink: 0;
         }
-
-        .player-level {
+        
+        .ranking-player__info {
+            flex: 1;
+            min-width: 0; /* Para ellipsis */
+        }
+        
+        .ranking-player__name {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .ranking-player__badges {
+            display: flex;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+        }
+        
+        .ranking-badge {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
+            padding: 0.125rem 0.5rem;
+            background: var(--gradient-success);
+            color: white;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .ranking-badge--top {
+            background: var(--gradient-accent);
+        }
+        
+        /* ============ BADGE DE NIVEL ============ */
+        .ranking-level {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 0.875rem;
             background: var(--gradient-success);
             color: white;
             border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 0.9rem;
         }
-
-        .player-ducks {
+        
+        .ranking-level__number {
+            font-size: 1.1rem;
+        }
+        
+        /* ============ CONTADOR DE PATITOS ============ */
+        .ranking-ducks {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
             color: var(--accent-color);
-            font-weight: 600;
+            font-size: 1.1rem;
         }
-
-        .stats-grid {
+        
+        .ranking-ducks__icon {
+            font-size: 1.3rem;
+        }
+        
+        .ranking-ducks__count {
+            font-size: 1.2rem;
+        }
+        
+        /* ============ ESTADÍSTICAS DEL JUGADOR ============ */
+        .ranking-stats {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow);
+            margin-bottom: var(--spacing-xl);
+            border-left: 4px solid var(--primary-color);
+            animation: fadeInUp 0.4s ease-out;
+        }
+        
+        .ranking-stats__header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .ranking-stats__title {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .ranking-stats__grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: var(--spacing-sm);
-            margin-top: var(--spacing-md);
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--spacing-md);
         }
-
-        .stat-item {
+        
+        .ranking-stats__item {
             text-align: center;
-            padding: var(--spacing-md);
+            padding: var(--spacing-lg);
             background: var(--very-light-blue);
             border-radius: var(--border-radius);
-            transition: var(--transition);
+            transition: transform var(--transition-ranking);
         }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow);
+        
+        .ranking-stats__item:hover {
+            transform: translateY(-4px);
         }
-
-        .stat-value {
+        
+        .ranking-stats__value {
             font-size: 2rem;
-            font-weight: bold;
+            font-weight: 800;
             color: var(--primary-color);
             margin-bottom: 0.5rem;
+            line-height: 1;
         }
-
-        .stat-label {
+        
+        .ranking-stats__value--highlight {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .ranking-stats__label {
             font-size: 0.9rem;
             color: var(--text-color);
             font-weight: 600;
         }
-
-        .current-user {
-            background: var(--light-blue) !important;
-            border-left: 4px solid var(--accent-color);
+        
+        /* ============ RANKING MOBILE (CARDS) ============ */
+        .ranking-cards {
+            display: none;
+            flex-direction: column;
+            gap: var(--spacing-sm);
         }
-
-        @media (max-width: 768px) {
+        
+        .ranking-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--light-blue);
+            transition: transform var(--transition-ranking);
+        }
+        
+        .ranking-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .ranking-card--position-1 {
+            border-left-color: #FFD700;
+        }
+        
+        .ranking-card--position-2 {
+            border-left-color: #C0C0C0;
+        }
+        
+        .ranking-card--position-3 {
+            border-left-color: #CD7F32;
+        }
+        
+        .ranking-card--current-user {
+            border-left-color: var(--accent-color);
+            background: linear-gradient(90deg, rgba(74, 179, 244, 0.05), transparent);
+        }
+        
+        .ranking-card__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .ranking-card__position {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .ranking-card__position--1 {
+            background: var(--ranking-gold);
+        }
+        
+        .ranking-card__position--2 {
+            background: var(--ranking-silver);
+        }
+        
+        .ranking-card__position--3 {
+            background: var(--ranking-bronze);
+        }
+        
+        .ranking-card__player {
+            flex: 1;
+            margin-left: var(--spacing-md);
+        }
+        
+        .ranking-card__content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-sm);
+        }
+        
+        .ranking-card__stat {
+            text-align: center;
+            padding: var(--spacing-sm);
+            background: var(--very-light-blue);
+            border-radius: var(--border-radius-sm);
+        }
+        
+        .ranking-card__stat-label {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+        
+        .ranking-card__stat-value {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        /* ============ PAGINACIÓN ============ */
+        .ranking-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .ranking-pagination__btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border: 2px solid var(--light-blue);
+            border-radius: var(--border-radius-sm);
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-ranking);
+        }
+        
+        .ranking-pagination__btn:hover:not(:disabled) {
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .ranking-pagination__btn[aria-current="page"] {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .ranking-pagination__btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* ============ SKELETON LOADING ============ */
+        .ranking-skeleton {
+            display: none;
+        }
+        
+        .ranking-skeleton--visible {
+            display: block;
+        }
+        
+        .ranking-skeleton__row {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-md);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .ranking-skeleton__avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            margin-right: var(--spacing-md);
+        }
+        
+        .ranking-skeleton__content {
+            flex: 1;
+        }
+        
+        .ranking-skeleton__line {
+            height: 12px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .ranking-skeleton__line--short {
+            width: 60%;
+        }
+        
+        .ranking-skeleton__line--very-short {
+            width: 30%;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        /* ============ RESPONSIVE AVANZADO ============ */
+        @media (max-width: 992px) {
             .ranking-filters {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .ranking-filters .btn {
-                width: 250px;
-            }
-            
-            .ranking-table {
-                font-size: 0.9rem;
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .ranking-table th,
@@ -238,285 +638,1005 @@
                 padding: var(--spacing-sm);
             }
             
-            .player-info {
-                flex-direction: column;
-                align-items: flex-start;
+            .ranking-player {
+                gap: var(--spacing-sm);
             }
             
-            .player-avatar {
-                margin-bottom: 0.5rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .ranking-player__avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
         }
-
-        @media (max-width: 480px) {
-            .ranking-table {
-                display: block;
-                overflow-x: auto;
+        
+        @media (max-width: 768px) {
+            .ranking-hero {
+                padding: var(--spacing-xl) var(--spacing-sm);
             }
             
-            .stats-grid {
+            .ranking-table {
+                display: none;
+            }
+            
+            .ranking-cards {
+                display: flex;
+            }
+            
+            .ranking-filters {
                 grid-template-columns: 1fr;
             }
+            
+            .ranking-filter__btn {
+                min-height: 55px;
+            }
+            
+            .ranking-stats__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ranking-pagination {
+                gap: 0.25rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .ranking-main {
+                padding: var(--spacing-lg) 0;
+            }
+            
+            .ranking-card__content {
+                grid-template-columns: 1fr;
+            }
+            
+            .ranking-stats__grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ranking-stats__item {
+                padding: var(--spacing-md);
+            }
+        }
+        
+        /* ============ REDUCCIÓN DE MOVIMIENTO ============ */
+        @media (prefers-reduced-motion: reduce) {
+            .ranking-table tbody tr,
+            .ranking-card,
+            .ranking-stats__item,
+            .ranking-pagination__btn,
+            .ranking-filter__btn {
+                transition: none !important;
+            }
+            
+            .ranking-filter__btn:hover:not([aria-pressed="true"]),
+            .ranking-filter__btn[aria-pressed="true"],
+            .ranking-card:hover,
+            .ranking-stats__item:hover,
+            .ranking-pagination__btn:hover:not(:disabled) {
+                transform: none !important;
+            }
+            
+            .ranking-skeleton__avatar,
+            .ranking-skeleton__line {
+                animation: none !important;
+            }
+        }
+        
+        /* ============ ESTADOS DE FOCO ============ */
+        .ranking-filter__btn:focus-visible,
+        .ranking-pagination__btn:focus-visible {
+            outline: 3px solid var(--secondary-color);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(74, 179, 244, 0.3);
+        }
+        
+        /* ============ UTILIDADES ============ */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        .text-center {
+            text-align: center;
         }
     </style>
+    
+    <!-- Noscript para usuarios sin JavaScript -->
+    <noscript>
+        <style>
+            .ranking-filters { display: none; }
+            .ranking-skeleton { display: block; }
+            .ranking-skeleton--visible { display: none; }
+            .ranking-table, .ranking-cards { display: none; }
+        </style>
+    </noscript>
 </head>
 <body>
+    <!-- Skip link para accesibilidad -->
+    <a href="#main-content" class="sr-only sr-only-focusable">
+        Saltar al contenido principal
+    </a>
+
     <!-- Encabezado -->
-    <header class="header">
+    <header class="header" role="banner">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo">
+                <img src="patitologo1_circulo.png" 
+                     alt="Logo de Patitos en Peligro" 
+                     class="logo"
+                     width="70" 
+                     height="70"
+                     loading="eager">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Inicio</a></li>
-                    <!-- eliminado: patitos_integrantes.html -->
-                    <li><a href="mapa.html" class="nav-link">Mapa</a></li>
-                    <li><a href="ranking.html" class="nav-link active">Ranking</a></li>
-                    <li><a href="iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
+            
+            <!-- Navegación principal -->
+            <nav aria-label="Navegación principal">
+                <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="nav-menu" role="menubar">
+                    <li role="none">
+                        <a href="index.html" class="nav-link" role="menuitem">Inicio</a>
+                    </li>
+                    <li role="none">
+                        <a href="agradecimientos.html" class="nav-link" role="menuitem">Agradecimientos</a>
+                    </li>
+                    <li role="none">
+                        <a href="mapa.html" class="nav-link" role="menuitem">Mapa</a>
+                    </li>
+                    <li role="none">
+                        <a href="ranking.html" class="nav-link active" 
+                           aria-current="page" 
+                           role="menuitem">Ranking</a>
+                    </li>
+                    <li role="none">
+                        <a href="iniciarSesion.html" class="btn btn--secondary" role="menuitem">
+                            Iniciar Sesión
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="ranking-hero">
+    <section class="ranking-hero" aria-labelledby="ranking-hero-title">
         <div class="ranking-hero-content">
-            <h1 class="ranking-hero-title">🏆 Ranking de Jugadores</h1>
-            <p class="ranking-hero-subtitle">Compite con otros jugadores y sube en el ranking para convertirte en el mejor salvador de patitos</p>
+            <h1 id="ranking-hero-title" class="ranking-hero-title">
+                🏆 Ranking de Jugadores
+            </h1>
+            <p class="ranking-hero-subtitle">
+                Compite con otros jugadores y sube en el ranking para convertirte en el mejor salvador de patitos
+            </p>
         </div>
     </section>
 
     <!-- Contenido principal -->
-    <main class="main-content">
+    <main id="main-content" class="main-content ranking-main" role="main">
         <div class="container">
-            <div class="description fade-in-up">
-                <p>Aquí podrás ver los mejores puntajes y clasificaciones del juego. ¡Compite con otros jugadores y sube en el ranking!</p>
+            <!-- Descripción -->
+            <div class="ranking-description">
+                <p>
+                    Aquí podrás ver los mejores puntajes y clasificaciones del juego. 
+                    ¡Compite con otros jugadores, completa misiones y sube en el ranking 
+                    para convertirte en el héroe definitivo de los patitos!
+                </p>
             </div>
 
-            <!-- Filtros de ranking -->
-            <div class="ranking-filters fade-in-up">
-                <button class="btn btn-secondary active" data-filter="global">Ranking Global</button>
-                <button class="btn btn-secondary" data-filter="weekly">Esta Semana</button>
-                <button class="btn btn-secondary" data-filter="monthly">Este Mes</button>
-                <button class="btn btn-secondary" data-filter="friends">Amigos</button>
+            <!-- Filtros del ranking -->
+            <div class="ranking-filters" role="radiogroup" aria-label="Filtrar ranking por período">
+                <button class="ranking-filter__btn" 
+                        data-filter="global"
+                        aria-label="Mostrar ranking global"
+                        aria-pressed="true"
+                        role="radio"
+                        aria-checked="true">
+                    Ranking Global
+                </button>
+                
+                <button class="ranking-filter__btn" 
+                        data-filter="weekly"
+                        aria-label="Mostrar ranking de esta semana"
+                        aria-pressed="false"
+                        role="radio"
+                        aria-checked="false">
+                    Esta Semana
+                </button>
+                
+                <button class="ranking-filter__btn" 
+                        data-filter="monthly"
+                        aria-label="Mostrar ranking de este mes"
+                        aria-pressed="false"
+                        role="radio"
+                        aria-checked="false">
+                    Este Mes
+                </button>
+                
+                <button class="ranking-filter__btn" 
+                        data-filter="friends"
+                        aria-label="Mostrar ranking de amigos"
+                        aria-pressed="false"
+                        role="radio"
+                        aria-checked="false">
+                    Amigos
+                </button>
             </div>
 
-            <!-- Tabla de ranking -->
-            <div class="ranking-container fade-in-up">
-                <table class="ranking-table">
+            <!-- Contenedor del ranking -->
+            <div class="ranking-container">
+                <!-- Skeleton loading -->
+                <div class="ranking-skeleton ranking-skeleton--visible" id="ranking-skeleton" aria-live="polite">
+                    <div class="ranking-skeleton__row">
+                        <div class="ranking-skeleton__avatar"></div>
+                        <div class="ranking-skeleton__content">
+                            <div class="ranking-skeleton__line"></div>
+                            <div class="ranking-skeleton__line ranking-skeleton__line--short"></div>
+                        </div>
+                    </div>
+                    <div class="ranking-skeleton__row">
+                        <div class="ranking-skeleton__avatar"></div>
+                        <div class="ranking-skeleton__content">
+                            <div class="ranking-skeleton__line"></div>
+                            <div class="ranking-skeleton__line ranking-skeleton__line--short"></div>
+                        </div>
+                    </div>
+                    <div class="ranking-skeleton__row">
+                        <div class="ranking-skeleton__avatar"></div>
+                        <div class="ranking-skeleton__content">
+                            <div class="ranking-skeleton__line"></div>
+                            <div class="ranking-skeleton__line ranking-skeleton__line--short"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla ranking (desktop) -->
+                <table class="ranking-table" id="ranking-table" aria-label="Tabla de ranking de jugadores">
                     <thead>
                         <tr>
-                            <th class="ranking-position">Pos.</th>
-                            <th>Jugador</th>
-                            <th>Puntuación</th>
-                            <th>Nivel</th>
-                            <th>Patitos Rescatados</th>
+                            <th class="ranking-cell--position sortable" 
+                                data-sort="position"
+                                data-sort-direction=""
+                                scope="col"
+                                aria-sort="none">
+                                Posición
+                            </th>
+                            <th class="ranking-cell--player sortable" 
+                                data-sort="name"
+                                data-sort-direction=""
+                                scope="col"
+                                aria-sort="none">
+                                Jugador
+                            </th>
+                            <th class="ranking-cell--score sortable" 
+                                data-sort="score"
+                                data-sort-direction="desc"
+                                scope="col"
+                                aria-sort="descending">
+                                Puntuación
+                            </th>
+                            <th class="ranking-cell--level sortable" 
+                                data-sort="level"
+                                data-sort-direction=""
+                                scope="col"
+                                aria-sort="none">
+                                Nivel
+                            </th>
+                            <th class="ranking-cell--ducks sortable" 
+                                data-sort="ducks"
+                                data-sort-direction=""
+                                scope="col"
+                                aria-sort="none">
+                                Patitos Rescatados
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="ranking-body">
-                        <!-- Los datos del ranking se cargarán con JavaScript -->
+                        <!-- Los datos se cargarán dinámicamente -->
                     </tbody>
                 </table>
-            </div>
 
-            <!-- Estadísticas -->
-            <div class="player-stats card fade-in-up" id="player-stats" style="display: none;">
-                <h2>🎯 Tus Estadísticas</h2>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-value" id="player-position">-</div>
-                        <div class="stat-label">Posición Global</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="player-score">0</div>
-                        <div class="stat-label">Puntuación Total</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="player-level">1</div>
-                        <div class="stat-label">Nivel Alcanzado</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="player-ducks">0</div>
-                        <div class="stat-label">Patitos Rescatados</div>
-                    </div>
+                <!-- Cards ranking (mobile) -->
+                <div class="ranking-cards" id="ranking-cards">
+                    <!-- Los datos se cargarán dinámicamente -->
+                </div>
+
+                <!-- Paginación -->
+                <div class="ranking-pagination" id="ranking-pagination" role="navigation" aria-label="Paginación del ranking">
+                    <button class="ranking-pagination__btn" 
+                            id="prev-page"
+                            aria-label="Página anterior"
+                            disabled>
+                        ←
+                    </button>
+                    <span id="page-numbers" aria-live="polite">
+                        <!-- Los números de página se generarán dinámicamente -->
+                    </span>
+                    <button class="ranking-pagination__btn" 
+                            id="next-page"
+                            aria-label="Página siguiente">
+                        →
+                    </button>
                 </div>
             </div>
 
-            <!-- Botón volver -->
-            <div class="button-container fade-in-up">
-                <a href="index.html" class="btn btn-primary">← Volver a la Página Principal</a>
+            <!-- Estadísticas del jugador actual -->
+            <section class="ranking-stats" 
+                     id="player-stats" 
+                     aria-labelledby="player-stats-title"
+                     aria-live="polite">
+                <div class="ranking-stats__header">
+                    <h2 id="player-stats-title" class="ranking-stats__title">
+                        🎯 Tus Estadísticas
+                    </h2>
+                </div>
+                
+                <div class="ranking-stats__grid" id="player-stats-grid">
+                    <!-- Las estadísticas se cargarán dinámicamente -->
+                </div>
+            </section>
+
+            <!-- Navegación -->
+            <div class="button-container text-center">
+                <a href="index.html" class="btn btn--primary">
+                    ← Volver a la Página Principal
+                </a>
+                <a href="mapa.html" class="btn btn--secondary">
+                    Explorar Mapa del Campus
+                </a>
             </div>
         </div>
     </main>
 
     <!-- Pie de página -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container footer-content">
-            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo">
+            <img src="patitologo1_circulo.png" 
+                 alt="Logo de Patitos en Peligro" 
+                 class="footer-logo"
+                 width="100" 
+                 height="100"
+                 loading="lazy">
+            
             <div class="footer-links">
                 <a href="index.html" class="footer-link">Inicio</a>
-                <!-- eliminado: patitos_integrantes.html -->
                 <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
                 <a href="mapa.html" class="footer-link">Mapa</a>
-                <a href="ranking.html" class="footer-link">Ranking</a>
+                <a href="ranking.html" class="footer-link" aria-current="page">Ranking</a>
                 <a href="ajustes.html" class="footer-link">Ajustes</a>
                 <a href="iniciarSesion.html" class="footer-link">Iniciar Sesión</a>
             </div>
+            
             <div class="copyright">
                 <p>Proyecto realizado para Sistemas Multimedia - Universidad de Alicante</p>
                 <p>Grupo 41 - Patitos en Peligro</p>
+                <p>© 2024 - Todos los derechos reservados</p>
             </div>
         </div>
     </footer>
 
+    <!-- JavaScript optimizado -->
     <script>
-        // Datos de ejemplo para el ranking
-        const rankingData = {
-            global: [
-                { position: 1, name: "EcoWarrior42", score: 12500, level: 15, ducks: 142, isCurrentUser: false },
-                { position: 2, name: "GreenSavior", score: 11800, level: 14, ducks: 128, isCurrentUser: false },
-                { position: 3, name: "ClimateHero", score: 11250, level: 13, ducks: 119, isCurrentUser: false },
-                { position: 4, name: "PatitoProtector", score: 9850, level: 12, ducks: 105, isCurrentUser: true },
-                { position: 5, name: "EcoExplorer", score: 9200, level: 11, ducks: 98, isCurrentUser: false },
-                { position: 6, name: "NatureLover", score: 8750, level: 11, ducks: 92, isCurrentUser: false },
-                { position: 7, name: "PlanetGuardian", score: 8200, level: 10, ducks: 87, isCurrentUser: false },
-                { position: 8, name: "SustainableGamer", score: 7850, level: 10, ducks: 83, isCurrentUser: false },
-                { position: 9, name: "EcoAdventurer", score: 7450, level: 9, ducks: 79, isCurrentUser: false },
-                { position: 10, name: "GreenGamer", score: 7100, level: 9, ducks: 75, isCurrentUser: false }
-            ],
-            weekly: [
-                { position: 1, name: "PatitoProtector", score: 1850, level: 12, ducks: 25, isCurrentUser: true },
-                { position: 2, name: "EcoWarrior42", score: 1750, level: 15, ducks: 22, isCurrentUser: false },
-                { position: 3, name: "GreenSavior", score: 1620, level: 14, ducks: 20, isCurrentUser: false },
-                { position: 4, name: "NewPlayer23", score: 1480, level: 5, ducks: 18, isCurrentUser: false },
-                { position: 5, name: "ClimateHero", score: 1350, level: 13, ducks: 17, isCurrentUser: false }
-            ],
-            monthly: [
-                { position: 1, name: "EcoWarrior42", score: 4850, level: 15, ducks: 52, isCurrentUser: false },
-                { position: 2, name: "GreenSavior", score: 4620, level: 14, ducks: 48, isCurrentUser: false },
-                { position: 3, name: "PatitoProtector", score: 4380, level: 12, ducks: 45, isCurrentUser: true },
-                { position: 4, name: "ClimateHero", score: 4150, level: 13, ducks: 42, isCurrentUser: false },
-                { position: 5, name: "EcoExplorer", score: 3920, level: 11, ducks: 40, isCurrentUser: false }
-            ],
-            friends: [
-                { position: 1, name: "PatitoProtector", score: 9850, level: 12, ducks: 105, isCurrentUser: true },
-                { position: 2, name: "AmigoEco", score: 7650, level: 10, ducks: 82, isCurrentUser: false },
-                { position: 3, name: "CompañeroVerde", score: 6420, level: 9, ducks: 68, isCurrentUser: false },
-                { position: 4, name: "ColegaSostenible", score: 5280, level: 8, ducks: 56, isCurrentUser: false }
-            ]
-        };
-
-        // Función para generar avatar a partir del nombre
-        function generarAvatar(nombre) {
-            return nombre.substring(0, 2).toUpperCase();
-        }
-
-        // Función para cargar datos del ranking
-        function cargarRanking(filtro) {
-            const tbody = document.getElementById('ranking-body');
-            tbody.innerHTML = '';
-            
-            const datos = rankingData[filtro];
-            
-            datos.forEach(jugador => {
-                const fila = document.createElement('tr');
-                if (jugador.isCurrentUser) {
-                    fila.classList.add('current-user');
-                }
+        // ============================================
+        // RANKING INTERACTIVO - Clase Moderna
+        // ============================================
+        class InteractiveRanking {
+            constructor() {
+                this.currentFilter = 'global';
+                this.currentSort = { field: 'score', direction: 'desc' };
+                this.currentPage = 1;
+                this.itemsPerPage = 10;
+                this.isLoading = false;
+                this.allPlayers = [];
                 
-                // Aplicar clases especiales para las primeras posiciones
-                if (jugador.position <= 3) {
-                    fila.classList.add(`position-${jugador.position}`);
-                }
+                // Elementos DOM
+                this.tableBody = document.getElementById('ranking-body');
+                this.cardsContainer = document.getElementById('ranking-cards');
+                this.skeleton = document.getElementById('ranking-skeleton');
+                this.pagination = document.getElementById('ranking-pagination');
+                this.prevPageBtn = document.getElementById('prev-page');
+                this.nextPageBtn = document.getElementById('next-page');
+                this.pageNumbers = document.getElementById('page-numbers');
+                this.playerStats = document.getElementById('player-stats');
+                this.playerStatsGrid = document.getElementById('player-stats-grid');
                 
-                fila.innerHTML = `
-                    <td class="ranking-position">${jugador.position}</td>
-                    <td>
-                        <div class="player-info">
-                            <div class="player-avatar">${generarAvatar(jugador.name)}</div>
-                            <div class="player-name">${jugador.name}</div>
-                        </div>
-                    </td>
-                    <td class="player-score">${jugador.score.toLocaleString()}</td>
-                    <td><span class="player-level">Nivel ${jugador.level}</span></td>
-                    <td class="player-ducks">${jugador.ducks} 🦆</td>
-                `;
+                // Datos de ejemplo (en producción vendrían de una API)
+                this.rankingData = {
+                    global: this.generatePlayers(50, 'global'),
+                    weekly: this.generatePlayers(25, 'weekly'),
+                    monthly: this.generatePlayers(35, 'monthly'),
+                    friends: this.generatePlayers(15, 'friends')
+                };
                 
-                tbody.appendChild(fila);
-            });
-            
-            // Actualizar estadísticas del usuario actual si está en el ranking
-            const usuarioActual = datos.find(jugador => jugador.isCurrentUser);
-            if (usuarioActual) {
-                document.getElementById('player-stats').style.display = 'block';
-                document.getElementById('player-position').textContent = `#${usuarioActual.position}`;
-                document.getElementById('player-score').textContent = usuarioActual.score.toLocaleString();
-                document.getElementById('player-level').textContent = usuarioActual.level;
-                document.getElementById('player-ducks').textContent = usuarioActual.ducks;
-            } else {
-                document.getElementById('player-stats').style.display = 'none';
+                this.init();
             }
-        }
-
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', function() {
-            // Cargar ranking global por defecto
-            cargarRanking('global');
             
-            // Configurar eventos para los filtros
-            document.querySelectorAll('.ranking-filters .btn').forEach(boton => {
-                boton.addEventListener('click', function() {
-                    // Remover clase active de todos los botones
-                    document.querySelectorAll('.ranking-filters .btn').forEach(btn => {
-                        btn.classList.remove('active');
+            init() {
+                // Cargar datos iniciales
+                this.loadRankingData();
+                
+                // Configurar event listeners
+                this.setupEventListeners();
+                
+                // Configurar manejo de errores
+                this.setupErrorHandling();
+            }
+            
+            generatePlayers(count, filter) {
+                const players = [];
+                const names = [
+                    "EcoWarrior42", "GreenSavior", "ClimateHero", "PatitoProtector", "EcoExplorer",
+                    "NatureLover", "PlanetGuardian", "SustainableGamer", "EcoAdventurer", "GreenGamer",
+                    "EarthDefender", "OceanProtector", "ForestFriend", "CleanAirActivist", "SolarChampion",
+                    "WindWarrior", "RecycleMaster", "ZeroWasteHero", "PlasticFighter", "BiodiversityGuardian"
+                ];
+                
+                const currentUserIndex = Math.floor(Math.random() * count);
+                
+                for (let i = 0; i < count; i++) {
+                    const baseScore = filter === 'global' ? 10000 : 
+                                    filter === 'weekly' ? 2000 : 
+                                    filter === 'monthly' ? 5000 : 8000;
+                    
+                    const score = baseScore - (i * 100) + Math.floor(Math.random() * 500);
+                    const level = Math.max(1, 15 - Math.floor(i / 3));
+                    const ducks = Math.max(10, 150 - (i * 2) + Math.floor(Math.random() * 20));
+                    
+                    players.push({
+                        id: i + 1,
+                        name: names[Math.floor(Math.random() * names.length)] + (i > names.length ? i : ''),
+                        score: score,
+                        level: level,
+                        ducks: ducks,
+                        isCurrentUser: i === currentUserIndex,
+                        badges: this.generateBadges(score, level, ducks),
+                        lastActive: this.generateLastActive(i)
                     });
-                    
-                    // Agregar clase active al botón clickeado
-                    this.classList.add('active');
-                    
-                    // Cargar ranking correspondiente
-                    const filtro = this.getAttribute('data-filter');
-                    cargarRanking(filtro);
-                });
-            });
+                }
+                
+                // Ordenar por score
+                return players.sort((a, b) => b.score - a.score).map((player, index) => ({
+                    ...player,
+                    position: index + 1
+                }));
+            }
             
-            // Configurar animación de aparición
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+            generateBadges(score, level, ducks) {
+                const badges = [];
+                if (score > 10000) badges.push('top1%');
+                if (level >= 15) badges.push('legend');
+                if (ducks > 100) badges.push('duckMaster');
+                if (score > 5000) badges.push('ecoWarrior');
+                return badges;
+            }
+            
+            generateLastActive(index) {
+                const hours = index * 2;
+                if (hours < 1) return 'Ahora';
+                if (hours < 24) return `Hace ${hours}h`;
+                return `Hace ${Math.floor(hours / 24)}d`;
+            }
+            
+            loadRankingData() {
+                this.showLoadingState();
+                
+                // Simular carga asíncrona
+                setTimeout(() => {
+                    this.allPlayers = [...this.rankingData[this.currentFilter]];
+                    this.applySorting();
+                    this.renderRanking();
+                    this.updatePagination();
+                    this.updatePlayerStats();
+                    this.hideLoadingState();
+                }, 800); // Simular delay de red
+            }
+            
+            showLoadingState() {
+                this.isLoading = true;
+                this.skeleton.classList.add('ranking-skeleton--visible');
+                this.tableBody.innerHTML = '';
+                this.cardsContainer.innerHTML = '';
+                this.playerStats.style.opacity = '0.5';
+            }
+            
+            hideLoadingState() {
+                this.isLoading = false;
+                this.skeleton.classList.remove('ranking-skeleton--visible');
+                this.playerStats.style.opacity = '1';
+            }
+            
+            setupEventListeners() {
+                // Filtros
+                document.addEventListener('click', (e) => {
+                    const filterBtn = e.target.closest('.ranking-filter__btn');
+                    if (filterBtn && !this.isLoading) {
+                        this.handleFilterChange(filterBtn);
+                    }
+                    
+                    // Ordenamiento
+                    const sortHeader = e.target.closest('.sortable');
+                    if (sortHeader && !this.isLoading) {
+                        this.handleSortChange(sortHeader);
+                    }
+                    
+                    // Paginación
+                    const pageBtn = e.target.closest('.ranking-pagination__btn');
+                    if (pageBtn && !this.isLoading) {
+                        this.handlePageChange(pageBtn);
                     }
                 });
-            }, observerOptions);
-
-            const animatedElements = document.querySelectorAll('.fade-in-up');
-            animatedElements.forEach(function(element) {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(30px)';
-                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(element);
-            });
+                
+                // Soporte para teclado
+                document.addEventListener('keydown', (e) => {
+                    const activeElement = document.activeElement;
+                    
+                    if (activeElement.closest('.ranking-filter__btn') && (e.key === 'Enter' || e.key === ' ')) {
+                        e.preventDefault();
+                        this.handleFilterChange(activeElement);
+                    }
+                    
+                    if (activeElement.closest('.sortable') && (e.key === 'Enter' || e.key === ' ')) {
+                        e.preventDefault();
+                        this.handleSortChange(activeElement);
+                    }
+                });
+            }
+            
+            handleFilterChange(filterBtn) {
+                const newFilter = filterBtn.dataset.filter;
+                if (newFilter === this.currentFilter) return;
+                
+                // Actualizar estado
+                this.currentFilter = newFilter;
+                this.currentPage = 1;
+                
+                // Actualizar UI
+                document.querySelectorAll('.ranking-filter__btn').forEach(btn => {
+                    const isActive = btn === filterBtn;
+                    btn.setAttribute('aria-pressed', isActive);
+                    btn.setAttribute('aria-checked', isActive);
+                });
+                
+                // Cargar nuevos datos
+                this.loadRankingData();
+                
+                // Anunciar cambio para screen readers
+                this.announceFilterChange(newFilter);
+            }
+            
+            handleSortChange(sortHeader) {
+                const sortField = sortHeader.dataset.sort;
+                let newDirection = 'asc';
+                
+                if (sortHeader.dataset.sortDirection === 'asc') {
+                    newDirection = 'desc';
+                } else if (sortHeader.dataset.sortDirection === 'desc') {
+                    newDirection = '';
+                } else {
+                    newDirection = 'asc';
+                }
+                
+                // Actualizar headers
+                document.querySelectorAll('.sortable').forEach(header => {
+                    header.dataset.sortDirection = '';
+                    header.setAttribute('aria-sort', 'none');
+                });
+                
+                if (newDirection) {
+                    sortHeader.dataset.sortDirection = newDirection;
+                    sortHeader.setAttribute('aria-sort', newDirection === 'asc' ? 'ascending' : 'descending');
+                    
+                    this.currentSort = { field: sortField, direction: newDirection };
+                    this.applySorting();
+                } else {
+                    this.currentSort = { field: 'score', direction: 'desc' };
+                    // Resetear al orden por defecto
+                    document.querySelector('[data-sort="score"]').dataset.sortDirection = 'desc';
+                    document.querySelector('[data-sort="score"]').setAttribute('aria-sort', 'descending');
+                    this.applySorting();
+                }
+                
+                this.renderRanking();
+            }
+            
+            applySorting() {
+                const { field, direction } = this.currentSort;
+                
+                if (!direction) {
+                    // Orden original (por posición)
+                    this.allPlayers.sort((a, b) => a.position - b.position);
+                    return;
+                }
+                
+                this.allPlayers.sort((a, b) => {
+                    let aVal = a[field];
+                    let bVal = b[field];
+                    
+                    // Manejar comparaciones específicas
+                    if (field === 'name') {
+                        aVal = aVal.toLowerCase();
+                        bVal = bVal.toLowerCase();
+                    }
+                    
+                    if (aVal < bVal) return direction === 'asc' ? -1 : 1;
+                    if (aVal > bVal) return direction === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }
+            
+            handlePageChange(pageBtn) {
+                if (pageBtn.disabled) return;
+                
+                const totalPages = Math.ceil(this.allPlayers.length / this.itemsPerPage);
+                
+                if (pageBtn.id === 'prev-page') {
+                    this.currentPage = Math.max(1, this.currentPage - 1);
+                } else if (pageBtn.id === 'next-page') {
+                    this.currentPage = Math.min(totalPages, this.currentPage + 1);
+                } else {
+                    const pageNum = parseInt(pageBtn.textContent);
+                    if (!isNaN(pageNum)) {
+                        this.currentPage = pageNum;
+                    }
+                }
+                
+                this.renderRanking();
+                this.updatePagination();
+                
+                // Scroll suave al top del ranking
+                document.querySelector('.ranking-container').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+            
+            renderRanking() {
+                // Calcular índices para paginación
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const endIndex = startIndex + this.itemsPerPage;
+                const currentPlayers = this.allPlayers.slice(startIndex, endIndex);
+                
+                // Limpiar contenido
+                this.tableBody.innerHTML = '';
+                this.cardsContainer.innerHTML = '';
+                
+                // Renderizar tabla (desktop)
+                currentPlayers.forEach(player => {
+                    const row = this.createTableRow(player);
+                    this.tableBody.appendChild(row);
+                });
+                
+                // Renderizar cards (mobile)
+                currentPlayers.forEach(player => {
+                    const card = this.createPlayerCard(player);
+                    this.cardsContainer.appendChild(card);
+                });
+            }
+            
+            createTableRow(player) {
+                const row = document.createElement('tr');
+                row.dataset.position = player.position;
+                
+                if (player.isCurrentUser) {
+                    row.classList.add('ranking-row--current-user');
+                    row.setAttribute('aria-current', 'true');
+                }
+                
+                // Avatar con iniciales
+                const initials = player.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                
+                row.innerHTML = `
+                    <td class="ranking-cell--position" aria-label="Posición ${player.position}">
+                        ${player.position}
+                    </td>
+                    <td class="ranking-cell--player">
+                        <div class="ranking-player">
+                            <div class="ranking-player__avatar" aria-hidden="true">
+                                ${initials}
+                            </div>
+                            <div class="ranking-player__info">
+                                <div class="ranking-player__name">${player.name}</div>
+                                <div class="ranking-player__badges">
+                                    ${player.badges.map(badge => 
+                                        `<span class="ranking-badge ${badge === 'top1%' ? 'ranking-badge--top' : ''}">${badge}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="ranking-cell--score" aria-label="${player.score.toLocaleString()} puntos">
+                        ${player.score.toLocaleString()}
+                    </td>
+                    <td class="ranking-cell--level">
+                        <span class="ranking-level">
+                            <span class="ranking-level__number">${player.level}</span>
+                            <span>Nivel</span>
+                        </span>
+                    </td>
+                    <td class="ranking-cell--ducks" aria-label="${player.ducks} patitos rescatados">
+                        <span class="ranking-ducks">
+                            <span class="ranking-ducks__icon" aria-hidden="true">🦆</span>
+                            <span class="ranking-ducks__count">${player.ducks}</span>
+                        </span>
+                    </td>
+                `;
+                
+                return row;
+            }
+            
+            createPlayerCard(player) {
+                const card = document.createElement('div');
+                card.className = `ranking-card ranking-card--position-${Math.min(player.position, 3)}`;
+                
+                if (player.isCurrentUser) {
+                    card.classList.add('ranking-card--current-user');
+                }
+                
+                const initials = player.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                
+                card.innerHTML = `
+                    <div class="ranking-card__header">
+                        <div class="ranking-card__position ranking-card__position--${Math.min(player.position, 3)}">
+                            ${player.position}
+                        </div>
+                        <div class="ranking-card__player">
+                            <div class="ranking-player">
+                                <div class="ranking-player__avatar" aria-hidden="true">
+                                    ${initials}
+                                </div>
+                                <div class="ranking-player__info">
+                                    <div class="ranking-player__name">${player.name}</div>
+                                    ${player.isCurrentUser ? '<div class="ranking-badge">Tú</div>' : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ranking-card__content">
+                        <div class="ranking-card__stat">
+                            <div class="ranking-card__stat-label">Puntuación</div>
+                            <div class="ranking-card__stat-value">${player.score.toLocaleString()}</div>
+                        </div>
+                        <div class="ranking-card__stat">
+                            <div class="ranking-card__stat-label">Nivel</div>
+                            <div class="ranking-card__stat-value">${player.level}</div>
+                        </div>
+                        <div class="ranking-card__stat">
+                            <div class="ranking-card__stat-label">Patitos</div>
+                            <div class="ranking-card__stat-value">${player.ducks}</div>
+                        </div>
+                        <div class="ranking-card__stat">
+                            <div class="ranking-card__stat-label">Activo</div>
+                            <div class="ranking-card__stat-value">${player.lastActive}</div>
+                        </div>
+                    </div>
+                `;
+                
+                return card;
+            }
+            
+            updatePagination() {
+                const totalPages = Math.ceil(this.allPlayers.length / this.itemsPerPage);
+                
+                // Actualizar botones
+                this.prevPageBtn.disabled = this.currentPage === 1;
+                this.nextPageBtn.disabled = this.currentPage === totalPages;
+                
+                // Generar números de página
+                let pageHtml = '';
+                const maxVisiblePages = 5;
+                let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
+                let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+                
+                if (endPage - startPage + 1 < maxVisiblePages) {
+                    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                }
+                
+                // Primera página y elipsis
+                if (startPage > 1) {
+                    pageHtml += this.createPageButton(1);
+                    if (startPage > 2) {
+                        pageHtml += '<span class="ranking-pagination__ellipsis">...</span>';
+                    }
+                }
+                
+                // Páginas visibles
+                for (let i = startPage; i <= endPage; i++) {
+                    pageHtml += this.createPageButton(i);
+                }
+                
+                // Última página y elipsis
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) {
+                        pageHtml += '<span class="ranking-pagination__ellipsis">...</span>';
+                    }
+                    pageHtml += this.createPageButton(totalPages);
+                }
+                
+                this.pageNumbers.innerHTML = pageHtml;
+                
+                // Actualizar ARIA labels
+                this.pagination.setAttribute('aria-label', `Página ${this.currentPage} de ${totalPages}`);
+            }
+            
+            createPageButton(pageNum) {
+                const isCurrent = pageNum === this.currentPage;
+                return `
+                    <button class="ranking-pagination__btn"
+                            ${isCurrent ? 'aria-current="page"' : ''}
+                            aria-label="Página ${pageNum}"
+                            ${isCurrent ? 'disabled' : ''}>
+                        ${pageNum}
+                    </button>
+                `;
+            }
+            
+            updatePlayerStats() {
+                const currentUser = this.allPlayers.find(player => player.isCurrentUser);
+                
+                if (currentUser) {
+                    this.playerStats.style.display = 'block';
+                    
+                    this.playerStatsGrid.innerHTML = `
+                        <div class="ranking-stats__item">
+                            <div class="ranking-stats__value ranking-stats__value--highlight">
+                                #${currentUser.position}
+                            </div>
+                            <div class="ranking-stats__label">Posición Global</div>
+                        </div>
+                        <div class="ranking-stats__item">
+                            <div class="ranking-stats__value">
+                                ${currentUser.score.toLocaleString()}
+                            </div>
+                            <div class="ranking-stats__label">Puntuación Total</div>
+                        </div>
+                        <div class="ranking-stats__item">
+                            <div class="ranking-stats__value">
+                                ${currentUser.level}
+                            </div>
+                            <div class="ranking-stats__label">Nivel Alcanzado</div>
+                        </div>
+                        <div class="ranking-stats__item">
+                            <div class="ranking-stats__value">
+                                ${currentUser.ducks}
+                            </div>
+                            <div class="ranking-stats__label">Patitos Rescatados</div>
+                        </div>
+                    `;
+                    
+                    // Anunciar stats para screen readers
+                    this.announcePlayerStats(currentUser);
+                } else {
+                    this.playerStats.style.display = 'none';
+                }
+            }
+            
+            announceFilterChange(filter) {
+                const filterNames = {
+                    global: 'ranking global',
+                    weekly: 'ranking de esta semana',
+                    monthly: 'ranking de este mes',
+                    friends: 'ranking de amigos'
+                };
+                
+                this.createAriaAnnouncement(`Mostrando ${filterNames[filter]}`);
+            }
+            
+            announcePlayerStats(player) {
+                this.createAriaAnnouncement(
+                    `Tu posición: ${player.position}. Puntuación: ${player.score}. Nivel: ${player.level}. Patitos rescatados: ${player.ducks}`
+                );
+            }
+            
+            createAriaAnnouncement(message) {
+                const announcement = document.createElement('div');
+                announcement.className = 'sr-only';
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.setAttribute('aria-atomic', 'true');
+                announcement.textContent = message;
+                
+                document.body.appendChild(announcement);
+                
+                setTimeout(() => {
+                    document.body.removeChild(announcement);
+                }, 3000);
+            }
+            
+            setupErrorHandling() {
+                window.addEventListener('error', (e) => {
+                    console.error('Error en el ranking:', e.error);
+                    
+                    // Mostrar mensaje de error amigable
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'ranking-error';
+                    errorMsg.innerHTML = `
+                        <p>⚠️ No se pueden cargar los datos del ranking en este momento.</p>
+                        <button class="btn btn--secondary" onclick="window.interactiveRanking.loadRankingData()">
+                            Reintentar
+                        </button>
+                    `;
+                    errorMsg.style.cssText = `
+                        text-align: center;
+                        padding: var(--spacing-xl);
+                        background: var(--very-light-blue);
+                        border-radius: var(--border-radius);
+                        margin: var(--spacing-lg) 0;
+                    `;
+                    
+                    const container = document.querySelector('.ranking-container');
+                    if (container) {
+                        container.innerHTML = '';
+                        container.appendChild(errorMsg);
+                    }
+                });
+            }
+        }
+        
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remover clase no-js
+            document.documentElement.classList.remove('no-js');
+            
+            // Inicializar ranking interactivo
+            const interactiveRanking = new InteractiveRanking();
+            
+            // Hacer global para debugging
+            window.interactiveRanking = interactiveRanking;
+            
+            // Inicializar menú móvil
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                    menuToggle.setAttribute('aria-expanded', !isExpanded);
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Simular actualizaciones en tiempo real
+            setInterval(() => {
+                if (!interactiveRanking.isLoading) {
+                    // En producción, aquí se haría una petición al servidor
+                    console.log('Verificando actualizaciones del ranking...');
+                }
+            }, 30000); // Cada 30 segundos
         });
-
-        // Simular actualización en tiempo real del ranking
-        setInterval(() => {
-            // En una implementación real, aquí se haría una petición al servidor
-            // para obtener los datos actualizados del ranking
-            console.log('Actualizando datos del ranking...');
-        }, 30000); // Actualizar cada 30 segundos
+        
+        // Manejar errores no capturados
+        window.addEventListener('error', (e) => {
+            console.error('Error en la aplicación:', e.error);
+            
+            const errorDisplay = document.createElement('div');
+            errorDisplay.className = 'error-message';
+            errorDisplay.textContent = 'Lo sentimos, ha ocurrido un error al cargar el ranking.';
+            errorDisplay.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #f44336;
+                color: white;
+                padding: 1rem;
+                border-radius: 4px;
+                z-index: 9999;
+            `;
+            document.body.appendChild(errorDisplay);
+            
+            setTimeout(() => {
+                document.body.removeChild(errorDisplay);
+            }, 5000);
+        });
     </script>
 </body>
 </html>
-
