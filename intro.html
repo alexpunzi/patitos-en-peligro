@@ -487,6 +487,41 @@
             padding: 0 var(--spacing-md);
         }
         
+        /* ============ BOTÓN DE IR AL MAPA (NUEVO) ============ */
+        .map-button-container {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+            padding: 0 var(--spacing-md);
+            display: none; /* Oculto inicialmente */
+        }
+        
+        .map-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: white;
+            padding: clamp(0.8rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+            border-radius: 50px;
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.6);
+            background: linear-gradient(135deg, #1976d2, #2196f3);
+        }
+        
+        .map-button::before {
+            content: '🗺️';
+            margin-right: 10px;
+        }
+        
         /* ============ CARACTERÍSTICAS ============ */
         .features-section {
             width: 100%;
@@ -610,6 +645,11 @@
                 max-width: 100%;
             }
             
+            .map-button {
+                width: 250px;
+                max-width: 100%;
+            }
+            
             .intro-features {
                 grid-template-columns: 1fr;
                 max-width: 400px;
@@ -701,12 +741,14 @@
             .detail-item,
             .start-game-btn,
             .intro-feature-icon,
-            .revealed-hint {
+            .revealed-hint,
+            .map-button {
                 animation: none !important;
                 transition: none !important;
             }
             
-            .start-game-btn:hover {
+            .start-game-btn:hover,
+            .map-button:hover {
                 transform: none !important;
             }
         }
@@ -866,6 +908,16 @@
                                 Al aceptar, recibirás una pista adicional permanente
                             </p>
                         </div>
+                        
+                        <!-- Botón de Ir al Mapa (aparece después) -->
+                        <div id="mapButtonContainer" class="map-button-container">
+                            <a href="mapa.html" class="map-button">
+                                IR AL MAPA INTERACTIVO
+                            </a>
+                            <p class="start-game-note">
+                                ¡Usa el mapa para encontrar la ubicación de la pista!
+                            </p>
+                        </div>
                     </div>
                 </section>
 
@@ -930,6 +982,7 @@
         function startEscapeRoom() {
             const btn = document.getElementById('startGameBtn');
             const revealedHint = document.getElementById('revealedHint');
+            const mapButtonContainer = document.getElementById('mapButtonContainer');
             const originalText = btn.innerHTML;
             
             // 1. Cambiar estado del botón
@@ -940,28 +993,29 @@
             // 2. Mostrar la pista revelada (PERMANENTEMENTE en la página)
             revealedHint.style.display = 'block';
             
-            // 3. Animación de revelación
+            // 3. Mostrar botón de ir al mapa
+            mapButtonContainer.style.display = 'block';
+            
+            // 4. Animación de revelación
             revealedHint.style.animation = 'revealPulse 2s ease-in-out';
             
-            // 4. Desplazar la vista a la pista revelada
+            // 5. Desplazar la vista a la pista revelada
             revealedHint.scrollIntoView({ 
                 behavior: 'smooth', 
                 block: 'center' 
             });
             
-            // 5. Notificación sutil (opcional, sin revelar demasiado)
+            // 6. Notificación sutil
             setTimeout(() => {
-                mostrarNotificacion('🎯 ¡Pista adicional revelada! Mira arriba para verla permanentemente.', 'success');
+                mostrarNotificacion('🎯 ¡Pista adicional revelada! Ahora puedes usar el mapa para encontrar la ubicación.', 'success');
             }, 1000);
             
-            // 6. Redirigir al mapa después de un momento
-            setTimeout(() => {
-                mostrarNotificacion('🗺️ Redirigiendo al mapa interactivo...', 'info');
-                
-                setTimeout(() => {
-                    window.location.href = 'mapa.html?game=escape1&hint=revealed';
-                }, 1500);
-            }, 3000);
+            // 7. Guardar estado en localStorage
+            guardarEstadoDesafio();
+        }
+        
+        function guardarEstadoDesafio() {
+            localStorage.setItem('escapeRoomAccepted', 'true');
         }
         
         function mostrarNotificacion(mensaje, tipo = 'success') {
@@ -1049,25 +1103,15 @@
             if (desafioAceptado === 'true') {
                 const btn = document.getElementById('startGameBtn');
                 const revealedHint = document.getElementById('revealedHint');
+                const mapButtonContainer = document.getElementById('mapButtonContainer');
                 
                 btn.innerHTML = '✅ DESAFÍO ACEPTADO';
                 btn.classList.add('revealed');
                 btn.disabled = true;
                 revealedHint.style.display = 'block';
+                mapButtonContainer.style.display = 'block';
             }
         });
-        
-        // Guardar estado al aceptar desafío
-        function guardarEstadoDesafio() {
-            localStorage.setItem('escapeRoomAccepted', 'true');
-        }
-        
-        // Modificar startEscapeRoom para guardar estado
-        const originalStartEscapeRoom = startEscapeRoom;
-        startEscapeRoom = function() {
-            guardarEstadoDesafio();
-            originalStartEscapeRoom();
-        };
     </script>
 </body>
 </html>
