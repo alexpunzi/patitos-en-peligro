@@ -11,6 +11,45 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/pages.css">
+    
+    <style>
+        /* Estilos adicionales para mejorar la apariencia */
+        .ranking-description {
+            text-align: center;
+            color: var(--subtle-text);
+            margin-bottom: var(--spacing-lg);
+            font-size: 1.1rem;
+        }
+        
+        .wave-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+        
+        .wave-divider .shape-fill {
+            fill: var(--bg-light);
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 <body>
     
@@ -33,9 +72,11 @@
     </header>
 
     <section class="ranking-hero">
-        <div class="ranking-hero-content">
-            <h1 class="ranking-hero-title">🏆 Salón de la Fama</h1>
-            <p class="ranking-hero-subtitle">Los héroes que han salvado más patitos este semestre</p>
+        <div class="container">
+            <div class="ranking-hero-content">
+                <h1 class="ranking-hero-title">🏆 Salón de la Fama</h1>
+                <p class="ranking-hero-subtitle">Los héroes que han salvado más patitos este semestre</p>
+            </div>
         </div>
         
         <div class="wave-divider">
@@ -64,9 +105,10 @@
                 </button>
             </div>
 
-            <!-- Contenedor del pódium (necesario para los estilos CSS) -->
+            <!-- Contenedor del pódium -->
             <div class="ranking-podium-container">
                 <div class="ranking-podium">
+                    <!-- Segundo puesto (izquierda) -->
                     <div class="podium-place podium-place--2nd">
                         <div class="podium-avatar">GS</div>
                         <div class="podium-name">GreenSavior</div>
@@ -74,6 +116,7 @@
                         <div class="podium-number">2</div>
                     </div>
                     
+                    <!-- Primer puesto (centro) -->
                     <div class="podium-place podium-place--1st">
                         <div class="podium-avatar">EW</div>
                         <div class="podium-name">EcoWarrior42</div>
@@ -81,6 +124,7 @@
                         <div class="podium-number">1</div>
                     </div>
                     
+                    <!-- Tercer puesto (derecha) -->
                     <div class="podium-place podium-place--3rd">
                         <div class="podium-avatar">CH</div>
                         <div class="podium-name">ClimateHero</div>
@@ -91,12 +135,12 @@
             </div>
 
             <div class="ranking-table-container">
-                <table class="ranking-table" aria-label="Top 10 de rescatadores">
+                <table class="ranking-table">
                     <thead>
                         <tr>
-                            <th scope="col" style="text-align:center;">#</th>
+                            <th scope="col" style="width: 60px; text-align: center;">#</th>
                             <th scope="col">Rescatador</th>
-                            <th scope="col" style="text-align:center;">Puntuación</th>
+                            <th scope="col" style="width: 120px; text-align: center;">Puntuación</th>
                         </tr>
                     </thead>
                     <tbody id="ranking-body">
@@ -105,9 +149,9 @@
                 </table>
             </div>
 
-            <div class="button-container" style="text-align: center; margin-top: 3rem;">
-                <a href="index.html" class="btn btn-secondary">← Volver</a>
-                <a href="mapa.html" class="btn btn-primary">Ir a Rescatar 🦆</a>
+            <div class="button-container">
+                <a href="index.html" class="btn btn-secondary">← Volver al Inicio</a>
+                <a href="mapa.html" class="btn btn-primary">Ir al Mapa de Rescate 🦆</a>
             </div>
         </div>
     </main>
@@ -176,6 +220,8 @@
                     updateRanking(this.dataset.filter);
                 });
             });
+            
+            // Inicializar con el ranking global
             updateRanking('global');
         });
 
@@ -184,12 +230,14 @@
             const tbody = document.getElementById('ranking-body');
             tbody.innerHTML = '';
             
-            // Render Tabla
+            // Renderizar tabla
             data.forEach(player => {
                 const row = document.createElement('tr');
-                if (player.isCurrentUser) row.classList.add('current-user');
+                if (player.isCurrentUser) {
+                    row.classList.add('current-user');
+                }
                 
-                // Añadir iconos de recompensa para las primeras 3 posiciones
+                // Determinar icono de recompensa
                 let rewardIcon = '';
                 if (player.position === 1) rewardIcon = '<span class="reward-icon reward-icon--1st">🥇</span>';
                 else if (player.position === 2) rewardIcon = '<span class="reward-icon reward-icon--2nd">🥈</span>';
@@ -199,7 +247,8 @@
                     <td class="position-cell position-${player.position}">${player.position}</td>
                     <td class="player-cell">
                         <div class="player-avatar-small">${player.avatar}</div>
-                        <span class="player-name">${player.name}${rewardIcon}</span>
+                        <span class="player-name">${player.name}</span>
+                        ${rewardIcon}
                     </td>
                     <td>
                         <div class="ducks-cell">
@@ -211,12 +260,13 @@
                 tbody.appendChild(row);
             });
 
-            // Actualizar Pódium (Visual)
+            // Actualizar pódium
             const top3 = data.filter(p => p.position <= 3);
             if(top3.length >= 3) {
-                updatePodiumPlace(0, top3.find(p => p.position === 2)); // 2nd (Left HTML element)
-                updatePodiumPlace(1, top3.find(p => p.position === 1)); // 1st (Center HTML element)
-                updatePodiumPlace(2, top3.find(p => p.position === 3)); // 3rd (Right HTML element)
+                // Orden correcto: 2nd, 1st, 3rd (como está en el HTML)
+                updatePodiumPlace(0, top3.find(p => p.position === 2)); // Izquierda
+                updatePodiumPlace(1, top3.find(p => p.position === 1)); // Centro
+                updatePodiumPlace(2, top3.find(p => p.position === 3)); // Derecha
             }
         }
 
