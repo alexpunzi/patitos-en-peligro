@@ -349,6 +349,70 @@
             margin-top: 0.1rem;
         }
         
+        /* ============ PISTA REVELADA (NUEVA SECCIÓN) ============ */
+        .revealed-hint {
+            display: none; /* Oculto inicialmente */
+            background: linear-gradient(135deg, #8bc34a 0%, #7cb342 100%);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin: var(--spacing-lg) 0;
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.4);
+            border: 3px solid #689f38;
+            position: relative;
+            overflow: hidden;
+            animation: revealPulse 2s ease-in-out;
+        }
+        
+        .revealed-hint::before {
+            content: '🎯 PISTA REVELADA 🎯';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #689f38, #8bc34a);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-sm);
+            font-weight: bold;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            letter-spacing: 1px;
+        }
+        
+        .revealed-hint-content {
+            margin-top: 3rem;
+            text-align: center;
+            color: white;
+        }
+        
+        .revealed-hint-title {
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            margin-bottom: var(--spacing-md);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .revealed-hint-text {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+            background: rgba(255, 255, 255, 0.15);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+        
+        .revealed-hint-note {
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+            opacity: 0.9;
+            font-style: italic;
+            margin-top: var(--spacing-md);
+        }
+        
+        @keyframes revealPulse {
+            0% { transform: scale(0.95); opacity: 0; }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
         /* ============ BOTÓN DE INICIO ============ */
         .start-game-container {
             text-align: center;
@@ -380,10 +444,25 @@
             background: linear-gradient(135deg, #ff9800, #ff5722);
         }
         
+        .start-game-btn.revealed {
+            background: linear-gradient(135deg, #8bc34a, #689f38);
+            box-shadow: 0 5px 15px rgba(139, 195, 74, 0.4);
+        }
+        
+        .start-game-btn.revealed:hover {
+            background: linear-gradient(135deg, #689f38, #8bc34a);
+            box-shadow: 0 8px 20px rgba(139, 195, 74, 0.6);
+        }
+        
         .start-game-btn::after {
             content: '🚀';
             margin-left: 10px;
             animation: rocketPulse 1.5s infinite;
+        }
+        
+        .start-game-btn.revealed::after {
+            content: '✅';
+            animation: none;
         }
         
         @keyframes rocketPulse {
@@ -483,6 +562,10 @@
             .game-hint-container {
                 padding: var(--spacing-lg);
             }
+            
+            .revealed-hint {
+                padding: var(--spacing-lg);
+            }
         }
         
         @media (max-width: 768px) {
@@ -510,6 +593,11 @@
             
             .location-details {
                 grid-template-columns: 1fr;
+            }
+            
+            .revealed-hint {
+                padding: var(--spacing-md);
+                margin: var(--spacing-md) 0;
             }
             
             .nav-buttons {
@@ -555,6 +643,14 @@
             .location-info,
             .escape-instructions {
                 padding: var(--spacing-md);
+            }
+            
+            .revealed-hint {
+                padding: var(--spacing-sm);
+            }
+            
+            .revealed-hint-text {
+                padding: var(--spacing-sm);
             }
             
             .mystery-text {
@@ -604,7 +700,8 @@
             .intro-feature,
             .detail-item,
             .start-game-btn,
-            .intro-feature-icon {
+            .intro-feature-icon,
+            .revealed-hint {
                 animation: none !important;
                 transition: none !important;
             }
@@ -700,33 +797,48 @@
                                 </div>
                                 
                                 <p class="location-description">
-                                    Tu primer desafío te lleva al <strong>lugar más antiguo del campus</strong>, un espacio con historia aeronáutica 
+                                    Tu primer desafío te lleva al <strong>lugar más antiguo del campus</strong>, un espacio con historia única 
                                     que ahora alberga conocimiento. No busques edificios modernos; busca <strong>estructuras que guardan 
-                                    memorias de motores y alas</strong>.
+                                    memorias del pasado</strong>.
                                 </p>
                                 
                                 <div class="clue-hint">
-                                    💡 <strong>Pista adicional:</strong> El lugar que buscas es conocido por su arquitectura industrial 
-                                    y fue parte importante de la historia de la aviación en Alicante. No es un edificio académico tradicional.
+                                    💡 <strong>Pista adicional:</strong> El lugar que buscas tiene una arquitectura distintiva y fue parte 
+                                    importante de la historia local. Busca estructuras que no parecen típicas edificaciones académicas.
                                 </div>
                                 
                                 <div class="location-details">
                                     <div class="detail-item">
                                         <span>🏗️</span>
-                                        <span><strong>Tipo de estructura:</strong> Hangar histórico</span>
+                                        <span><strong>Tipo de estructura:</strong> Edificio histórico</span>
                                     </div>
                                     <div class="detail-item">
                                         <span>📜</span>
-                                        <span><strong>Pista clave:</strong> Relacionado con aviación</span>
+                                        <span><strong>Pista clave:</strong> Relacionado con transporte</span>
                                     </div>
                                     <div class="detail-item">
                                         <span>🎯</span>
-                                        <span><strong>Búsqueda:</strong> Estructura industrial antigua</span>
+                                        <span><strong>Búsqueda:</strong> Arquitectura industrial antigua</span>
                                     </div>
                                     <div class="detail-item">
                                         <span>🔍</span>
                                         <span><strong>Encuentra:</strong> Código QR oculto</span>
                                     </div>
+                                </div>
+                            </div>
+                            
+                            <!-- PISTA REVELADA (Aparece después de aceptar) -->
+                            <div id="revealedHint" class="revealed-hint">
+                                <div class="revealed-hint-content">
+                                    <h3 class="revealed-hint-title">🎯 PISTA REVELADA</h3>
+                                    <div class="revealed-hint-text">
+                                        Busca cerca de las instalaciones deportivas, en un área donde antiguamente 
+                                        se guardaban grandes máquinas. Mira hacia las estructuras altas y antiguas 
+                                        que aún conservan su carácter industrial.
+                                    </div>
+                                    <p class="revealed-hint-note">
+                                        Esta pista permanecerá visible durante tu aventura
+                                    </p>
                                 </div>
                             </div>
                             
@@ -747,11 +859,11 @@
                         
                         <!-- Botón de Inicio -->
                         <div class="start-game-container">
-                            <button class="start-game-btn" onclick="startEscapeRoom()">
+                            <button id="startGameBtn" class="start-game-btn" onclick="startEscapeRoom()">
                                 ACEPTAR EL DESAFÍO
                             </button>
                             <p class="start-game-note">
-                                ¡Prepárate para la aventura!
+                                Al aceptar, recibirás una pista adicional permanente
                             </p>
                         </div>
                     </div>
@@ -816,29 +928,40 @@
     <script>
         // Función para comenzar el escape room
         function startEscapeRoom() {
-            const btn = document.querySelector('.start-game-btn');
+            const btn = document.getElementById('startGameBtn');
+            const revealedHint = document.getElementById('revealedHint');
             const originalText = btn.innerHTML;
             
-            btn.innerHTML = '🔓 INICIANDO ESCAPE ROOM...';
+            // 1. Cambiar estado del botón
+            btn.innerHTML = '✅ DESAFÍO ACEPTADO';
+            btn.classList.add('revealed');
             btn.disabled = true;
             
+            // 2. Mostrar la pista revelada (PERMANENTEMENTE en la página)
+            revealedHint.style.display = 'block';
+            
+            // 3. Animación de revelación
+            revealedHint.style.animation = 'revealPulse 2s ease-in-out';
+            
+            // 4. Desplazar la vista a la pista revelada
+            revealedHint.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+            
+            // 5. Notificación sutil (opcional, sin revelar demasiado)
             setTimeout(() => {
-                mostrarNotificacion('🔐 ¡Escape Room Activado! Tu primera pista está lista.', 'success');
+                mostrarNotificacion('🎯 ¡Pista adicional revelada! Mira arriba para verla permanentemente.', 'success');
+            }, 1000);
+            
+            // 6. Redirigir al mapa después de un momento
+            setTimeout(() => {
+                mostrarNotificacion('🗺️ Redirigiendo al mapa interactivo...', 'info');
                 
                 setTimeout(() => {
-                    mostrarNotificacion('🕵️‍♂️ PISTA: Busca el hangar histórico cerca de las instalaciones deportivas. Mira hacia arriba...', 'info');
-                    
-                    setTimeout(() => {
-                        mostrarNotificacion('🗺️ Redirigiendo al mapa interactivo...', 'success');
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                        
-                        setTimeout(() => {
-                            window.location.href = 'mapa.html?game=escape1';
-                        }, 2000);
-                    }, 2000);
+                    window.location.href = 'mapa.html?game=escape1&hint=revealed';
                 }, 1500);
-            }, 2000);
+            }, 3000);
         }
         
         function mostrarNotificacion(mensaje, tipo = 'success') {
@@ -895,7 +1018,7 @@
             setTimeout(() => {
                 notificacion.classList.remove('show');
                 setTimeout(() => notificacion.remove(), 300);
-            }, 5000);
+            }, 4000);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -920,7 +1043,31 @@
                 element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(element);
             });
+            
+            // Verificar si ya se aceptó el desafío (persistencia)
+            const desafioAceptado = localStorage.getItem('escapeRoomAccepted');
+            if (desafioAceptado === 'true') {
+                const btn = document.getElementById('startGameBtn');
+                const revealedHint = document.getElementById('revealedHint');
+                
+                btn.innerHTML = '✅ DESAFÍO ACEPTADO';
+                btn.classList.add('revealed');
+                btn.disabled = true;
+                revealedHint.style.display = 'block';
+            }
         });
+        
+        // Guardar estado al aceptar desafío
+        function guardarEstadoDesafio() {
+            localStorage.setItem('escapeRoomAccepted', 'true');
+        }
+        
+        // Modificar startEscapeRoom para guardar estado
+        const originalStartEscapeRoom = startEscapeRoom;
+        startEscapeRoom = function() {
+            guardarEstadoDesafio();
+            originalStartEscapeRoom();
+        };
     </script>
 </body>
 </html>
