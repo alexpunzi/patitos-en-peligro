@@ -64,26 +64,29 @@
                 </button>
             </div>
 
-            <div class="ranking-podium">
-                <div class="podium-place podium-place--2nd">
-                    <div class="podium-avatar">GS</div>
-                    <div class="podium-name">GreenSavior</div>
-                    <div class="podium-score">128 Patitos</div>
-                    <div class="podium-number">2</div>
-                </div>
-                
-                <div class="podium-place podium-place--1st">
-                    <div class="podium-avatar">EW</div>
-                    <div class="podium-name">EcoWarrior42</div>
-                    <div class="podium-score">142 Patitos</div>
-                    <div class="podium-number">1</div>
-                </div>
-                
-                <div class="podium-place podium-place--3rd">
-                    <div class="podium-avatar">CH</div>
-                    <div class="podium-name">ClimateHero</div>
-                    <div class="podium-score">119 Patitos</div>
-                    <div class="podium-number">3</div>
+            <!-- Contenedor del pódium (necesario para los estilos CSS) -->
+            <div class="ranking-podium-container">
+                <div class="ranking-podium">
+                    <div class="podium-place podium-place--2nd">
+                        <div class="podium-avatar">GS</div>
+                        <div class="podium-name">GreenSavior</div>
+                        <div class="podium-score">128 Patitos</div>
+                        <div class="podium-number">2</div>
+                    </div>
+                    
+                    <div class="podium-place podium-place--1st">
+                        <div class="podium-avatar">EW</div>
+                        <div class="podium-name">EcoWarrior42</div>
+                        <div class="podium-score">142 Patitos</div>
+                        <div class="podium-number">1</div>
+                    </div>
+                    
+                    <div class="podium-place podium-place--3rd">
+                        <div class="podium-avatar">CH</div>
+                        <div class="podium-name">ClimateHero</div>
+                        <div class="podium-score">119 Patitos</div>
+                        <div class="podium-number">3</div>
+                    </div>
                 </div>
             </div>
 
@@ -186,11 +189,17 @@
                 const row = document.createElement('tr');
                 if (player.isCurrentUser) row.classList.add('current-user');
                 
+                // Añadir iconos de recompensa para las primeras 3 posiciones
+                let rewardIcon = '';
+                if (player.position === 1) rewardIcon = '<span class="reward-icon reward-icon--1st">🥇</span>';
+                else if (player.position === 2) rewardIcon = '<span class="reward-icon reward-icon--2nd">🥈</span>';
+                else if (player.position === 3) rewardIcon = '<span class="reward-icon reward-icon--3rd">🥉</span>';
+                
                 row.innerHTML = `
                     <td class="position-cell position-${player.position}">${player.position}</td>
                     <td class="player-cell">
                         <div class="player-avatar-small">${player.avatar}</div>
-                        <span class="player-name">${player.name}</span>
+                        <span class="player-name">${player.name}${rewardIcon}</span>
                     </td>
                     <td>
                         <div class="ducks-cell">
