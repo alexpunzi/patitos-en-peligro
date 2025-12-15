@@ -1,254 +1,269 @@
 /* =========================================
-   PÁGINA DE RANKING (Mejorada)
+   PAGES.CSS - ESTILOS PRINCIPALES DE RANKING
    ========================================= */
 
-/* --- HERO CON TEMÁTICA DE AGUA --- */
+/* --- 0. VARIABLES Y BASE --- */
+:root {
+    /* Colores */
+    --primary-color: #3f51b5; /* Azul oscuro principal */
+    --primary-light: #5c74e8;
+    --secondary-color: #ff9800; /* Naranja/Ámbar de contraste */
+    --text-color: #333333;
+    --subtle-text: #666;
+    --bg-light: #f4f7f6; /* Fondo de la página */
+    --bg-hero: #e8ecf4; /* Fondo del encabezado (Hero) */
+    --gold: #ffc107;
+    --silver: #bdbdbd;
+    --bronze: #ffb74d;
+
+    /* Espaciado */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 3rem;
+    
+    /* Tipografía */
+    --font-sans: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-color);
+    background-color: var(--bg-light);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* --- 1. HERO Y OLA DE FONDO --- */
 .ranking-hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: var(--white);
+    background-color: var(--bg-hero);
+    color: var(--text-color);
     text-align: center;
-    padding: 6rem var(--spacing-md) 8rem; /* Extra padding bottom para la ola */
+    padding: var(--spacing-lg) var(--spacing-md) 8rem; /* Espacio para el pódium */
     position: relative;
     overflow: hidden;
-}
-
-/* Patrón de burbujas sutil en el fondo */
-.ranking-hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
-    background-size: 30px 30px;
-    opacity: 0.6;
-}
-
-.ranking-hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 800px;
-    margin: 0 auto;
+    border-radius: 0 0 40px 40px;
+    margin-bottom: -50px; /* Sobreponer el contenido inferior */
 }
 
 .ranking-hero-title {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
     margin-bottom: var(--spacing-sm);
-    text-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    font-weight: 800;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.05);
 }
 
-/* Divisor de Ola SVG */
-.wave-divider {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.wave-divider svg {
-    position: relative;
-    display: block;
-    width: calc(100% + 1.3px);
-    height: 60px;
-}
-
-.wave-divider .shape-fill {
-    fill: var(--background-color); /* Coincide con el fondo de la página */
-}
-
-/* --- CONTENIDO PRINCIPAL --- */
-.ranking-main {
-    padding-top: var(--spacing-xl);
-    padding-bottom: var(--spacing-xl);
-}
-
-.ranking-description {
-    text-align: center;
-    margin-bottom: var(--spacing-xl);
+.ranking-hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--subtle-text);
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    color: var(--text-light);
-    font-size: 1.1rem;
+    margin: 0 auto 2rem;
 }
 
-/* --- FILTROS --- */
+/* --- 2. FILTROS --- */
 .ranking-filters {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-md);
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap; /* Permite que los filtros bajen de línea si hay muchos */
 }
 
 .ranking-filter {
-    padding: 0.6rem 1.5rem;
-    background: var(--white);
-    border: 1px solid #e0e0e0;
-    border-radius: 50px;
-    color: var(--text-color);
-    font-weight: 600;
+    background-color: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-decoration: none; /* Si son enlaces */
 }
 
 .ranking-filter:hover {
+    background-color: var(--primary-light);
+    color: white;
+    border-color: var(--primary-light);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-color: var(--primary-color);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .ranking-filter.active {
-    background: var(--primary-color);
-    color: var(--white);
+    background-color: var(--primary-color);
+    color: white;
     border-color: var(--primary-color);
-    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.4);
+    pointer-events: none;
 }
 
-/* --- PÓDIUM 3D --- */
+
+/* --- 3. PÓDIUM (ESCRITORIO) --- */
+.ranking-podium-container {
+    position: relative;
+    z-index: 10;
+    margin-bottom: var(--spacing-lg);
+}
+
 .ranking-podium {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-end; /* Alinea las barras a la base */
     gap: var(--spacing-md);
-    margin-bottom: 4rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    height: 350px; /* Altura total de la sección del pódium */
+    padding: 0 var(--spacing-lg);
 }
 
 .podium-place {
+    width: 250px;
+    border-radius: 12px 12px 0 0;
+    padding: var(--spacing-md) var(--spacing-sm) 1rem;
     text-align: center;
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
-    position: relative;
-    transition: transform 0.3s ease;
-    width: 30%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: flex-end;
-    padding-bottom: var(--spacing-md);
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    cursor: default;
 }
 
 .podium-place:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-/* Colores y Alturas del Pódium */
+/* Estilos específicos de cada posición */
 .podium-place--1st {
-    height: 260px;
-    order: 2;
-    background: linear-gradient(to bottom, #FFD700 0%, rgba(255, 215, 0, 0.1) 100%);
-    border-top: 4px solid #FFD700;
+    background: linear-gradient(to top, #ffd700, #ffeb3b); /* Dorado */
+    height: 300px;
+    order: 2; /* 2nd, 1st, 3rd */
+    z-index: 3;
 }
 .podium-place--2nd {
-    height: 200px;
+    background: linear-gradient(to top, #c0c0c0, #e0e0e0); /* Plateado */
+    height: 240px;
     order: 1;
-    background: linear-gradient(to bottom, #C0C0C0 0%, rgba(192, 192, 192, 0.1) 100%);
-    border-top: 4px solid #C0C0C0;
+    z-index: 2;
 }
 .podium-place--3rd {
-    height: 160px;
+    background: linear-gradient(to top, #cd7f32, #ffb74d); /* Bronce */
+    height: 180px;
     order: 3;
-    background: linear-gradient(to bottom, #CD7F32 0%, rgba(205, 127, 50, 0.1) 100%);
-    border-top: 4px solid #CD7F32;
+    z-index: 2;
 }
 
-/* Elementos dentro del pódium */
+/* Avatar del Pódium */
 .podium-avatar {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
+    background-color: white;
     border-radius: 50%;
-    background: var(--gradient-primary);
+    margin-bottom: var(--spacing-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-weight: 800;
-    font-size: 1.2rem;
-    margin: -30px auto var(--spacing-sm); /* Flota encima */
-    border: 4px solid var(--white);
-    box-shadow: var(--shadow);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border: 4px solid white;
+    position: absolute;
+    top: -40px; /* Colocación fuera de la barra */
 }
 
 .podium-place--1st .podium-avatar {
-    width: 80px;
-    height: 80px;
-    margin-top: -40px;
-    font-size: 1.5rem;
-    background: linear-gradient(135deg, #FFD700, #FFA500);
+    width: 100px;
+    height: 100px;
+    font-size: 2rem;
+    border-color: var(--gold);
+    top: -50px;
 }
 
-.podium-number {
-    font-size: 4rem;
-    font-weight: 900;
-    opacity: 0.15;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    line-height: 1;
-}
+.podium-place--2nd .podium-avatar { border-color: var(--silver); }
+.podium-place--3rd .podium-avatar { border-color: var(--bronze); }
 
+
+/* Textos del Pódium */
 .podium-name {
+    font-size: 1.1rem;
     font-weight: 700;
+    margin-bottom: 5px;
     color: var(--text-color);
-    margin-bottom: 0.25rem;
-    position: relative;
-    z-index: 2;
+    margin-top: 50px; /* Espacio para el avatar flotante */
+}
+
+.podium-place--1st .podium-name {
+    font-size: 1.3rem;
+    margin-top: 60px;
 }
 
 .podium-score {
-    font-weight: 800;
+    background-color: rgba(255, 255, 255, 0.8);
     color: var(--primary-color);
-    background: rgba(255,255,255,0.8);
-    padding: 2px 10px;
-    border-radius: 12px;
-    display: inline-block;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 15px;
     font-size: 0.9rem;
-    position: relative;
-    z-index: 2;
 }
 
-/* --- TABLA MODERNA --- */
+/* Número de posición grande de fondo */
+.podium-number {
+    position: absolute;
+    bottom: -15px;
+    right: -10px;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.05);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* --- 4. TABLA DE RANKING --- */
 .ranking-table-container {
-    background: var(--white);
-    border-radius: var(--border-radius-lg);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    overflow: hidden; /* Para el border radius */
-    max-width: 800px;
-    margin: 0 auto var(--spacing-xl);
+    padding: var(--spacing-md);
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .ranking-table {
     width: 100%;
-    border-collapse: separate; /* Necesario para sticky header */
+    border-collapse: separate;
     border-spacing: 0;
 }
 
 .ranking-table th {
-    background: #f8f9fa;
-    padding: 1.2rem;
     text-align: left;
-    font-weight: 700;
-    color: var(--text-light);
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--subtle-text);
+    font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    position: sticky; /* Cabecera pegajosa */
-    top: 0;
-    z-index: 10;
+    font-size: 0.9rem;
     border-bottom: 2px solid #eee;
 }
 
 .ranking-table td {
-    padding: 1rem 1.2rem;
-    border-bottom: 1px solid #f0f0f0;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid #eee;
     vertical-align: middle;
 }
 
@@ -256,105 +271,299 @@
     border-bottom: none;
 }
 
-.ranking-table tr:hover td {
-    background-color: #fafafa;
+/* Estilo para la fila del usuario actual */
+.ranking-table tr.current-user {
+    background-color: #f0f4ff; /* Fondo suave para destacar */
+    font-weight: 600;
+    border-left: 5px solid var(--primary-color);
 }
 
-/* Estilos de Celdas */
+.ranking-table tr.current-user td {
+    padding-left: calc(var(--spacing-md) - 5px);
+}
+
+/* Columna de Posición */
 .position-cell {
-    font-weight: 800;
-    color: #ccc;
-    text-align: center;
+    font-weight: 700;
     width: 60px;
+    text-align: center;
 }
-.position-1 { color: #FFD700; font-size: 1.2rem; }
-.position-2 { color: #C0C0C0; font-size: 1.2rem; }
-.position-3 { color: #CD7F32; font-size: 1.2rem; }
 
+/* Columna de Jugador */
 .player-cell {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--spacing-sm);
 }
 
 .player-avatar-small {
     width: 40px;
     height: 40px;
+    background-color: var(--bg-hero);
     border-radius: 50%;
-    background: var(--gradient-secondary);
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
 }
 
 .player-name {
     font-weight: 600;
-    color: var(--text-color);
+    display: flex;
+    align-items: center;
 }
 
-.current-user td {
-    background-color: rgba(var(--primary-rgb), 0.05) !important;
+.player-name::after {
+    content: '(Tú)';
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: var(--spacing-xs);
+    display: none; /* Por defecto oculto */
 }
 
 .current-user .player-name::after {
-    content: '(Tú)';
-    margin-left: 6px;
-    font-size: 0.75rem;
-    color: var(--primary-color);
-    background: rgba(var(--primary-rgb), 0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
+    display: inline-block; /* Mostrar solo para el usuario actual */
 }
 
+/* Columna de Puntos */
 .ducks-cell {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-weight: 800;
-    color: var(--text-color);
+    justify-content: flex-end;
+    font-weight: 700;
     font-size: 1.1rem;
+    color: var(--secondary-color);
+    width: 120px;
+    gap: 8px;
 }
 
 .ducks-icon {
-    font-size: 1.4rem;
+    font-size: 1.5rem; /* Icono (podría ser un svg o font-icon) */
+    color: var(--secondary-color);
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    .ranking-hero { padding-bottom: 5rem; }
-    
-    .ranking-podium {
-        align-items: center;
-        flex-direction: column;
-        gap: 2rem;
-    }
-    .podium-place { 
-        width: 100%; 
-        height: auto !important; 
-        padding: 1.5rem;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1rem;
-        border-radius: var(--border-radius);
-        border: 1px solid #eee;
-        border-left: 5px solid; /* Borde de color a la izquierda */
-        margin-top: 0 !important; /* Reset margin top overrides */
-    }
-    
-    .podium-place--1st { border-left-color: #FFD700; border-top: 1px solid #eee; order: 1; }
-    .podium-place--2nd { border-left-color: #C0C0C0; border-top: 1px solid #eee; order: 2; }
-    .podium-place--3rd { border-left-color: #CD7F32; border-top: 1px solid #eee; order: 3; }
+/* Iconos de Recompensa (Para el Top 3) */
+.reward-icon {
+    font-size: 1.2rem;
+    margin-left: 5px;
+}
 
-    .podium-avatar { margin: 0; width: 50px; height: 50px; font-size: 1rem; }
-    .podium-number { position: static; transform: none; font-size: 1.5rem; width: 30px; }
+.reward-icon--1st { color: var(--gold); }
+.reward-icon--2nd { color: var(--silver); }
+.reward-icon--3rd { color: var(--bronze); }
+
+
+/* =========================================
+   RESPONSIVE: VERSIÓN MÓVIL OPTIMIZADA
+   ========================================= */
+
+@media (max-width: 768px) {
     
-    .ranking-table th:nth-child(1), 
-    .ranking-table td:nth-child(1) {
-        display: none; /* Ocultar columna # en móvil, es redundante */
+    /* --- 1. AJUSTES GENERALES Y HERO --- */
+    .ranking-hero {
+        padding: 3rem 1rem 4rem; /* Reducimos el aire superior/inferior */
+        border-radius: 0 0 20px 20px;
+    }
+    
+    .ranking-hero-title {
+        font-size: 1.8rem; /* Título un poco más pequeño */
+        margin-bottom: 0.5rem;
+    }
+
+    .ranking-hero-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    /* --- 2. FILTROS (Scroll Horizontal estilo App) --- */
+    .ranking-filters {
+        display: flex;
+        flex-wrap: nowrap; /* Evita que bajen a otra línea */
+        overflow-x: auto;  /* Permite deslizar con el dedo */
+        justify-content: flex-start;
+        padding: 5px 5px 15px 5px; /* Espacio para barra scroll */
+        margin-bottom: 1.5rem;
+        -webkit-overflow-scrolling: touch; /* Suavidad en iPhone */
+        gap: 10px;
+    }
+
+    .ranking-filter {
+        flex: 0 0 auto; /* Los botones no se encogen */
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+    }
+
+    /* --- 3. PÓDIUM COMPACTO (Lado a lado) --- */
+    .ranking-podium-container {
+        margin-bottom: 1.5rem;
+    }
+
+    .ranking-podium {
+        flex-direction: row; /* Forzamos fila, NO columna */
+        align-items: flex-end; /* Alineados a la base */
+        gap: 8px; /* Espacio mínimo entre barras */
+        height: auto;
+        margin-top: 1rem;
+        padding: 0 5px;
+    }
+
+    .podium-place {
+        width: 33%; /* Cada uno ocupa un tercio exacto */
+        border-radius: 10px 10px 0 0;
+        padding: 0.5rem 0.2rem;
+        transition: none; /* Quitamos transiciones para evitar saltos en móvil */
+        transform: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Alturas fijas reducidas para que quepan en pantalla */
+    .podium-place--1st { 
+        height: 150px; 
+        order: 2; /* Centro */
+        z-index: 2;
+    }
+    .podium-place--2nd { 
+        height: 120px; 
+        order: 1; /* Izquierda */
+    }
+    .podium-place--3rd { 
+        height: 90px; 
+        order: 3; /* Derecha */
+    }
+
+    /* Avatares flotantes más pequeños */
+    .podium-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        position: absolute;
+        top: -20px; /* Que sobresalga por arriba */
+        margin-bottom: 0;
+        border: 2px solid white;
+    }
+
+    .podium-place--1st .podium-avatar {
+        width: 50px;
+        height: 50px;
+        top: -25px;
+        font-size: 1.2rem;
+    }
+
+    /* Textos dentro del pódium */
+    .podium-name {
+        font-size: 0.75rem;
+        margin-top: 25px; /* Espacio para no chocar con el avatar */
+        margin-bottom: 2px;
+        max-width: 90%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Cortar nombres largos con '...' */
+    }
+
+    .podium-place--1st .podium-name {
+        margin-top: 30px;
+    }
+    
+    .podium-score {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+
+    .podium-number {
+        font-size: 1.5rem;
+        opacity: 0.3;
+        bottom: 0;
+        right: 0;
+    }
+
+    /* --- 4. TABLA RESPONSIVE --- */
+    .ranking-table-container {
+        padding: 0; /* Aprovechar todo el ancho */
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .ranking-table {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+
+    .ranking-table th, 
+    .ranking-table td {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    /* Ajuste de anchos de columna */
+    .ranking-table th:first-child,
+    .ranking-table td:first-child {
+        width: 40px; /* Columna de posición estrecha */
+        text-align: center;
+        padding-left: 5px;
+    }
+
+    .ranking-table th:last-child,
+    .ranking-table td:last-child {
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    /* Celda del Jugador */
+    .player-cell {
+        gap: 8px;
+    }
+
+    .player-avatar-small {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    .player-name {
+        font-weight: 600;
+        max-width: 110px; /* Ancho máximo antes de cortar */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
+
+    /* Indicador "Tú" minimalista (punto de color) */
+    .player-name::after {
+        content: none; /* Ocultar el texto (Tú) por defecto */
+    }
+
+    .current-user .player-name::after {
+        content: ''; /* Mostrar un punto en su lugar */
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        margin-left: 4px;
+        vertical-align: middle;
+    }
+
+    /* Columna de Puntos */
+    .ducks-cell {
+        font-size: 0.95rem;
+        gap: 4px;
+    }
+    
+    .ducks-icon {
+        font-size: 1.1rem;
+    }
+    
+    .reward-icon {
+        font-size: 1rem;
+        margin-left: 2px;
     }
 }
