@@ -200,14 +200,14 @@
             color: var(--ranking-bronze-dark);
         }
         
-        /* ============ TABLA TOP 10 ============ */
+        /* ============ TABLA TOP 10 (SIN PUNTUACIÓN) ============ */
         .ranking-table-container {
             background: var(--white);
             border-radius: var(--border-radius-lg);
             padding: var(--spacing-xl);
             box-shadow: var(--shadow-xl);
             margin-bottom: var(--spacing-xl);
-            max-width: 900px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -311,22 +311,22 @@
             letter-spacing: 0.5px;
         }
         
-        .score-cell {
-            font-weight: 700;
-            color: var(--primary-color);
-            font-size: 1.1rem;
-        }
-        
         .ducks-cell {
             color: var(--accent-color);
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            justify-content: center;
+            background: rgba(255, 152, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            min-width: 100px;
         }
         
         .ducks-icon {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
         }
         
         /* ============ FILTROS SIMPLES ============ */
@@ -426,6 +426,12 @@
                 gap: var(--spacing-sm);
             }
             
+            .ducks-cell {
+                font-size: 1rem;
+                padding: 0.4rem 0.8rem;
+                min-width: 80px;
+            }
+            
             .ranking-filters {
                 flex-direction: column;
                 align-items: center;
@@ -500,8 +506,8 @@
     <!-- Hero Section -->
     <section class="ranking-hero">
         <div class="ranking-hero-content">
-            <h1 class="ranking-hero-title">🏆 Top 10 Jugadores</h1>
-            <p class="ranking-hero-subtitle">Los mejores salvadores de patitos del campus</p>
+            <h1 class="ranking-hero-title">🏆 Top 10 Rescatadores</h1>
+            <p class="ranking-hero-subtitle">Los que más patitos han salvado en el campus</p>
         </div>
     </section>
 
@@ -509,7 +515,7 @@
     <main class="main-content ranking-main">
         <div class="container">
             <div class="ranking-description">
-                <p>Descubre quiénes son los héroes más comprometidos con la causa. Cada patito rescatado cuenta en esta competencia amigable por un campus más sostenible.</p>
+                <p>Clasificación basada únicamente en el número de patitos rescatados. ¡Cada patito cuenta!</p>
             </div>
 
             <!-- Filtros -->
@@ -531,33 +537,32 @@
                     <div class="podium-number">2</div>
                     <div class="podium-avatar">GS</div>
                     <div class="podium-name">GreenSavior</div>
-                    <div class="podium-score">11,800</div>
+                    <div class="podium-score">128</div>
                 </div>
                 
                 <div class="podium-place podium-place--1st">
                     <div class="podium-number">1</div>
                     <div class="podium-avatar">EW</div>
                     <div class="podium-name">EcoWarrior42</div>
-                    <div class="podium-score">12,500</div>
+                    <div class="podium-score">142</div>
                 </div>
                 
                 <div class="podium-place podium-place--3rd">
                     <div class="podium-number">3</div>
                     <div class="podium-avatar">CH</div>
                     <div class="podium-name">ClimateHero</div>
-                    <div class="podium-score">11,250</div>
+                    <div class="podium-score">119</div>
                 </div>
             </div>
 
-            <!-- Tabla Top 10 -->
+            <!-- Tabla Top 10 (SOLO PATITOS) -->
             <div class="ranking-table-container">
-                <table class="ranking-table" aria-label="Top 10 de jugadores">
+                <table class="ranking-table" aria-label="Top 10 de rescatadores de patitos">
                     <thead>
                         <tr>
                             <th scope="col" class="position-cell">#</th>
                             <th scope="col">Jugador</th>
-                            <th scope="col">Puntuación</th>
-                            <th scope="col">Patitos</th>
+                            <th scope="col" style="text-align: center;">Patitos Rescatados</th>
                         </tr>
                     </thead>
                     <tbody id="ranking-body">
@@ -593,43 +598,43 @@
     </footer>
 
     <script>
-        // ============ DATOS COMPLETOS TOP 10 PARA TODAS LAS CATEGORÍAS ============
+        // ============ DATOS COMPLETOS TOP 10 PARA TODAS LAS CATEGORÍAS (SOLO PATITOS) ============
         const rankingData = {
             global: [
-                { position: 1, name: "EcoWarrior42", avatar: "EW", score: 12500, ducks: 142, isCurrentUser: false },
-                { position: 2, name: "GreenSavior", avatar: "GS", score: 11800, ducks: 128, isCurrentUser: false },
-                { position: 3, name: "ClimateHero", avatar: "CH", score: 11250, ducks: 119, isCurrentUser: false },
-                { position: 4, name: "PatitoProtector", avatar: "PP", score: 9850, ducks: 105, isCurrentUser: true },
-                { position: 5, name: "EcoExplorer", avatar: "EE", score: 9200, ducks: 98, isCurrentUser: false },
-                { position: 6, name: "NatureLover", avatar: "NL", score: 8750, ducks: 92, isCurrentUser: false },
-                { position: 7, name: "PlanetGuardian", avatar: "PG", score: 8200, ducks: 87, isCurrentUser: false },
-                { position: 8, name: "SustainableGamer", avatar: "SG", score: 7850, ducks: 83, isCurrentUser: false },
-                { position: 9, name: "EcoAdventurer", avatar: "EA", score: 7450, ducks: 79, isCurrentUser: false },
-                { position: 10, name: "GreenGamer", avatar: "GG", score: 7100, ducks: 75, isCurrentUser: false }
+                { position: 1, name: "EcoWarrior42", avatar: "EW", ducks: 142, isCurrentUser: false },
+                { position: 2, name: "GreenSavior", avatar: "GS", ducks: 128, isCurrentUser: false },
+                { position: 3, name: "ClimateHero", avatar: "CH", ducks: 119, isCurrentUser: false },
+                { position: 4, name: "PatitoProtector", avatar: "PP", ducks: 105, isCurrentUser: true },
+                { position: 5, name: "EcoExplorer", avatar: "EE", ducks: 98, isCurrentUser: false },
+                { position: 6, name: "NatureLover", avatar: "NL", ducks: 92, isCurrentUser: false },
+                { position: 7, name: "PlanetGuardian", avatar: "PG", ducks: 87, isCurrentUser: false },
+                { position: 8, name: "SustainableGamer", avatar: "SG", ducks: 83, isCurrentUser: false },
+                { position: 9, name: "EcoAdventurer", avatar: "EA", ducks: 79, isCurrentUser: false },
+                { position: 10, name: "GreenGamer", avatar: "GG", ducks: 75, isCurrentUser: false }
             ],
             weekly: [
-                { position: 1, name: "PatitoProtector", avatar: "PP", score: 1850, ducks: 25, isCurrentUser: true },
-                { position: 2, name: "EcoWarrior42", avatar: "EW", score: 1750, ducks: 22, isCurrentUser: false },
-                { position: 3, name: "GreenSavior", avatar: "GS", score: 1620, ducks: 20, isCurrentUser: false },
-                { position: 4, name: "NewPlayer23", avatar: "NP", score: 1480, ducks: 18, isCurrentUser: false },
-                { position: 5, name: "ClimateHero", avatar: "CH", score: 1350, ducks: 17, isCurrentUser: false },
-                { position: 6, name: "RookieGuardian", avatar: "RG", score: 1280, ducks: 16, isCurrentUser: false },
-                { position: 7, name: "FreshEco", avatar: "FE", score: 1150, ducks: 14, isCurrentUser: false },
-                { position: 8, name: "GreenNewbie", avatar: "GN", score: 1050, ducks: 13, isCurrentUser: false },
-                { position: 9, name: "DuckSavior01", avatar: "DS", score: 980, ducks: 12, isCurrentUser: false },
-                { position: 10, name: "EcoBeginner", avatar: "EB", score: 920, ducks: 11, isCurrentUser: false }
+                { position: 1, name: "PatitoProtector", avatar: "PP", ducks: 25, isCurrentUser: true },
+                { position: 2, name: "EcoWarrior42", avatar: "EW", ducks: 22, isCurrentUser: false },
+                { position: 3, name: "GreenSavior", avatar: "GS", ducks: 20, isCurrentUser: false },
+                { position: 4, name: "NewPlayer23", avatar: "NP", ducks: 18, isCurrentUser: false },
+                { position: 5, name: "ClimateHero", avatar: "CH", ducks: 17, isCurrentUser: false },
+                { position: 6, name: "RookieGuardian", avatar: "RG", ducks: 16, isCurrentUser: false },
+                { position: 7, name: "FreshEco", avatar: "FE", ducks: 14, isCurrentUser: false },
+                { position: 8, name: "GreenNewbie", avatar: "GN", ducks: 13, isCurrentUser: false },
+                { position: 9, name: "DuckSavior01", avatar: "DS", ducks: 12, isCurrentUser: false },
+                { position: 10, name: "EcoBeginner", avatar: "EB", ducks: 11, isCurrentUser: false }
             ],
             monthly: [
-                { position: 1, name: "EcoWarrior42", avatar: "EW", score: 4850, ducks: 52, isCurrentUser: false },
-                { position: 2, name: "GreenSavior", avatar: "GS", score: 4620, ducks: 48, isCurrentUser: false },
-                { position: 3, name: "PatitoProtector", avatar: "PP", score: 4380, ducks: 45, isCurrentUser: true },
-                { position: 4, name: "ClimateHero", avatar: "CH", score: 4150, ducks: 42, isCurrentUser: false },
-                { position: 5, name: "EcoExplorer", avatar: "EE", score: 3920, ducks: 40, isCurrentUser: false },
-                { position: 6, name: "NatureLover", avatar: "NL", score: 3680, ducks: 38, isCurrentUser: false },
-                { position: 7, name: "MonthlyStar", avatar: "MS", score: 3450, ducks: 35, isCurrentUser: false },
-                { position: 8, name: "PlanetGuardian", avatar: "PG", score: 3250, ducks: 33, isCurrentUser: false },
-                { position: 9, name: "SustainableGamer", avatar: "SG", score: 3080, ducks: 31, isCurrentUser: false },
-                { position: 10, name: "EcoAdventurer", avatar: "EA", score: 2950, ducks: 30, isCurrentUser: false }
+                { position: 1, name: "EcoWarrior42", avatar: "EW", ducks: 52, isCurrentUser: false },
+                { position: 2, name: "GreenSavior", avatar: "GS", ducks: 48, isCurrentUser: false },
+                { position: 3, name: "PatitoProtector", avatar: "PP", ducks: 45, isCurrentUser: true },
+                { position: 4, name: "ClimateHero", avatar: "CH", ducks: 42, isCurrentUser: false },
+                { position: 5, name: "EcoExplorer", avatar: "EE", ducks: 40, isCurrentUser: false },
+                { position: 6, name: "NatureLover", avatar: "NL", ducks: 38, isCurrentUser: false },
+                { position: 7, name: "MonthlyStar", avatar: "MS", ducks: 35, isCurrentUser: false },
+                { position: 8, name: "PlanetGuardian", avatar: "PG", ducks: 33, isCurrentUser: false },
+                { position: 9, name: "SustainableGamer", avatar: "SG", ducks: 31, isCurrentUser: false },
+                { position: 10, name: "EcoAdventurer", avatar: "EA", ducks: 30, isCurrentUser: false }
             ]
         };
 
@@ -699,7 +704,6 @@
                             ${player.isCurrentUser ? '<span class="player-badge">Tú</span>' : ''}
                         </div>
                     </td>
-                    <td class="score-cell">${player.score.toLocaleString()}</td>
                     <td class="ducks-cell">
                         <span class="ducks-icon">🦆</span>
                         <span>${player.ducks}</span>
@@ -732,19 +736,19 @@
                 podiumElements[0].querySelector('.podium-number').textContent = secondPlace.position;
                 podiumElements[0].querySelector('.podium-avatar').textContent = secondPlace.avatar;
                 podiumElements[0].querySelector('.podium-name').textContent = secondPlace.name;
-                podiumElements[0].querySelector('.podium-score').textContent = secondPlace.score.toLocaleString();
+                podiumElements[0].querySelector('.podium-score').textContent = secondPlace.ducks;
                 
                 // Primer lugar (centro)
                 podiumElements[1].querySelector('.podium-number').textContent = firstPlace.position;
                 podiumElements[1].querySelector('.podium-avatar').textContent = firstPlace.avatar;
                 podiumElements[1].querySelector('.podium-name').textContent = firstPlace.name;
-                podiumElements[1].querySelector('.podium-score').textContent = firstPlace.score.toLocaleString();
+                podiumElements[1].querySelector('.podium-score').textContent = firstPlace.ducks;
                 
                 // Tercer lugar (derecha)
                 podiumElements[2].querySelector('.podium-number').textContent = thirdPlace.position;
                 podiumElements[2].querySelector('.podium-avatar').textContent = thirdPlace.avatar;
                 podiumElements[2].querySelector('.podium-name').textContent = thirdPlace.name;
-                podiumElements[2].querySelector('.podium-score').textContent = thirdPlace.score.toLocaleString();
+                podiumElements[2].querySelector('.podium-score').textContent = thirdPlace.ducks;
             }
         }
     </script>
