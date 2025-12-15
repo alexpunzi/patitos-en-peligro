@@ -3,22 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Top 10 de jugadores de Patitos en Peligro">
-    <title>Top 10 - Patitos en Peligro</title>
+    <meta name="description" content="Top 10 completo de jugadores de Patitos en Peligro">
+    <title>Top 10 Completo - Patitos en Peligro</title>
     <link rel="icon" type="image/x-icon" href="ico_circulo.ico">
-    
-    <!-- CSS Unificado -->
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/pages.css">
     
     <style>
         /* ============ VARIABLES ============ */
         :root {
+            --primary-color: #4AB3F4;
+            --secondary-color: #FF9800;
+            --accent-color: #FF5722;
+            --white: #FFFFFF;
+            --light-blue: #E3F2FD;
+            --very-light-blue: #F5FAFF;
+            --text-color: #333333;
             --ranking-gold-dark: #B8860B;
             --ranking-silver-dark: #696969;
             --ranking-bronze-dark: #8B4513;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-sm: 4px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 12px 36px rgba(0, 0, 0, 0.2);
+            --gradient-primary: linear-gradient(135deg, #4AB3F4 0%, #2196F3 100%);
+            --gradient-accent: linear-gradient(135deg, #FF9800 0%, #FF5722 100%);
+        }
+        
+        /* ============ ESTILOS BASE ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* ============ HEADER ============ */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
         }
         
         /* ============ NAVEGACIÓN MÓVIL ============ */
@@ -44,76 +119,130 @@
             transition: all 0.3s ease;
         }
         
-        .nav-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            list-style: none;
         }
         
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 0.5rem;
+            transition: color 0.2s;
         }
         
-        .nav-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
         }
         
-        /* ============ HERO SIMPLIFICADO ============ */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+        }
+        
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        /* ============ HERO ============ */
         .ranking-hero {
-            background: linear-gradient(135deg, 
-                rgba(255, 152, 0, 0.95) 0%, 
-                rgba(255, 193, 7, 0.85) 100%);
+            background: var(--gradient-accent);
             color: var(--white);
             text-align: center;
-            padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 3vw, 2rem);
+            padding: clamp(2rem, 5vw, 4rem) 1rem;
             position: relative;
             overflow: hidden;
         }
         
-        .ranking-hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
         .ranking-hero-title {
-            font-size: clamp(1.75rem, 5vw, 3rem);
-            margin-bottom: clamp(0.5rem, 2vw, 1rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            line-height: 1.2;
         }
         
         .ranking-hero-subtitle {
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
-            opacity: 0.9;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            opacity: 0.95;
             max-width: 600px;
             margin: 0 auto;
-            line-height: 1.4;
         }
         
         /* ============ CONTENIDO PRINCIPAL ============ */
         .ranking-main {
-            padding: clamp(1.5rem, 4vw, 3rem) 0;
+            padding: clamp(2rem, 4vw, 3rem) 0;
         }
         
         .ranking-description {
             text-align: center;
-            margin-bottom: clamp(1.5rem, 4vw, 3rem);
+            margin-bottom: 2rem;
             line-height: 1.6;
-            max-width: 90%;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-size: 1.1rem;
             color: var(--text-color);
             padding: 0 1rem;
         }
         
-        /* ============ PÓDIUM - MEJORADO PARA MÓVIL ============ */
+        /* ============ FILTROS ============ */
+        .ranking-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+        
+        .ranking-filter {
+            padding: 1rem 2rem;
+            background: var(--white);
+            border: 2px solid var(--light-blue);
+            border-radius: var(--border-radius);
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 44px;
+            font-size: 1rem;
+        }
+        
+        .ranking-filter.active {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        /* ============ PÓDIUM ============ */
         .ranking-podium {
             display: flex;
             flex-direction: column;
-            gap: clamp(0.75rem, 2vw, 1rem);
+            gap: 1rem;
             max-width: 500px;
-            margin: 0 auto clamp(1.5rem, 4vw, 3rem);
+            margin: 0 auto 3rem;
             padding: 0 1rem;
         }
         
@@ -121,19 +250,13 @@
             display: flex;
             align-items: center;
             text-align: left;
-            padding: clamp(1rem, 2vw, 1.5rem);
+            padding: 1.5rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-lg);
             position: relative;
             transition: transform 0.3s ease;
-            gap: clamp(0.75rem, 2vw, 1rem);
+            gap: 1rem;
             width: 100%;
-            height: auto !important;
-            min-height: 100px;
-        }
-        
-        .podium-place:hover {
-            transform: translateY(-3px);
         }
         
         .podium-place--1st {
@@ -155,35 +278,35 @@
         }
         
         .podium-number {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-size: 2.5rem;
             font-weight: 800;
             flex-shrink: 0;
-            width: 40px;
+            width: 50px;
             text-align: center;
         }
         
         .podium-place--1st .podium-number {
-            color: var(--ranking-gold-dark) !important;
+            color: var(--ranking-gold-dark);
         }
         
         .podium-place--2nd .podium-number {
-            color: var(--ranking-silver-dark) !important;
+            color: var(--ranking-silver-dark);
         }
         
         .podium-place--3rd .podium-number {
-            color: var(--ranking-bronze-dark) !important;
+            color: var(--ranking-bronze-dark);
         }
         
         .podium-avatar {
-            width: clamp(40px, 8vw, 60px);
-            height: clamp(40px, 8vw, 60px);
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-size: 1.2rem;
             flex-shrink: 0;
             border: 3px solid white;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
@@ -192,19 +315,16 @@
         
         .podium-name {
             font-weight: 700;
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            margin-bottom: 0.25rem;
+            font-size: 1.2rem;
             color: #222;
             flex-grow: 1;
-            line-height: 1.2;
         }
         
         .podium-score {
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-size: 1.2rem;
             font-weight: 800;
-            color: var(--primary-color);
             background: rgba(255, 255, 255, 0.9);
-            padding: 0.4rem 0.8rem;
+            padding: 0.5rem 1rem;
             border-radius: 20px;
             white-space: nowrap;
             flex-shrink: 0;
@@ -225,42 +345,36 @@
             color: var(--ranking-bronze-dark);
         }
         
-        /* ============ TABLA TOP 10 - SCROLLABLE ============ */
+        /* ============ TABLA TOP 10 ============ */
         .ranking-table-container {
             background: var(--white);
             border-radius: var(--border-radius-lg);
-            padding: clamp(1rem, 2vw, 2rem);
+            padding: 2rem;
             box-shadow: var(--shadow-xl);
-            margin-bottom: clamp(1.5rem, 4vw, 3rem);
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 3rem;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            margin: 0 1rem clamp(1.5rem, 4vw, 3rem);
+            margin: 0 1rem 3rem;
         }
         
         .ranking-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 0.5rem;
             min-width: 600px;
         }
         
         .ranking-table th {
             background: var(--very-light-blue);
-            padding: clamp(0.75rem, 1.5vw, 1rem);
+            padding: 1rem;
             text-align: left;
             font-weight: 700;
             color: var(--primary-color);
             border-bottom: 3px solid var(--light-blue);
-            white-space: nowrap;
         }
         
         .ranking-table td {
-            padding: clamp(0.75rem, 1.5vw, 1rem);
+            padding: 1rem;
             border-bottom: 1px solid var(--light-blue);
-            transition: background-color 0.2s ease;
         }
         
         .ranking-table tr:hover td {
@@ -273,21 +387,28 @@
         }
         
         .position-cell {
-            width: 50px;
+            width: 60px;
             text-align: center;
             font-weight: 800;
-            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            font-size: 1.2rem;
         }
+        
+        .position-1 { color: var(--ranking-gold-dark); }
+        .position-2 { color: var(--ranking-silver-dark); }
+        .position-3 { color: var(--ranking-bronze-dark); }
+        .position-4, .position-5, .position-6, 
+        .position-7, .position-8, .position-9, 
+        .position-10 { color: var(--primary-color); }
         
         .player-cell {
             display: flex;
             align-items: center;
-            gap: clamp(0.5rem, 1.5vw, 1rem);
+            gap: 1rem;
         }
         
         .player-avatar {
-            width: clamp(36px, 6vw, 44px);
-            height: clamp(36px, 6vw, 44px);
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: var(--gradient-primary);
             display: flex;
@@ -295,7 +416,7 @@
             justify-content: center;
             color: var(--white);
             font-weight: 800;
-            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            font-size: 1.1rem;
             flex-shrink: 0;
             border: 2px solid white;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -304,7 +425,6 @@
         .player-name {
             font-weight: 600;
             color: var(--primary-color);
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
         }
         
         .player-badge {
@@ -317,102 +437,139 @@
             font-weight: 700;
             margin-left: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         
         .score-cell {
             font-weight: 700;
             color: var(--primary-color);
-            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            font-size: 1.1rem;
         }
         
-        /* ============ FILTROS SIMPLES ============ */
-        .ranking-filters {
-            display: flex;
-            justify-content: center;
-            gap: clamp(0.5rem, 1vw, 0.75rem);
-            margin-bottom: clamp(1.5rem, 4vw, 3rem);
-            flex-wrap: wrap;
-            padding: 0 1rem;
-        }
-        
-        .ranking-filter {
-            padding: clamp(0.6rem, 1.5vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
-            background: var(--white);
-            border: 2px solid var(--light-blue);
-            border-radius: var(--border-radius);
-            color: var(--primary-color);
+        .ducks-cell {
+            color: var(--accent-color);
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            min-height: 44px;
-            font-size: clamp(0.85rem, 1.5vw, 1rem);
         }
         
-        .ranking-filter:hover,
-        .ranking-filter:active {
-            border-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-        
-        .ranking-filter.active {
-            background: var(--gradient-primary);
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--primary-color);
             color: var(--white);
-            border-color: var(--primary-color);
+            padding: 3rem 1rem;
+            text-align: center;
         }
         
-        /* ============ BOTONES ============ */
-        .button-container {
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--white);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-            padding: 0 1rem;
-            margin-top: 2rem;
-        }
-        
-        .btn {
-            min-height: 44px;
-            min-width: 44px;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            width: 100%;
-            max-width: 300px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
         }
         
-        /* ============ HEADER MÓVIL ============ */
-        .header-container {
+        .footer-links {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 1rem;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
         }
         
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+        .footer-link {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.9;
         }
         
-        .logo {
-            width: 40px;
-            height: 40px;
+        .footer-link:hover {
+            opacity: 1;
+            text-decoration: underline;
         }
         
-        .logo-text {
-            font-size: 1rem;
-            font-weight: 700;
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
         
-        /* ============ RESPONSIVE COMPLETO ============ */
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--white);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                z-index: 1000;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .ranking-filters {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .ranking-filter {
+                justify-content: center;
+            }
+            
+            .ranking-podium {
+                max-width: 100%;
+            }
+            
+            .podium-place {
+                padding: 1rem;
+            }
+            
+            .podium-avatar {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .podium-number {
+                font-size: 2rem;
+                width: 40px;
+            }
+            
+            .ranking-table-container {
+                padding: 1rem;
+            }
+            
+            .ranking-table th,
+            .ranking-table td {
+                padding: 0.75rem;
+            }
+        }
+        
         @media (min-width: 768px) {
             .ranking-podium {
                 flex-direction: row;
@@ -444,115 +601,30 @@
                 height: 180px;
             }
             
-            .podium-name {
-                min-height: 2.5rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-            }
-            
             .button-container {
                 flex-direction: row;
                 justify-content: center;
                 gap: 1.5rem;
             }
-            
+        }
+        
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            padding: 0 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        @media (min-width: 768px) {
             .btn {
                 width: auto;
-            }
-            
-            .ranking-table-container {
-                margin: 0 auto clamp(1.5rem, 4vw, 3rem);
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .nav-toggle {
-                display: none;
-            }
-            
-            .nav-menu {
-                display: flex !important;
-            }
-        }
-        
-        @media (max-width: 991px) {
-            .nav-toggle {
-                display: flex;
-            }
-            
-            .nav-menu {
-                display: none;
-                position: fixed;
-                top: 0;
-                right: 0;
-                width: 100%;
-                max-width: 300px;
-                height: 100vh;
-                background: var(--white);
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                flex-direction: column;
-                padding: 5rem 2rem 2rem;
-                z-index: 1000;
-                overflow-y: auto;
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .nav-menu li {
-                margin: 0.5rem 0;
-            }
-            
-            .nav-link {
-                display: block;
-                padding: 1rem;
-                font-size: 1.1rem;
-            }
-            
-            .btn-secondary {
-                margin-top: 1rem;
-                width: 100%;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .ranking-table {
-                min-width: 550px;
-            }
-            
-            .ranking-filters {
-                flex-direction: column;
-                align-items: stretch;
-                max-width: 300px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .ranking-filter {
-                justify-content: center;
-            }
-        }
-        
-        /* ============ MEJORAS TOUCH ============ */
-        @media (hover: none) and (pointer: coarse) {
-            .ranking-filter:hover,
-            .podium-place:hover {
-                transform: none;
-            }
-            
-            .ranking-filter:active,
-            .podium-place:active {
-                transform: translateY(-2px);
-                opacity: 0.9;
-            }
-            
-            .nav-link,
-            .ranking-filter,
-            .btn {
-                touch-action: manipulation;
             }
         }
         
@@ -572,13 +644,6 @@
         .ranking-table-container {
             animation: fadeInUp 0.6s ease-out;
         }
-        
-        /* ============ PREVENIR ZOOM EN INPUTS iOS ============ */
-        input,
-        select,
-        textarea {
-            font-size: 16px;
-        }
     </style>
 </head>
 <body>
@@ -586,7 +651,7 @@
     <header class="header">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="logo" loading="lazy">
+                <div class="logo">🦆</div>
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
             
@@ -609,17 +674,17 @@
 
     <!-- Hero Section -->
     <section class="ranking-hero">
-        <div class="ranking-hero-content">
-            <h1 class="ranking-hero-title">🏆 Top 10 Jugadores</h1>
-            <p class="ranking-hero-subtitle">Los mejores salvadores de patitos del campus</p>
+        <div class="container">
+            <h1 class="ranking-hero-title">🏆 Top 10 Completo</h1>
+            <p class="ranking-hero-subtitle">Ranking global, semanal y mensual de los mejores salvadores</p>
         </div>
     </section>
 
     <!-- Contenido principal -->
-    <main class="main-content ranking-main">
+    <main class="ranking-main">
         <div class="container">
             <div class="ranking-description">
-                <p>Descubre quiénes son los héroes más comprometidos con la causa. Cada patito rescatado cuenta en esta competencia amigable por un campus más sostenible.</p>
+                <p>Descubre quiénes son los héroes más comprometidos. Cada patito rescatado cuenta en esta competencia amigable por un campus más sostenible.</p>
             </div>
 
             <!-- Filtros -->
@@ -628,39 +693,46 @@
                     <span>🌍</span> Global
                 </button>
                 <button class="ranking-filter" data-filter="weekly">
-                    <span>📅</span> Semanal
+                    <span>📅</span> Esta Semana
                 </button>
                 <button class="ranking-filter" data-filter="monthly">
-                    <span>🗓️</span> Mensual
+                    <span>🗓️</span> Este Mes
                 </button>
             </div>
 
-            <!-- Pódium Top 3 - MEJORADO PARA MÓVIL -->
+            <!-- Pódium Top 3 -->
             <div class="ranking-podium">
                 <div class="podium-place podium-place--1st">
                     <div class="podium-number">1</div>
                     <div class="podium-avatar">EW</div>
                     <div class="podium-name">EcoWarrior42</div>
-                    <div class="podium-score">12,500 pts</div>
+                    <div class="podium-score" id="podium-score-1">12,500</div>
                 </div>
                 
                 <div class="podium-place podium-place--2nd">
                     <div class="podium-number">2</div>
                     <div class="podium-avatar">GS</div>
                     <div class="podium-name">GreenSavior</div>
-                    <div class="podium-score">11,800 pts</div>
+                    <div class="podium-score" id="podium-score-2">11,800</div>
                 </div>
                 
                 <div class="podium-place podium-place--3rd">
                     <div class="podium-number">3</div>
                     <div class="podium-avatar">CH</div>
                     <div class="podium-name">ClimateHero</div>
-                    <div class="podium-score">11,250 pts</div>
+                    <div class="podium-score" id="podium-score-3">11,250</div>
                 </div>
             </div>
 
             <!-- Tabla Top 10 -->
             <div class="ranking-table-container">
+                <div class="ranking-category-info">
+                    <h3 id="category-title" style="margin-bottom: 1rem; color: var(--primary-color);">Ranking Global</h3>
+                    <p id="category-description" style="color: var(--text-color); opacity: 0.8; margin-bottom: 1.5rem;">
+                        Todos los tiempos - Puntuación acumulada total
+                    </p>
+                </div>
+                
                 <table class="ranking-table" aria-label="Top 10 de jugadores">
                     <thead>
                         <tr>
@@ -668,28 +740,30 @@
                             <th scope="col">Jugador</th>
                             <th scope="col">Puntuación</th>
                             <th scope="col">Patitos</th>
+                            <th scope="col">Nivel</th>
                         </tr>
                     </thead>
                     <tbody id="ranking-body">
-                        <!-- Top 3 ya mostrados en pódium -->
-                        <tr class="current-user">
-                            <td class="position-cell position-4">4</td>
-                            <td class="player-cell">
-                                <div class="player-avatar">PP</div>
-                                <div>
-                                    <span class="player-name">PatitoProtector</span>
-                                    <span class="player-badge">Tú</span>
-                                </div>
-                            </td>
-                            <td class="score-cell">9,850</td>
-                            <td class="ducks-cell">
-                                <span class="ducks-icon">🦆</span>
-                                <span>105</span>
-                            </td>
-                        </tr>
-                        <!-- Resto de filas igual que antes -->
+                        <!-- Los datos se cargan dinámicamente -->
                     </tbody>
                 </table>
+                
+                <div class="ranking-stats" style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid var(--light-blue);">
+                    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <strong>Total jugadores activos:</strong> 
+                            <span id="total-players">1,248</span>
+                        </div>
+                        <div>
+                            <strong>Patitos rescatados totales:</strong> 
+                            <span id="total-ducks">15,842</span>
+                        </div>
+                        <div>
+                            <strong>Última actualización:</strong> 
+                            <span id="last-update">Hace 2 horas</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Navegación -->
@@ -703,7 +777,7 @@
     <!-- Pie de página -->
     <footer class="footer">
         <div class="container footer-content">
-            <img src="patitologo1_circulo.png" alt="Logo de Patitos en Peligro" class="footer-logo" loading="lazy">
+            <div class="footer-logo">🦆</div>
             <div class="footer-links">
                 <a href="index.html" class="footer-link">Inicio</a>
                 <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
@@ -719,38 +793,70 @@
     </footer>
 
     <script>
-        // Datos del ranking (igual que antes)
+        // ============ DATOS COMPLETOS TOP 10 ============
         const rankingData = {
-            global: [
-                { name: "EcoWarrior42", avatar: "EW", score: 12500, ducks: 142, position: 1, isCurrentUser: false },
-                { name: "GreenSavior", avatar: "GS", score: 11800, ducks: 128, position: 2, isCurrentUser: false },
-                { name: "ClimateHero", avatar: "CH", score: 11250, ducks: 119, position: 3, isCurrentUser: false },
-                { name: "PatitoProtector", avatar: "PP", score: 9850, ducks: 105, position: 4, isCurrentUser: true },
-                { name: "EcoExplorer", avatar: "EE", score: 9200, ducks: 98, position: 5, isCurrentUser: false },
-                { name: "NatureLover", avatar: "NL", score: 8750, ducks: 92, position: 6, isCurrentUser: false },
-                { name: "PlanetGuardian", avatar: "PG", score: 8200, ducks: 87, position: 7, isCurrentUser: false },
-                { name: "SustainableGamer", avatar: "SG", score: 7850, ducks: 83, position: 8, isCurrentUser: false },
-                { name: "EcoAdventurer", avatar: "EA", score: 7450, ducks: 79, position: 9, isCurrentUser: false },
-                { name: "GreenGamer", avatar: "GG", score: 7100, ducks: 75, position: 10, isCurrentUser: false }
-            ],
-            weekly: [
-                { name: "PatitoProtector", avatar: "PP", score: 1850, ducks: 25, position: 1, isCurrentUser: true },
-                { name: "EcoWarrior42", avatar: "EW", score: 1750, ducks: 22, position: 2, isCurrentUser: false },
-                { name: "GreenSavior", avatar: "GS", score: 1620, ducks: 20, position: 3, isCurrentUser: false },
-                { name: "NewPlayer23", avatar: "NP", score: 1480, ducks: 18, position: 4, isCurrentUser: false },
-                { name: "ClimateHero", avatar: "CH", score: 1350, ducks: 17, position: 5, isCurrentUser: false }
-            ],
-            monthly: [
-                { name: "EcoWarrior42", avatar: "EW", score: 4850, ducks: 52, position: 1, isCurrentUser: false },
-                { name: "GreenSavior", avatar: "GS", score: 4620, ducks: 48, position: 2, isCurrentUser: false },
-                { name: "PatitoProtector", avatar: "PP", score: 4380, ducks: 45, position: 3, isCurrentUser: true },
-                { name: "ClimateHero", avatar: "CH", score: 4150, ducks: 42, position: 4, isCurrentUser: false },
-                { name: "EcoExplorer", avatar: "EE", score: 3920, ducks: 40, position: 5, isCurrentUser: false }
-            ]
+            global: {
+                title: "Ranking Global",
+                description: "Todos los tiempos - Puntuación acumulada total",
+                totalPlayers: "1,248",
+                totalDucks: "15,842",
+                lastUpdate: "Hace 2 horas",
+                players: [
+                    { position: 1, name: "EcoWarrior42", avatar: "EW", score: 12500, ducks: 142, level: "Maestro", isCurrentUser: false },
+                    { position: 2, name: "GreenSavior", avatar: "GS", score: 11800, ducks: 128, level: "Experto", isCurrentUser: false },
+                    { position: 3, name: "ClimateHero", avatar: "CH", score: 11250, ducks: 119, level: "Experto", isCurrentUser: false },
+                    { position: 4, name: "PatitoProtector", avatar: "PP", score: 9850, ducks: 105, level: "Avanzado", isCurrentUser: true },
+                    { position: 5, name: "EcoExplorer", avatar: "EE", score: 9200, ducks: 98, level: "Avanzado", isCurrentUser: false },
+                    { position: 6, name: "NatureLover", avatar: "NL", score: 8750, ducks: 92, level: "Avanzado", isCurrentUser: false },
+                    { position: 7, name: "PlanetGuardian", avatar: "PG", score: 8200, ducks: 87, level: "Intermedio", isCurrentUser: false },
+                    { position: 8, name: "SustainableGamer", avatar: "SG", score: 7850, ducks: 83, level: "Intermedio", isCurrentUser: false },
+                    { position: 9, name: "EcoAdventurer", avatar: "EA", score: 7450, ducks: 79, level: "Intermedio", isCurrentUser: false },
+                    { position: 10, name: "GreenGamer", avatar: "GG", score: 7100, ducks: 75, level: "Intermedio", isCurrentUser: false }
+                ]
+            },
+            weekly: {
+                title: "Ranking Semanal",
+                description: "Esta semana - Competencia activa",
+                totalPlayers: "843",
+                totalDucks: "2,156",
+                lastUpdate: "Hace 15 minutos",
+                players: [
+                    { position: 1, name: "PatitoProtector", avatar: "PP", score: 1850, ducks: 25, level: "Maestro", isCurrentUser: true },
+                    { position: 2, name: "EcoWarrior42", avatar: "EW", score: 1750, ducks: 22, level: "Experto", isCurrentUser: false },
+                    { position: 3, name: "GreenSavior", avatar: "GS", score: 1620, ducks: 20, level: "Experto", isCurrentUser: false },
+                    { position: 4, name: "NewPlayer23", avatar: "NP", score: 1480, ducks: 18, level: "Avanzado", isCurrentUser: false },
+                    { position: 5, name: "ClimateHero", avatar: "CH", score: 1350, ducks: 17, level: "Avanzado", isCurrentUser: false },
+                    { position: 6, name: "RookieGuardian", avatar: "RG", score: 1280, ducks: 16, level: "Intermedio", isCurrentUser: false },
+                    { position: 7, name: "FreshEco", avatar: "FE", score: 1150, ducks: 14, level: "Intermedio", isCurrentUser: false },
+                    { position: 8, name: "GreenNewbie", avatar: "GN", score: 1050, ducks: 13, level: "Intermedio", isCurrentUser: false },
+                    { position: 9, name: "DuckSavior01", avatar: "DS", score: 980, ducks: 12, level: "Principiante", isCurrentUser: false },
+                    { position: 10, name: "EcoBeginner", avatar: "EB", score: 920, ducks: 11, level: "Principiante", isCurrentUser: false }
+                ]
+            },
+            monthly: {
+                title: "Ranking Mensual",
+                description: "Este mes - Puntuación acumulada mensual",
+                totalPlayers: "1,024",
+                totalDucks: "8,457",
+                lastUpdate: "Hoy a las 08:30",
+                players: [
+                    { position: 1, name: "EcoWarrior42", avatar: "EW", score: 4850, ducks: 52, level: "Maestro", isCurrentUser: false },
+                    { position: 2, name: "GreenSavior", avatar: "GS", score: 4620, ducks: 48, level: "Experto", isCurrentUser: false },
+                    { position: 3, name: "PatitoProtector", avatar: "PP", score: 4380, ducks: 45, level: "Experto", isCurrentUser: true },
+                    { position: 4, name: "ClimateHero", avatar: "CH", score: 4150, ducks: 42, level: "Avanzado", isCurrentUser: false },
+                    { position: 5, name: "EcoExplorer", avatar: "EE", score: 3920, ducks: 40, level: "Avanzado", isCurrentUser: false },
+                    { position: 6, name: "NatureLover", avatar: "NL", score: 3680, ducks: 38, level: "Avanzado", isCurrentUser: false },
+                    { position: 7, name: "MonthlyStar", avatar: "MS", score: 3450, ducks: 35, level: "Intermedio", isCurrentUser: false },
+                    { position: 8, name: "PlanetGuardian", avatar: "PG", score: 3250, ducks: 33, level: "Intermedio", isCurrentUser: false },
+                    { position: 9, name: "SustainableGamer", avatar: "SG", score: 3080, ducks: 31, level: "Intermedio", isCurrentUser: false },
+                    { position: 10, name: "EcoAdventurer", avatar: "EA", score: 2950, ducks: 30, level: "Intermedio", isCurrentUser: false }
+                ]
+            }
         };
 
-        // Funcionalidad de menú móvil
+        // ============ FUNCIONALIDAD ============
         document.addEventListener('DOMContentLoaded', function() {
+            // Menú móvil
             const navToggle = document.querySelector('.nav-toggle');
             const navMenu = document.querySelector('.nav-menu');
             
@@ -760,50 +866,31 @@
                     navMenu.classList.toggle('active');
                 });
                 
-                // Cerrar menú al hacer clic en un enlace
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.addEventListener('click', () => {
                         navToggle.classList.remove('active');
                         navMenu.classList.remove('active');
                     });
                 });
-                
-                // Cerrar menú al hacer clic fuera
-                document.addEventListener('click', (e) => {
-                    if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-                        navToggle.classList.remove('active');
-                        navMenu.classList.remove('active');
-                    }
-                });
             }
             
-            // Funcionalidad de filtros
+            // Filtros
             const filters = document.querySelectorAll('.ranking-filter');
             
             filters.forEach(filter => {
                 filter.addEventListener('click', function() {
-                    // Remover active de todos
                     filters.forEach(f => f.classList.remove('active'));
-                    
-                    // Agregar active al clickeado
                     this.classList.add('active');
                     
-                    // Actualizar ranking
                     const filterType = this.dataset.filter;
                     updateRanking(filterType);
                 });
-                
-                // Mejorar accesibilidad táctil
-                filter.addEventListener('touchstart', function() {
-                    this.style.opacity = '0.8';
-                });
-                
-                filter.addEventListener('touchend', function() {
-                    this.style.opacity = '1';
-                });
             });
             
-            // Animación de entrada
+            // Cargar ranking inicial
+            updateRanking('global');
+            
+            // Animaciones
             animateElements();
         });
         
@@ -823,71 +910,31 @@
         
         function updateRanking(filterType) {
             const data = rankingData[filterType];
-            const tbody = document.getElementById('ranking-body');
-            
             if (!data) return;
             
-            // Limpiar tabla
-            tbody.innerHTML = '';
+            // Actualizar título y descripción
+            document.getElementById('category-title').textContent = data.title;
+            document.getElementById('category-description').textContent = data.description;
             
-            // Generar filas (empezando desde la posición 4)
-            const playersToShow = data.filter(player => player.position >= 4);
+            // Actualizar estadísticas
+            document.getElementById('total-players').textContent = data.totalPlayers;
+            document.getElementById('total-ducks').textContent = data.totalDucks;
+            document.getElementById('last-update').textContent = data.lastUpdate;
             
-            playersToShow.forEach(player => {
-                const row = document.createElement('tr');
-                
-                if (player.isCurrentUser) {
-                    row.classList.add('current-user');
-                }
-                
-                row.innerHTML = `
-                    <td class="position-cell position-${player.position}">${player.position}</td>
-                    <td class="player-cell">
-                        <div class="player-avatar">${player.avatar}</div>
-                        <div>
-                            <span class="player-name">${player.name}</span>
-                            ${player.isCurrentUser ? '<span class="player-badge">Tú</span>' : ''}
-                        </div>
-                    </td>
-                    <td class="score-cell">${player.score.toLocaleString()}</td>
-                    <td class="ducks-cell">
-                        <span class="ducks-icon">🦆</span>
-                        <span>${player.ducks}</span>
-                    </td>
-                `;
-                
-                tbody.appendChild(row);
-            });
+            // Actualizar pódium (Top 3)
+            const top3 = data.players.slice(0, 3);
             
-            // También actualizar el pódium
-            updatePodium(filterType);
-        }
-        
-        function updatePodium(filterType) {
-            const data = rankingData[filterType];
-            const top3 = data.filter(player => player.position <= 3).sort((a, b) => a.position - b.position);
+            document.getElementById('podium-score-1').textContent = top3[0].score.toLocaleString();
+            document.getElementById('podium-score-2').textContent = top3[1].score.toLocaleString();
+            document.getElementById('podium-score-3').textContent = top3[2].score.toLocaleString();
             
-            if (top3.length >= 3) {
-                // Actualizar pódium
-                const podiumElements = document.querySelectorAll('.podium-place');
-                
-                // Ordenar según diseño móvil (1, 2, 3 en columna)
-                podiumElements[0].querySelector('.podium-number').textContent = top3[0].position;
-                podiumElements[0].querySelector('.podium-avatar').textContent = top3[0].avatar;
-                podiumElements[0].querySelector('.podium-name').textContent = top3[0].name;
-                podiumElements[0].querySelector('.podium-score').textContent = `${top3[0].score.toLocaleString()} pts`;
-                
-                podiumElements[1].querySelector('.podium-number').textContent = top3[1].position;
-                podiumElements[1].querySelector('.podium-avatar').textContent = top3[1].avatar;
-                podiumElements[1].querySelector('.podium-name').textContent = top3[1].name;
-                podiumElements[1].querySelector('.podium-score').textContent = `${top3[1].score.toLocaleString()} pts`;
-                
-                podiumElements[2].querySelector('.podium-number').textContent = top3[2].position;
-                podiumElements[2].querySelector('.podium-avatar').textContent = top3[2].avatar;
-                podiumElements[2].querySelector('.podium-name').textContent = top3[2].name;
-                podiumElements[2].querySelector('.podium-score').textContent = `${top3[2].score.toLocaleString()} pts`;
-            }
-        }
-    </script>
-</body>
-</html>
+            // Actualizar avatares y nombres del pódium
+            const podiumElements = document.querySelectorAll('.podium-place');
+            podiumElements[0].querySelector('.podium-avatar').textContent = top3[0].avatar;
+            podiumElements[0].querySelector('.podium-name').textContent = top3[0].name;
+            
+            podiumElements[1].querySelector('.podium-avatar').textContent = top3[1].avatar;
+            podiumElements[1].querySelector('.podium-name').textContent = top3[1].name;
+            
+            podiumElements[2].querySelector('.podium-avatar').textContent = top3[2].avatar;
+            podiumElements[2].querySelector('.podium-name
