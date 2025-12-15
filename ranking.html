@@ -13,41 +13,270 @@
     <link rel="stylesheet" href="css/pages.css">
     
     <style>
-        /* Estilos adicionales para mejorar la apariencia */
+        /* Estilos específicos para el ranking */
+        .ranking-hero {
+            background: linear-gradient(135deg, 
+                rgba(2, 119, 189, 0.9) 0%, 
+                rgba(74, 179, 244, 0.8) 50%, 
+                rgba(179, 229, 252, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .ranking-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ranking-hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            color: var(--white);
+            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+        }
+
+        .ranking-hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: var(--spacing-lg);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+        }
+
+        .ranking-main {
+            padding: var(--spacing-xl) 0;
+        }
+
         .ranking-description {
             text-align: center;
-            color: var(--subtle-text);
-            margin-bottom: var(--spacing-lg);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-xl);
             font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0.9;
         }
-        
-        .wave-divider {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
+
+        /* Podium styles */
+        .ranking-podium-container {
+            margin: var(--spacing-xl) 0;
         }
-        
-        .wave-divider svg {
-            position: relative;
-            display: block;
-            width: calc(100% + 1.3px);
-            height: 60px;
-        }
-        
-        .wave-divider .shape-fill {
-            fill: var(--bg-light);
-        }
-        
-        .button-container {
-            text-align: center;
-            margin-top: 3rem;
+
+        .ranking-podium {
             display: flex;
             justify-content: center;
-            gap: var(--spacing-md);
-            flex-wrap: wrap;
+            align-items: flex-end;
+            gap: var(--spacing-lg);
+            margin: 0 auto;
+            max-width: 900px;
+            padding: var(--spacing-xl) var(--spacing-lg);
+            background: linear-gradient(135deg, var(--white) 0%, var(--very-light-blue) 100%);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .podium-place {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .podium-place:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .podium-place--1st {
+            order: 2;
+            height: 280px;
+            border-top: 6px solid var(--gold);
+            margin-bottom: 0;
+        }
+
+        .podium-place--2nd {
+            order: 1;
+            height: 240px;
+            border-top: 6px solid var(--silver);
+            margin-bottom: 40px;
+        }
+
+        .podium-place--3rd {
+            order: 3;
+            height: 220px;
+            border-top: 6px solid var(--bronze);
+            margin-bottom: 60px;
+        }
+
+        .podium-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            margin-bottom: var(--spacing-md);
+            box-shadow: var(--shadow);
+        }
+
+        .podium-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-xs);
+            text-align: center;
+        }
+
+        .podium-score {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .podium-number {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+        }
+
+        /* Ranking table styles */
+        .ranking-table-container {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow);
+            margin: var(--spacing-xl) 0;
+            overflow-x: auto;
+        }
+
+        /* User highlight */
+        .current-user {
+            background: linear-gradient(135deg, rgba(74, 179, 244, 0.1) 0%, rgba(74, 179, 244, 0.05) 100%);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .current-user:hover {
+            background: linear-gradient(135deg, rgba(74, 179, 244, 0.15) 0%, rgba(74, 179, 244, 0.1) 100%);
+        }
+
+        /* Player cells */
+        .player-cell {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .player-avatar-small {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        .player-name {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .ducks-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .ducks-icon {
+            font-size: 1.2rem;
+        }
+
+        .reward-icon {
+            margin-left: auto;
+            font-size: 1.5rem;
+        }
+
+        .reward-icon--1st { color: var(--gold); }
+        .reward-icon--2nd { color: var(--silver); }
+        .reward-icon--3rd { color: var(--bronze); }
+
+        /* Position cells */
+        .position-1 { color: var(--gold); }
+        .position-2 { color: var(--silver); }
+        .position-3 { color: var(--bronze); }
+
+        /* Responsive podium */
+        @media (max-width: 768px) {
+            .ranking-podium {
+                flex-direction: column;
+                align-items: center;
+                gap: var(--spacing-md);
+                padding: var(--spacing-lg);
+            }
+
+            .podium-place {
+                width: 100%;
+                max-width: 300px;
+                height: auto !important;
+                margin-bottom: var(--spacing-md) !important;
+            }
+
+            .podium-place--1st,
+            .podium-place--2nd,
+            .podium-place--3rd {
+                order: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ranking-hero {
+                padding: 3rem 1rem;
+            }
+
+            .ranking-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .ranking-podium {
+                padding: var(--spacing-md);
+            }
         }
     </style>
 </head>
@@ -56,57 +285,56 @@
     <header class="header">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="patitologo1_circulo.png" alt="Logo" class="logo">
+                <img src="patitologo1_circulo.png" alt="Logo Patitos en Peligro" class="logo">
                 <div class="logo-text">Patitos en Peligro</div>
             </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Inicio</a></li>
                     <li><a href="agradecimientos.html" class="nav-link">Agradecimientos</a></li>
                     <li><a href="mapa.html" class="nav-link">Mapa</a></li>
                     <li><a href="ranking.html" class="nav-link active">Ranking</a></li>
-                    <li><a href="iniciarSesion.html" class="btn btn-secondary">Iniciar Sesión</a></li>
+                    <li><a href="iniciarSesion.html" class="btn btn--secondary">Iniciar Sesión</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="ranking-hero">
+    <section class="ranking-hero particle-bg">
         <div class="container">
             <div class="ranking-hero-content">
                 <h1 class="ranking-hero-title">🏆 Salón de la Fama</h1>
                 <p class="ranking-hero-subtitle">Los héroes que han salvado más patitos este semestre</p>
             </div>
         </div>
-        
-        <div class="wave-divider">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-            </svg>
-        </div>
     </section>
 
     <main class="main-content ranking-main">
         <div class="container">
             
-            <div class="ranking-description">
+            <div class="ranking-description fade-in-scroll">
                 <p>Clasificación actualizada en tiempo real. ¡Rescata patitos en el campus para subir de posición!</p>
             </div>
 
-            <div class="ranking-filters">
-                <button class="ranking-filter active" data-filter="global">
-                    <span>🌍</span> Global
+            <div class="ranking-filters fade-in-scroll">
+                <button class="filter-btn active" data-filter="global">
+                    🌍 Global
                 </button>
-                <button class="ranking-filter" data-filter="weekly">
-                    <span>📅</span> Semanal
+                <button class="filter-btn" data-filter="weekly">
+                    📅 Semanal
                 </button>
-                <button class="ranking-filter" data-filter="monthly">
-                    <span>🗓️</span> Mensual
+                <button class="filter-btn" data-filter="monthly">
+                    🗓️ Mensual
                 </button>
             </div>
 
             <!-- Contenedor del pódium -->
-            <div class="ranking-podium-container">
+            <div class="ranking-podium-container fade-in-scroll">
                 <div class="ranking-podium">
                     <!-- Segundo puesto (izquierda) -->
                     <div class="podium-place podium-place--2nd">
@@ -134,13 +362,13 @@
                 </div>
             </div>
 
-            <div class="ranking-table-container">
+            <div class="ranking-table-container fade-in-scroll">
                 <table class="ranking-table">
                     <thead>
                         <tr>
-                            <th scope="col" style="width: 60px; text-align: center;">#</th>
+                            <th scope="col" class="ranking-position">#</th>
                             <th scope="col">Rescatador</th>
-                            <th scope="col" style="width: 120px; text-align: center;">Puntuación</th>
+                            <th scope="col">Puntuación</th>
                         </tr>
                     </thead>
                     <tbody id="ranking-body">
@@ -149,20 +377,21 @@
                 </table>
             </div>
 
-            <div class="button-container">
-                <a href="index.html" class="btn btn-secondary">← Volver al Inicio</a>
-                <a href="mapa.html" class="btn btn-primary">Ir al Mapa de Rescate 🦆</a>
+            <div class="action-buttons fade-in-scroll">
+                <a href="index.html" class="btn btn--secondary">← Volver al Inicio</a>
+                <a href="mapa.html" class="btn btn--primary">Ir al Mapa de Rescate 🦆</a>
             </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="container footer-content">
-            <img src="patitologo1_circulo.png" alt="Logo" class="footer-logo">
+            <img src="patitologo1_circulo.png" alt="Logo Patitos en Peligro" class="footer-logo">
             <div class="footer-links">
                 <a href="index.html" class="footer-link">Inicio</a>
                 <a href="mapa.html" class="footer-link">Mapa</a>
                 <a href="ranking.html" class="footer-link">Ranking</a>
+                <a href="agradecimientos.html" class="footer-link">Agradecimientos</a>
             </div>
             <div class="copyright">
                 <p>&copy; 2025 Patitos en Peligro - Universidad de Alicante</p>
@@ -211,8 +440,27 @@
         };
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
             // Inicializar botones de filtro
-            const filters = document.querySelectorAll('.ranking-filter');
+            const filters = document.querySelectorAll('.filter-btn');
             filters.forEach(filter => {
                 filter.addEventListener('click', function() {
                     filters.forEach(f => f.classList.remove('active'));
@@ -220,6 +468,18 @@
                     updateRanking(this.dataset.filter);
                 });
             });
+            
+            // Scroll animations
+            const fadeElements = document.querySelectorAll('.fade-in-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(el => observer.observe(el));
             
             // Inicializar con el ranking global
             updateRanking('global');
@@ -237,6 +497,11 @@
                     row.classList.add('current-user');
                 }
                 
+                // Clase para posiciones especiales
+                if (player.position <= 3) {
+                    row.classList.add(`position-${player.position}-row`);
+                }
+                
                 // Determinar icono de recompensa
                 let rewardIcon = '';
                 if (player.position === 1) rewardIcon = '<span class="reward-icon reward-icon--1st">🥇</span>';
@@ -244,7 +509,7 @@
                 else if (player.position === 3) rewardIcon = '<span class="reward-icon reward-icon--3rd">🥉</span>';
                 
                 row.innerHTML = `
-                    <td class="position-cell position-${player.position}">${player.position}</td>
+                    <td class="ranking-position position-${player.position}">${player.position}</td>
                     <td class="player-cell">
                         <div class="player-avatar-small">${player.avatar}</div>
                         <span class="player-name">${player.name}</span>
