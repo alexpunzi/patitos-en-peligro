@@ -200,7 +200,7 @@
             color: var(--ranking-bronze-dark);
         }
         
-        /* ============ TABLA TOP 10 (SIN PUNTUACIÓN) ============ */
+        /* ============ TABLA TOP 10 (SOLO 3 COLUMNAS - CORREGIDO) ============ */
         .ranking-table-container {
             background: var(--white);
             border-radius: var(--border-radius-lg);
@@ -227,6 +227,22 @@
             border-bottom: 3px solid var(--light-blue);
         }
         
+        /* Especificar anchos para 3 columnas */
+        .ranking-table th:nth-child(1) {  /* # */
+            width: 70px;
+            text-align: center;
+        }
+        
+        .ranking-table th:nth-child(2) {  /* Jugador */
+            width: auto;
+            min-width: 200px;
+        }
+        
+        .ranking-table th:nth-child(3) {  /* Patitos */
+            width: 180px;
+            text-align: center;
+        }
+        
         .ranking-table td {
             padding: var(--spacing-md);
             border-bottom: 1px solid var(--light-blue);
@@ -243,7 +259,7 @@
         }
         
         .position-cell {
-            width: 60px;
+            width: 70px;
             text-align: center;
             font-weight: 800;
             font-size: 1.2rem;
@@ -311,22 +327,38 @@
             letter-spacing: 0.5px;
         }
         
+        /* MEJORA: Columna de patitos más bonita */
         .ducks-cell {
             color: var(--accent-color);
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
             justify-content: center;
-            background: rgba(255, 152, 0, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            min-width: 100px;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.08), rgba(255, 193, 7, 0.05));
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-lg);
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            min-width: 140px;
+            margin: 0 auto;
+            transition: all 0.2s ease;
+        }
+        
+        .ranking-table tr:hover .ducks-cell {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.12), rgba(255, 193, 7, 0.08));
+            border-color: rgba(255, 152, 0, 0.3);
+            transform: scale(1.03);
         }
         
         .ducks-icon {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+        }
+        
+        /* Asegurar que la columna de patitos esté centrada */
+        .ranking-table td:nth-child(3) {
+            text-align: center;
         }
         
         /* ============ FILTROS SIMPLES ============ */
@@ -427,9 +459,14 @@
             }
             
             .ducks-cell {
-                font-size: 1rem;
-                padding: 0.4rem 0.8rem;
-                min-width: 80px;
+                font-size: 1.1rem;
+                padding: 0.5rem 1rem;
+                min-width: 100px;
+                gap: 0.5rem;
+            }
+            
+            .ducks-icon {
+                font-size: 1.3rem;
             }
             
             .ranking-filters {
@@ -441,6 +478,15 @@
                 width: 200px;
                 text-align: center;
                 justify-content: center;
+            }
+            
+            /* Ajustes responsive para tabla de 3 columnas */
+            .ranking-table th:nth-child(1) {
+                width: 50px;
+            }
+            
+            .ranking-table th:nth-child(3) {
+                width: 140px;
             }
         }
         
@@ -460,8 +506,18 @@
                 font-size: 1rem;
             }
             
+            .ducks-cell {
+                font-size: 1rem;
+                padding: 0.4rem 0.8rem;
+                min-width: 80px;
+            }
+            
             .ranking-filters {
                 gap: 0.5rem;
+            }
+            
+            .ranking-table th:nth-child(3) {
+                width: 120px;
             }
         }
         
@@ -562,7 +618,7 @@
                         <tr>
                             <th scope="col" class="position-cell">#</th>
                             <th scope="col">Jugador</th>
-                            <th scope="col" style="text-align: center;">Patitos Rescatados</th>
+                            <th scope="col">Patitos Rescatados</th>
                         </tr>
                     </thead>
                     <tbody id="ranking-body">
@@ -704,9 +760,11 @@
                             ${player.isCurrentUser ? '<span class="player-badge">Tú</span>' : ''}
                         </div>
                     </td>
-                    <td class="ducks-cell">
-                        <span class="ducks-icon">🦆</span>
-                        <span>${player.ducks}</span>
+                    <td>
+                        <div class="ducks-cell">
+                            <span class="ducks-icon">🦆</span>
+                            <span>${player.ducks}</span>
+                        </div>
                     </td>
                 `;
                 
